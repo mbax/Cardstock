@@ -1,0 +1,35 @@
+/*
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ */
+package xyz.cardstock.cardstock.extensions.channel
+
+import org.kitteh.irc.client.library.element.Channel
+import org.kitteh.irc.client.library.element.User
+
+/**
+ * Reformats a message to ensure no User in IRC is pinged by this message.
+
+ * @param message Message to reformat
+ * *
+ * @return Reformatted message
+ */
+public fun Channel.antiPing(message: String): String {
+    var newMessage = message
+    for (nickname in this.nicknames) {
+        if (nickname.length() <= 1) continue
+        newMessage = newMessage.replace(nickname, nickname.substring(0, 1) + "\u200b" + nickname.substring(1))
+    }
+    return newMessage
+}
+
+public fun Channel.userMode(vararg data: UserModeData) {
+    val modeCommand = this.newModeCommand()
+    for (datum in data) {
+        modeCommand.add(datum.add, this.client.serverInfo.getChannelUserMode(datum.mode).get(), datum.user)
+    }
+    modeCommand.execute()
+}
+
+public data class UserModeData(val add: Boolean, val mode: Char, val user: User)
