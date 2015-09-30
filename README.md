@@ -1,4 +1,4 @@
-# Cardstock
+# ![Cardstock](https://cardstock.xyz/images/long.svg)
 
 *Cardstock is to bots as cardstock is to cards.*
 
