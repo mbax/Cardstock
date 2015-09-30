@@ -16,16 +16,37 @@ import java.util.logging.Formatter
 import java.util.logging.LogRecord
 import java.util.logging.Logger
 
+/**
+ * The base for Cardstock. Bots should extend this class.
+ */
 public abstract class Cardstock {
 
+    /**
+     * The configuration for the bot. This should load configuration from the command line on construction.
+     */
     abstract val configuration: Configuration
+    /**
+     * The command registrar that [CommandListener] uses for finding commands. Generally, an instance of
+     * [CommandRegistrar] should work.
+     */
     abstract val commandRegistrar: CommandRegistrar
+    /**
+     * The IRC client for this bot.
+     */
     val client: Client
+    /**
+     * The [Logger] instance for this bot to use. Will be modified by [setUpLogger].
+     */
     abstract val logger: Logger
-    val cardPacks: MutableSet<CardPack> = Sets.newHashSet()
-        get() {
-            return Collections.unmodifiableSet($cardPacks)
-        }
+    /**
+     * The backing card packs property. This is a mutable set for adding or removing card packs.
+     */
+    private val _cardPacks = Sets.newHashSet<CardPack>()
+    /**
+     * The card packs that this bot has loaded. This is an unmodifiable set.
+     */
+    val cardPacks: Set<CardPack>
+        get() = Collections.unmodifiableSet(this._cardPacks)
 
     init {
         this.setUpLogger()
@@ -44,6 +65,9 @@ public abstract class Cardstock {
         Runtime.getRuntime().addShutdownHook(Thread(CardstockShutdownHook(this)))
     }
 
+    /**
+     * Sets up [logger] to output messages like "&#91;INFO] Hello!"
+     */
     private fun setUpLogger() {
         val ch = ConsoleHandler()
         ch.formatter = object : Formatter() {

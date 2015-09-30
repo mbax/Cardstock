@@ -5,14 +5,8 @@
  */
 package xyz.cardstock.cardstock
 
-import xyz.cardstock.cardstock.games.Game
-
 public class CardstockShutdownHook(val cardstock: Cardstock) : Runnable {
     override fun run() {
-        // Stop all games.
-        Game.all().forEach { it.stop(Game.GameEndCause.SHUTDOWN) }
-        // Wait one second
-        Thread.sleep(1000L)
         // Leave all channels. More effective than a QUIT for ZNC
         this.cardstock.client.sendRawLine("JOIN :0")
         // Wait one second

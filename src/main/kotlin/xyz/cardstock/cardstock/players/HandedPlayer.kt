@@ -13,6 +13,9 @@ import xyz.cardstock.cardstock.players.hands.Hand
  */
 public interface HandedPlayer<T : Card> : Player {
 
+    /**
+     * The hand of cards that the player currently has.
+     */
     val hand: Hand<T>
 
 }
