@@ -31,7 +31,8 @@ import java.nio.file.Files
  * ```
  * @constructor Makes a new JSONCardReader.
  * @param[cardsFile] The JSON file source to be read
- * @param[mapper] The transformer responsible for mapping one [JSONObject] into one [Card] of type [T].
+ * @param[mapper] The transformer responsible for mapping one [JSONObject] into one [Card] of type [T]. May return null
+ * if passed an invalid object. Nulls will be filtered from the resulting list.
  */
 public class JSONCardReader<T : Card>(val cardsFile: File, val mapper: JSONObject.() -> T) : CardReader<T> {
 
@@ -42,6 +43,7 @@ public class JSONCardReader<T : Card>(val cardsFile: File, val mapper: JSONObjec
         get() = JSONArray(Files.readAllLines(this.cardsFile.toPath()).join("\n"))
             .map { it as JSONObject }
             .map(this.mapper)
+            .filterNotNull()
             .toList()
 
 }
