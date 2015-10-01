@@ -130,7 +130,7 @@
         </dependency>
     </dependencies>
     <properties>
-        <kotlin.version>0.13.1514</kotlin.version>
+        <kotlin.version>0.14.449</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>

@@ -19,7 +19,7 @@ package xyz.cardstock.cardstock.extensions.string
  * @param[emptyString] Whether to return an empty string (like Python) if the indices are invalid
  * @return The substring
  */
-public fun String.get(start: Int?, end: Int?, emptyString: Boolean = false): String {
+operator public fun String.get(start: Int?, end: Int?, emptyString: Boolean = false): String {
     var realEnd = end ?: this.length()
     var realStart = start ?: 0
     if (realEnd < 0) {

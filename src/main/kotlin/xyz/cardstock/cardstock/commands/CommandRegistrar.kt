@@ -14,7 +14,7 @@ public class CommandRegistrar {
     /**
      * Just a quick way to use bracket notation instead of the #getCommand(String) method.
      */
-    public fun get(name: String) = this.getCommand(name)
+    operator public fun get(name: String) = this.getCommand(name)
 
     public fun getCommand(name: String): BaseCommand? = this.commands[name] ?: this.getCommandByAlias(name)
 
