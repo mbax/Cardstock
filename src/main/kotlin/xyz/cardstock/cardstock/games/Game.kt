@@ -11,6 +11,7 @@ import org.kitteh.irc.client.library.element.User
 import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.extensions.channel.antiPing
 import xyz.cardstock.cardstock.interfaces.states.State
+import xyz.cardstock.cardstock.interfaces.states.Stateful
 import xyz.cardstock.cardstock.players.Player
 import java.util.Collections
 
@@ -32,13 +33,8 @@ import java.util.Collections
  * @param[channel] The [Channel] that this game is taking place in.
  * @param[state] The starting state of this game. See [Game] to learn more about states.
  */
-public abstract class Game<PLAYER_TYPE : Player>(public val cardstock: Cardstock, public val channel: Channel, state: State) {
+public abstract class Game<PLAYER_TYPE : Player>(public val cardstock: Cardstock, public val channel: Channel, state: State) : Stateful {
 
-    /**
-     * The current [State] of this game.
-     */
-    public var state: State
-        protected set
     /**
      * The modifiable list of [Player]s. This is meant to be used internally by the game in order to manage current
      * players.
@@ -52,23 +48,8 @@ public abstract class Game<PLAYER_TYPE : Player>(public val cardstock: Cardstock
         get() = Collections.unmodifiableList(this._players)
 
     init {
-        this.$state = state
+        this.state = state
     }
-
-    /**
-     * Progresses the Game to its next [State], which is provided by [state]'s [State.next]. If this is the final state
-     * for this game, this method has no effect.
-     */
-    public open fun advanceState() {
-        this.$state = this.state.next ?: return
-        this.processCurrentState()
-    }
-
-    /**
-     * Sets up the Game for its current [State]. This is always called after [advanceState] changes the [state] to the
-     * next state.
-     */
-    public abstract fun processCurrentState()
 
     /**
      * Sends [message] to the [Channel] after modifying it so that it will not ping any [User]s.

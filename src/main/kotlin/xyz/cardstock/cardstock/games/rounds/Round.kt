@@ -6,6 +6,7 @@
 package xyz.cardstock.cardstock.games.rounds
 
 import xyz.cardstock.cardstock.games.Game
+import xyz.cardstock.cardstock.interfaces.states.Stateful
 import xyz.cardstock.cardstock.players.Player
 
 /**
@@ -14,7 +15,7 @@ import xyz.cardstock.cardstock.players.Player
  *
  * The [Game] that this round is taking place in is [game].
  */
-public interface Round<PLAYER_TYPE : Player> {
+public interface Round<PLAYER_TYPE : Player> : Stateful {
 
     /**
      * The [Game] that this Round is taking place in.
