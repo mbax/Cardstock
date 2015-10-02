@@ -10,6 +10,7 @@ import org.kitteh.irc.client.library.element.Channel
 import org.kitteh.irc.client.library.element.User
 import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.extensions.channel.antiPing
+import xyz.cardstock.cardstock.interfaces.states.State
 import xyz.cardstock.cardstock.players.Player
 import java.util.Collections
 

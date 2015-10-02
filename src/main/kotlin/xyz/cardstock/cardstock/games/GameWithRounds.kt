@@ -8,6 +8,7 @@ package xyz.cardstock.cardstock.games
 import org.kitteh.irc.client.library.element.Channel
 import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.games.rounds.Round
+import xyz.cardstock.cardstock.interfaces.states.State
 import xyz.cardstock.cardstock.players.Player
 
 public abstract class GameWithRounds<PLAYER_TYPE : Player>(cardstock: Cardstock, channel: Channel, state: State) : Game<PLAYER_TYPE>(cardstock, channel, state) {
