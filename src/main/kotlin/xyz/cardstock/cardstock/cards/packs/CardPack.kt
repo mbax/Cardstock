@@ -10,7 +10,7 @@ import xyz.cardstock.cardstock.cards.Card
 /**
  * A pack of cards. These packs should be mixed into a [Deck][xyz.cardstock.cardstock.cards.decks.Deck] for playing.
  */
-public interface CardPack {
+public interface CardPack<T : Card> {
 
     /**
      * The name of this CardPack, which should be unique amongst all other loaded packs.
@@ -19,6 +19,6 @@ public interface CardPack {
     /**
      * The cards contained in this pack.
      */
-    val cards: List<Card>
+    val cards: List<T>
 
 }

@@ -10,7 +10,6 @@ import org.kitteh.irc.client.library.element.Channel
 import org.kitteh.irc.client.library.element.User
 import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.extensions.channel.antiPing
-import xyz.cardstock.cardstock.interfaces.states.State
 import xyz.cardstock.cardstock.interfaces.states.Stateful
 import xyz.cardstock.cardstock.players.Player
 import java.util.Collections
@@ -31,9 +30,8 @@ import java.util.Collections
  * @constructor Creates a new Game.
  * @param[cardstock] The [Cardstock] facilitating this game.
  * @param[channel] The [Channel] that this game is taking place in.
- * @param[state] The starting state of this game. See [Game] to learn more about states.
  */
-public abstract class Game<PLAYER_TYPE : Player>(public val cardstock: Cardstock, public val channel: Channel, state: State) : Stateful {
+public abstract class Game<PLAYER_TYPE : Player>(public val cardstock: Cardstock, public val channel: Channel) : Stateful {
 
     /**
      * The modifiable list of [Player]s. This is meant to be used internally by the game in order to manage current
@@ -46,10 +44,6 @@ public abstract class Game<PLAYER_TYPE : Player>(public val cardstock: Cardstock
      */
     public val players: List<PLAYER_TYPE>
         get() = Collections.unmodifiableList(this._players)
-
-    init {
-        this.state = state
-    }
 
     /**
      * Sends [message] to the [Channel] after modifying it so that it will not ping any [User]s.

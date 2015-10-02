@@ -34,7 +34,7 @@ import java.nio.file.Files
  * @param[mapper] The transformer responsible for mapping one [JSONObject] into one [Card] of type [T]. May return null
  * if passed an invalid object. Nulls will be filtered from the resulting list.
  */
-public class JSONCardReader<T : Card>(val cardsFile: File, val mapper: JSONObject.() -> T?) : CardReader<T> {
+public open class JSONCardReader<T : Card>(val cardsFile: File, val mapper: (JSONObject) -> T?) : CardReader<T> {
 
     /**
      * Returns a list containing all of the [Card]s read from the JSON source.

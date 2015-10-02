@@ -22,11 +22,17 @@ interface Stateful {
 
     /**
      * Advances this state of this object to the next state, based on [state]'s [State.next] property. If the next state
-     * is null, this method does nothing. Otherwise, all listeners in [stateListeners] are run with the new state as
-     * their input.
+     * is null, this method does nothing. Otherwise, [runStateListeners] is called after updating [state].
      */
     open fun advanceState() {
         this.state = this.state.next ?: return
+        this.runStateListeners()
+    }
+
+    /**
+     * Invokes all listeners in [stateListeners] with the current state as their input.
+     */
+    fun runStateListeners() {
         this.stateListeners.forEach { it.invoke(this.state) }
     }
 

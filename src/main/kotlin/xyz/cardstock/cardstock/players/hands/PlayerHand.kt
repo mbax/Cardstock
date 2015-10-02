@@ -11,11 +11,11 @@ import xyz.cardstock.cardstock.cards.Card
 /**
  * A hand designed to be held by a [Player][xyz.cardstock.cardstock.players.Player].
  */
-public class PlayerHand<T : Card> : Hand<T> {
+public open class PlayerHand<T : Card> : Hand<T> {
 
     private val cards: MutableList<T> = Lists.newArrayList()
 
-    override public fun get(index: Int) = this.cards[index]
+    operator override public fun get(index: Int) = this.cards[index]
 
     override public fun size() = this.cards.size()
 

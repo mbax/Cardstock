@@ -5,12 +5,9 @@
  */
 package xyz.cardstock.cardstock
 
-import com.google.common.collect.Sets
 import org.kitteh.irc.client.library.Client
-import xyz.cardstock.cardstock.cards.packs.CardPack
 import xyz.cardstock.cardstock.commands.CommandRegistrar
 import xyz.cardstock.cardstock.listeners.CommandListener
-import java.util.Collections
 import java.util.logging.ConsoleHandler
 import java.util.logging.Formatter
 import java.util.logging.LogRecord
@@ -33,22 +30,14 @@ public abstract class Cardstock {
     /**
      * The IRC client for this bot.
      */
-    val client: Client
+    lateinit var client: Client
+        private set
     /**
      * The [Logger] instance for this bot to use. Will be modified by [setUpLogger].
      */
     abstract val logger: Logger
-    /**
-     * The backing card packs property. This is a mutable set for adding or removing card packs.
-     */
-    private val _cardPacks = Sets.newHashSet<CardPack>()
-    /**
-     * The card packs that this bot has loaded. This is an unmodifiable set.
-     */
-    val cardPacks: Set<CardPack>
-        get() = Collections.unmodifiableSet(this._cardPacks)
 
-    init {
+    fun start() {
         this.setUpLogger()
         // Set up IRC client
         this.client = Client.builder()

@@ -8,7 +8,7 @@ package xyz.cardstock.cardstock.cards
 /**
  * A card with a point value.
  */
-public interface PointedCard {
+public interface PointedCard : Card {
 
     /**
      * The amount of points that this card is worth.
