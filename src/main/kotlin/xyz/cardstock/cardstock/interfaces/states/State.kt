@@ -6,7 +6,7 @@
 package xyz.cardstock.cardstock.interfaces.states
 
 /**
- * A state that a [Game] or [Round][xyz.cardstock.cardstock.games.rounds.Round] may have.
+ * A state that a [Stateful] class may have.
  */
 public interface State {
 
@@ -15,7 +15,7 @@ public interface State {
      */
     val next: State?
     /**
-     * The unique name for this [State]. Generally used for [Game.processCurrentState], in order to distinguish
+     * The unique name for this [State]. Generally used for [Stateful] class listeners in order to differentiate between
      * different states.
      */
     val uniqueName: String

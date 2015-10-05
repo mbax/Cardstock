@@ -18,9 +18,9 @@ import java.util.Collections
  * This class represents any game that [Cardstock] can facilitate.
  *
  * Games in Cardstock run on a state system. The game starts on the first state, which is provided in the constructor.
- * From there, if any call to [advanceState] is made, the next state, provided by [State.next], is made the current
- * state. After setting the state, the abstract method [processCurrentState] is called, allowing for the game to set up
- * anything necessary for the current state.
+ * From there, if any call to [advanceState] is made, the next state, provided by [State.next][xyz.cardstock.cardstock.interfaces.states.State.next],
+ * is made the current state. After setting the state, the listeners registered in [Stateful.stateListeners] are
+ * invoked, allowing for the game to set up anything necessary for the current state.
  *
  * Games may also have a state in which multiple [Round][xyz.cardstock.cardstock.games.rounds.Round]s are carried out,
  * in a similar state-based process.
