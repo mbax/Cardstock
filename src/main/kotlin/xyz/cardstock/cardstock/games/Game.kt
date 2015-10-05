@@ -26,23 +26,23 @@ import java.util.Collections
  * in a similar state-based process.
  *
  * Upon reaching the terminal state, the game is considered over and should be handled as appropriate.
- * @param[PLAYER_TYPE] The type of [Player] that this game entertains
+ * @param[PlayerType] The type of [Player] that this game entertains
  * @constructor Creates a new Game.
  * @param[cardstock] The [Cardstock] facilitating this game.
  * @param[channel] The [Channel] that this game is taking place in.
  */
-public abstract class Game<PLAYER_TYPE : Player>(public val cardstock: Cardstock, public val channel: Channel) : Stateful {
+public abstract class Game<PlayerType : Player>(public val cardstock: Cardstock, public val channel: Channel) : Stateful {
 
     /**
      * The modifiable list of [Player]s. This is meant to be used internally by the game in order to manage current
      * players.
      */
-    protected val _players = Lists.newArrayList<PLAYER_TYPE>()
+    protected val _players = Lists.newArrayList<PlayerType>()
     /**
      * An unmodifiable list of [Player]s currently in this game. Use [getPlayer] to create Players and [removePlayer] to
      * remove Players.
      */
-    public val players: List<PLAYER_TYPE>
+    public val players: List<PlayerType>
         get() = Collections.unmodifiableList(this._players)
 
     /**
@@ -58,12 +58,12 @@ public abstract class Game<PLAYER_TYPE : Player>(public val cardstock: Cardstock
      * 1. If [create] is true, a new player will be created, added to the game, and returned.
      * 2. If [create] is false, `null` will be returned.
      */
-    public abstract fun getPlayer(user: User, create: Boolean = true): PLAYER_TYPE?
+    public abstract fun getPlayer(user: User, create: Boolean = true): PlayerType?
 
     /**
      * Removes [player] from the list of current players.
      */
-    public fun removePlayer(player: PLAYER_TYPE) {
+    public fun removePlayer(player: PlayerType) {
         this._players.remove(player)
     }
 

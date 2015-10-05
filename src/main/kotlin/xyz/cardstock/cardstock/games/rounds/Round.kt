@@ -15,12 +15,12 @@ import xyz.cardstock.cardstock.players.Player
  *
  * The [Game] that this round is taking place in is [game].
  */
-public interface Round<PLAYER_TYPE : Player> : Stateful {
+public interface Round<PlayerType : Player> : Stateful {
 
     /**
      * The [Game] that this Round is taking place in.
      */
-    val game: Game<PLAYER_TYPE>
+    val game: Game<PlayerType>
     /**
      * The number of this Round, which should be unique in the current [Game].
      */

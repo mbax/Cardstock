@@ -10,9 +10,9 @@ import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.games.rounds.Round
 import xyz.cardstock.cardstock.players.Player
 
-public abstract class GameWithRounds<PLAYER_TYPE : Player>(cardstock: Cardstock, channel: Channel) : Game<PLAYER_TYPE>(cardstock, channel) {
+public abstract class GameWithRounds<PlayerType : Player>(cardstock: Cardstock, channel: Channel) : Game<PlayerType>(cardstock, channel) {
 
-    public var currentRound: Round<PLAYER_TYPE>? = null
+    public var currentRound: Round<PlayerType>? = null
         protected set
 
 }
