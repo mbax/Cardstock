@@ -11,16 +11,17 @@ public class CardstockShutdownHook(val cardstock: Cardstock) : Runnable {
 
     val beginningHooks = Lists.newArrayList<(Cardstock) -> Unit>()
     val endHooks = Lists.newArrayList<(Cardstock) -> Unit>()
+    private val runHook = { hook: (Cardstock) -> Unit ->
+        try {
+            hook.invoke(this.cardstock)
+        } catch (ex: Throwable) {
+            this.cardstock.logger.severe("A hook encountered an error in the shutdown hook:")
+            ex.printStackTrace()
+        }
+    }
 
     override fun run() {
-        this.beginningHooks.forEach {
-            try {
-                it.invoke(this.cardstock)
-            } catch (ex: Throwable) {
-                this.cardstock.logger.severe("A beginning hook encountered an error in the shutdown hook:")
-                ex.printStackTrace()
-            }
-        }
+        this.beginningHooks.forEach(this.runHook)
         val numberOfClients = this.cardstock.clients.size()
         val sleepTime = 1000L + (500L * Math.max(0, numberOfClients - 1))
         // Leave all channels. More effective than a QUIT for ZNC
@@ -31,13 +32,6 @@ public class CardstockShutdownHook(val cardstock: Cardstock) : Runnable {
         this.cardstock.clients.forEach { it.shutdown("Too many weird slashfics") }
         // Wait for clients
         Thread.sleep(sleepTime)
-        this.endHooks.forEach {
-            try {
-                it.invoke(this.cardstock)
-            } catch (ex: Throwable) {
-                this.cardstock.logger.severe("An end hook encountered an error in the shutdown hook:")
-                ex.printStackTrace()
-            }
-        }
+        this.endHooks.forEach(this.runHook)
     }
 }
