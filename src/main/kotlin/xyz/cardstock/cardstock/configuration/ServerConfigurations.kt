@@ -28,7 +28,6 @@ class ServerConfigurations(file: File) {
 
     init {
         val defaults = this.json.optJSONObject("defaults") ?: JSONObject()
-        println("defaults = $defaults")
         val listedServers = this.json.optJSONArray("servers")
         check(listedServers != null && listedServers.length() > 0, { -> "At least one server must be defined" })
         this._servers.addAll(
@@ -51,7 +50,6 @@ class ServerConfigurations(file: File) {
                     return@map Server(host, port, nickname, user, password, channels)
                 }
         )
-        println("this.servers = ${this.servers}")
     }
 
 }
