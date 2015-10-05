@@ -58,6 +58,7 @@ public abstract class Cardstock {
             val client = clientBuilder.build()
             client.eventManager.registerEventListener(commandListener)
             server.channels?.let { client.addChannel(*it.toTypedArray()) }
+            this._clients.add(client)
         }
         // Add shutdown hook to wrap things up when the bot is killed
         Runtime.getRuntime().addShutdownHook(Thread(CardstockShutdownHook(this)))
