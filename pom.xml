@@ -123,11 +123,6 @@
             <artifactId>json</artifactId>
             <version>20150729</version>
         </dependency>
-        <dependency>
-            <groupId>com.mashape.unirest</groupId>
-            <artifactId>unirest-java</artifactId>
-            <version>1.4.7</version>
-        </dependency>
     </dependencies>
     <properties>
         <kotlin.version>0.14.449</kotlin.version>
