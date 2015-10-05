@@ -1,0 +1,25 @@
+{
+  "defaults": {
+    "nick": "ExampleBot",
+    "user": "Example bot",
+    "port": 6667
+  },
+  "servers": [
+    {
+      "host": "irc.example.com",
+      "channels": [
+        "#example",
+        "#another"
+      ]
+    },
+    {
+      "host": "irc.example.org",
+      "port": 6999,
+      "channels": [
+        "#example"
+      ],
+      "nick": "RoBotNick",
+      "user": "Bad pun bot"
+    }
+  ]
+}

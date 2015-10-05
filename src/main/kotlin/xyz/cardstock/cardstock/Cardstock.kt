@@ -5,9 +5,12 @@
  */
 package xyz.cardstock.cardstock
 
+import com.google.common.collect.Lists
 import org.kitteh.irc.client.library.Client
 import xyz.cardstock.cardstock.commands.CommandRegistrar
+import xyz.cardstock.cardstock.configuration.Configuration
 import xyz.cardstock.cardstock.listeners.CommandListener
+import java.util.Collections
 import java.util.logging.ConsoleHandler
 import java.util.logging.Formatter
 import java.util.logging.LogRecord
@@ -28,10 +31,14 @@ public abstract class Cardstock {
      */
     abstract val commandRegistrar: CommandRegistrar
     /**
-     * The IRC client for this bot.
+     * Mutable list for adding clients to.
      */
-    lateinit var client: Client
-        private set
+    private val _clients = Lists.newArrayList<Client>()
+    /**
+     * The IRC clients for this bot.
+     */
+    val clients: List<Client>
+        get() = Collections.unmodifiableList(this._clients)
     /**
      * The [Logger] instance for this bot to use. Will be modified by [setUpLogger].
      */
@@ -39,17 +46,19 @@ public abstract class Cardstock {
 
     fun start() {
         this.setUpLogger()
-        // Set up IRC client
-        this.client = Client.builder()
-            .server(this.configuration.server)
-            .server(this.configuration.port)
-            .nick(this.configuration.nick)
-            .messageDelay(1)
-            .build()
-        // Add command listener
-        this.client.eventManager.registerEventListener(CommandListener(this))
-        // Add channels
-        this.client.addChannel(*this.configuration.channels)
+        // Set up IRC clients
+        val commandListener = CommandListener(this)
+        for (server in this.configuration.serverConfigurations.servers) {
+            val clientBuilder = Client.builder()
+                .server(server.host)
+                .server(server.port)
+                .nick(server.nickname)
+                .messageDelay(1)
+            server.password?.let { clientBuilder.serverPassword(it) }
+            val client = clientBuilder.build()
+            client.eventManager.registerEventListener(commandListener)
+            server.channels?.let { client.addChannel(*it.toTypedArray()) }
+        }
         // Add shutdown hook to wrap things up when the bot is killed
         Runtime.getRuntime().addShutdownHook(Thread(CardstockShutdownHook(this)))
     }
