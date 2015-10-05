@@ -43,6 +43,11 @@ public abstract class Cardstock {
      * The [Logger] instance for this bot to use. Will be modified by [setUpLogger].
      */
     abstract val logger: Logger
+    /**
+     * The shutdown hook that Cardstock registers to quit from IRC when the JVM shuts down. Hooks can be added to this
+     * in [CardstockShutdownHook.beginningHooks] and [CardstockShutdownHook.endHooks].
+     */
+    val shutdownHook = CardstockShutdownHook(this)
 
     fun start() {
         this.setUpLogger()
@@ -61,7 +66,7 @@ public abstract class Cardstock {
             this._clients.add(client)
         }
         // Add shutdown hook to wrap things up when the bot is killed
-        Runtime.getRuntime().addShutdownHook(Thread(CardstockShutdownHook(this)))
+        Runtime.getRuntime().addShutdownHook(Thread(this.shutdownHook))
     }
 
     /**
