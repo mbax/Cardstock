@@ -58,7 +58,7 @@ public abstract class Game<PlayerType : Player>(public val cardstock: Cardstock,
      * 1. If [create] is true, a new player will be created, added to the game, and returned.
      * 2. If [create] is false, `null` will be returned.
      */
-    public abstract fun getPlayer(user: User, create: Boolean = true): PlayerType?
+    public abstract fun getPlayer(user: User, create: Boolean): PlayerType?
 
     /**
      * Removes [player] from the list of current players.
