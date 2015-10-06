@@ -7,6 +7,7 @@ package xyz.cardstock.cardstock.players.hands
 
 import com.google.common.collect.Lists
 import xyz.cardstock.cardstock.cards.Card
+import java.util.Objects
 
 /**
  * A hand designed to be held by a [Player][xyz.cardstock.cardstock.players.Player].
@@ -33,4 +34,7 @@ public open class PlayerHand<T : Card> : Hand<T> {
 
     override fun iterator() = this.cards.iterator()
 
+    override fun equals(other: Any?) = if (other == null || other !is PlayerHand<*>) false else this.cards.equals(other.cards)
+
+    override fun hashCode() = Objects.hash(this.cards)
 }
