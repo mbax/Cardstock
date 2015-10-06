@@ -22,7 +22,7 @@ annotation class Command(
      *
      * These must all be unique.
      */
-    val aliases: Array<String>,
+    val aliases: Array<String> = arrayOf(),
     /**
      * The description of this command. Displayed in help texts.
      */
