@@ -1,4 +1,5 @@
 # ![Cardstock](https://cardstock.xyz/images/long.svg)
+![Travis CI](https://travis-ci.org/Cardstock/Cardstock.svg)
 
 *Cardstock is to bots as cardstock is to cards.*
 
