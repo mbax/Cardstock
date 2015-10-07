@@ -55,8 +55,8 @@ public abstract class Cardstock {
         val commandListener = CommandListener(this)
         for (server in this.configuration.serverConfigurations.servers) {
             val clientBuilder = Client.builder()
-                .server(server.host)
-                .server(server.port)
+                .serverHost(server.host)
+                .serverPort(server.port)
                 .nick(server.nickname)
                 .messageDelay(1)
             server.password?.let { clientBuilder.serverPassword(it) }
