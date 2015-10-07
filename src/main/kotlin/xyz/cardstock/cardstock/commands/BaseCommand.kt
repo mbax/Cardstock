@@ -7,6 +7,7 @@ package xyz.cardstock.cardstock.commands
 
 import org.kitteh.irc.client.library.element.User
 import org.kitteh.irc.client.library.event.helper.ActorEvent
+import java.util.Objects
 
 /**
  * The base for all commands. All commands must be annotated on the class level with [Command] to provide metadata about
@@ -59,6 +60,13 @@ abstract class BaseCommand {
      */
     public val commandType: CommandType
         get() = this.getCommandAnnotation()!!.commandType
+
+    override fun equals(other: Any?): Boolean {
+        if (other == null || other !is BaseCommand) return false
+        return this.name == other.name && this.aliases == other.aliases && this.description == other.description && this.usage == other.usage
+    }
+
+    override fun hashCode() = Objects.hash(this.name, this.aliases, this.description, this.usage)
 
     /**
      * An enum defining where commands may be used.
