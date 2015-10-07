@@ -13,7 +13,7 @@ public class CardstockShutdownHook(val cardstock: Cardstock) : Runnable {
     val endHooks = Lists.newArrayList<(Cardstock) -> Unit>()
     private val runHook = { hook: (Cardstock) -> Unit ->
         try {
-            hook.invoke(this.cardstock)
+            hook(this.cardstock)
         } catch (ex: Throwable) {
             this.cardstock.logger.severe("A hook encountered an error in the shutdown hook:")
             ex.printStackTrace()

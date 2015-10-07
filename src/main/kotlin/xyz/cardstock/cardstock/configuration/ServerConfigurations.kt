@@ -18,12 +18,12 @@ class ServerConfigurations(file: File) {
         get() = Collections.unmodifiableList(this._servers)
 
     fun <T> JSONObject.getWithDefaults(key: String, defaults: JSONObject, mapper: (String, JSONObject) -> T?): T {
-        val result = mapper.invoke(key, this) ?: mapper.invoke(key, defaults)
+        val result = mapper(key, this) ?: mapper(key, defaults)
         return result ?: throw IllegalStateException("$key must be defined")
     }
 
     fun <T> JSONObject.optWithDefaults(key: String, defaults: JSONObject, mapper: (String, JSONObject) -> T?): T? {
-        return mapper.invoke(key, this) ?: mapper.invoke(key, defaults)
+        return mapper(key, this) ?: mapper(key, defaults)
     }
 
     init {

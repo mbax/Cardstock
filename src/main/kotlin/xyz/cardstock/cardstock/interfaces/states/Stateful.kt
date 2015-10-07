@@ -34,7 +34,7 @@ interface Stateful {
      */
     fun runStateListeners() {
         val currentState = this.state
-        this.stateListeners.forEach { it.invoke(currentState) }
+        this.stateListeners.forEach { it(currentState) }
     }
 
 }
