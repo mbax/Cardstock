@@ -9,6 +9,7 @@ import com.google.common.collect.Lists
 import org.kitteh.irc.client.library.Client
 import xyz.cardstock.cardstock.commands.CommandRegistrar
 import xyz.cardstock.cardstock.configuration.Configuration
+import xyz.cardstock.cardstock.games.GameRegistrar
 import xyz.cardstock.cardstock.listeners.CommandListener
 import java.util.Collections
 import java.util.logging.ConsoleHandler
@@ -30,6 +31,10 @@ public abstract class Cardstock {
      * [CommandRegistrar] should work.
      */
     abstract val commandRegistrar: CommandRegistrar
+    /**
+     * The game registrar that should be used for registering games and keeping track of Channel to Game relationships.
+     */
+    abstract val gameRegistrar: GameRegistrar<*, *, *>
     /**
      * Mutable list for adding clients to.
      */
