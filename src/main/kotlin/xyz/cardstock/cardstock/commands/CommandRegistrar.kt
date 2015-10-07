@@ -6,22 +6,25 @@
 package xyz.cardstock.cardstock.commands
 
 import com.google.common.collect.Maps
+import java.util.Collections
 
-public class CommandRegistrar {
+class CommandRegistrar {
 
     private val commands = Maps.newHashMap<String, BaseCommand>()
 
     /**
      * Just a quick way to use bracket notation instead of the #getCommand(String) method.
      */
-    operator public fun get(name: String) = this.getCommand(name)
+    operator fun get(name: String) = this.getCommand(name)
 
-    public fun getCommand(name: String): BaseCommand? = this.commands[name] ?: this.getCommandByAlias(name)
+    fun all(): Set<BaseCommand> = Collections.unmodifiableSet(this.commands.values().toSet())
 
-    public fun getCommandByAlias(alias: String): BaseCommand? =
+    fun getCommand(name: String): BaseCommand? = this.commands[name] ?: this.getCommandByAlias(name)
+
+    fun getCommandByAlias(alias: String): BaseCommand? =
         this.commands.values().filter { alias in it.aliases }.firstOrNull()
 
-    public fun registerCommand(command: BaseCommand) {
+    fun registerCommand(command: BaseCommand) {
         check(this.getCommand(command.name) == null) { -> "Command with the name \"${command.name}\" already registered." }
         for (alias in command.aliases) {
             check(this.getCommandByAlias(alias) == null) { -> "Command with the alias \"$alias\" already registered." }
@@ -29,9 +32,9 @@ public class CommandRegistrar {
         this.commands.put(command.name, command)
     }
 
-    public fun unregisterCommand(name: String): BaseCommand? = this.commands.remove(name)
+    fun unregisterCommand(name: String): BaseCommand? = this.commands.remove(name)
 
-    public fun unregisterCommand(command: BaseCommand): BaseCommand? = this.unregisterCommand(command.name)
+    fun unregisterCommand(command: BaseCommand): BaseCommand? = this.unregisterCommand(command.name)
 
 
 }
