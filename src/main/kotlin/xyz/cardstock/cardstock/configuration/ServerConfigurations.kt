@@ -45,10 +45,11 @@ class ServerConfigurations(file: File) {
                     val host = it.getWithDefaults("host", defaults) { key, json -> json.optString(key, null) }
                     val port = it.getWithDefaults("port", defaults) { key, json -> json.opt(key) as Int? }
                     val nickname = it.getWithDefaults("nick", defaults) { key, json -> json.optString(key, null) }
+                    val prefix = it.getWithDefaults("prefix", defaults) { key, json -> json.optString(key, null)?.charAt(0) }
                     val user = it.optWithDefaults("user", defaults) { key, json -> json.optString(key, null) }
                     val password = it.optWithDefaults("password", defaults) { key, json -> json.optString(key, null) }
                     val channels = it.optWithDefaults("channels", defaults) { key, json -> json.optJSONArray("channels")?.map { it.toString() } }
-                    return@map Server(host, port, nickname, user, password, channels)
+                    return@map Server(host, port, nickname, prefix, user, password, channels)
                 }
         )
     }

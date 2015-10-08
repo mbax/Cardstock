@@ -4,7 +4,8 @@
     "channels": [
       "#slash"
     ],
-    "port": 6667
+    "port": 6667,
+    "prefix": "!"
   },
   "servers": [
     {

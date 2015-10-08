@@ -35,7 +35,7 @@ public class CommandListener(val cardstock: Cardstock) {
         if (event.message.isEmpty()) return null
         val parts = event.message.split(" ")
         val labelWithPrefix = parts[0]
-        if (labelWithPrefix[0] != this.cardstock.configuration.prefix) return null
+        if (labelWithPrefix[0] != this.cardstock.clientServerMap[event.client]!!.prefix) return null
         val label = labelWithPrefix[1, null]
         val command = this.cardstock.commandRegistrar[label] ?: return null
         return SentCommand(command, label, parts[1, null])

@@ -10,6 +10,7 @@ data class Server(
     val host: String,
     val port: Int,
     val nickname: String,
+    val prefix: Char,
     val user: String? = null,
     val password: String? = null,
     val channels: List<String>? = null

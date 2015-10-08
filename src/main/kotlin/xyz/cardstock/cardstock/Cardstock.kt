@@ -6,9 +6,11 @@
 package xyz.cardstock.cardstock
 
 import com.google.common.collect.Lists
+import com.google.common.collect.Maps
 import org.kitteh.irc.client.library.Client
 import xyz.cardstock.cardstock.commands.CommandRegistrar
 import xyz.cardstock.cardstock.configuration.Configuration
+import xyz.cardstock.cardstock.configuration.Server
 import xyz.cardstock.cardstock.games.GameRegistrar
 import xyz.cardstock.cardstock.listeners.CommandListener
 import java.util.Collections
@@ -45,6 +47,15 @@ public abstract class Cardstock {
     val clients: List<Client>
         get() = Collections.unmodifiableList(this._clients)
     /**
+     * Mutable list for adding pairings to.
+     */
+    private val _clientServerMap = Maps.newHashMap<Client, Server>()
+    /**
+     * A map of clients to the server information they were created with.
+     */
+    val clientServerMap: Map<Client, Server>
+        get() = Collections.unmodifiableMap(this._clientServerMap)
+    /**
      * The [Logger] instance for this bot to use. Will be modified by [setUpLogger].
      */
     abstract val logger: Logger
@@ -70,6 +81,7 @@ public abstract class Cardstock {
             client.eventManager.registerEventListener(commandListener)
             server.channels?.let { client.addChannel(*it.toTypedArray()) }
             this._clients.add(client)
+            this._clientServerMap.put(client, server)
         }
         // Add shutdown hook to wrap things up when the bot is killed
         Runtime.getRuntime().addShutdownHook(Thread(this.shutdownHook))

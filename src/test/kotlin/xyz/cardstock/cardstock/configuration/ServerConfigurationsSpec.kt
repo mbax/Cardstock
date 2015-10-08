@@ -51,6 +51,9 @@ class ServerConfigurationsSpec : MavenSpek() {
                 it("should have a nick of \"Test\"") {
                     assertEquals("Test", server.nickname)
                 }
+                it("should have a prefix of '!'") {
+                    assertEquals('!', server.prefix)
+                }
                 it("should have a null user property") {
                     assertNull(server.user)
                 }
@@ -74,6 +77,9 @@ class ServerConfigurationsSpec : MavenSpek() {
                 }
                 it("should have a nick of \"Test\"") {
                     assertEquals("Test", server.nickname)
+                }
+                it("should have a prefix of '!'") {
+                    assertEquals('!', server.prefix)
                 }
                 it("should have a null user property") {
                     assertNull(server.user)
