@@ -7,6 +7,7 @@ package xyz.cardstock.cardstock.commands
 
 import org.jetbrains.spek.api.shouldThrow
 import xyz.cardstock.cardstock.MavenSpek
+import xyz.cardstock.cardstock.implementations.commands.TestCommand
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
 import kotlin.test.assertTrue
