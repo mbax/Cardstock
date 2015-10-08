@@ -24,6 +24,10 @@ public fun Channel.antiPing(message: String): String {
     return newMessage
 }
 
+/**
+ * Sets or unsets a mode (or multiple modes) on a user (or multiple users) in the channel.
+ * @param[data] Mode data
+ */
 public fun Channel.userMode(vararg data: UserModeData) {
     val modeCommand = this.newModeCommand()
     for (datum in data) {
@@ -32,4 +36,7 @@ public fun Channel.userMode(vararg data: UserModeData) {
     modeCommand.execute()
 }
 
+/**
+ * Data for a user mode to be changed.
+ */
 public data class UserModeData(val add: Boolean, val mode: Char, val user: User)

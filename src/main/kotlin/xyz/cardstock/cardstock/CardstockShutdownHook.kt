@@ -7,6 +7,7 @@ package xyz.cardstock.cardstock
 
 import com.google.common.collect.Lists
 
+// TODO: KDoc
 public class CardstockShutdownHook(val cardstock: Cardstock) : Runnable {
 
     val beginningHooks = Lists.newArrayList<(Cardstock) -> Unit>()

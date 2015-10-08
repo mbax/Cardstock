@@ -10,6 +10,7 @@ import org.json.JSONObject
 import java.io.File
 import java.util.Collections
 
+// TODO: KDocs
 class ServerConfigurations(file: File) {
 
     private val json: JSONObject = JSONObject(file.readText())

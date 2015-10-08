@@ -8,6 +8,7 @@ package xyz.cardstock.cardstock.commands
 import com.google.common.collect.Maps
 import java.util.Collections
 
+// TODO: KDoc
 class CommandRegistrar {
 
     private val commands = Maps.newHashMap<String, BaseCommand>()

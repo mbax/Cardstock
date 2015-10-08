@@ -35,6 +35,10 @@ operator public fun String.get(start: Int?, end: Int?, emptyString: Boolean = fa
     }
 }
 
+/**
+ * Makes this word plural by appending [suffix] after removing [remove] characters from the end if [amount] is not equal
+ * to `1`.
+ */
 public fun String.plural(amount: Int, suffix: String = "s", remove: Int = 0): String {
     if (amount == 1) {
         return this

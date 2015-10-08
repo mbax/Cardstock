@@ -13,6 +13,7 @@ import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.games.Game
 import xyz.cardstock.cardstock.players.Player
 
+// TODO: KDoc
 abstract class GameChannelCommand<P : Player, G : Game<P>>(val cardstock: Cardstock, val mapper: (Channel) -> G?) : BaseCommand() {
     override fun run(event: ActorEvent<User>, callInfo: CallInfo, arguments: List<String>) {
         if (event !is ChannelMessageEvent) return

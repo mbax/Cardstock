@@ -15,6 +15,7 @@ import org.kohsuke.args4j.spi.StringOptionHandler
 import xyz.cardstock.cardstock.Cardstock
 import java.io.File
 
+// TODO: KDoc
 open class Configuration(args: Array<String>, cardstock: Cardstock) {
 
     @field:Option(name = "-n", usage = "Nickname of the bot on the server.", handler = StringOptionHandler::class)

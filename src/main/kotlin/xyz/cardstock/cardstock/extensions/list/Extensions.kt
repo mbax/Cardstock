@@ -5,6 +5,9 @@
  */
 package xyz.cardstock.cardstock.extensions.list
 
+/**
+ * Python-esque slicing.
+ */
 operator public fun <T> List<T>.get(start: Int?, end: Int?): List<T> {
     var realEnd = end ?: this.size()
     var realStart = start ?: 0

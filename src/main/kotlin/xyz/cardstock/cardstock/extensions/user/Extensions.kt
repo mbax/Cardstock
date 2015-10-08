@@ -7,6 +7,9 @@ package xyz.cardstock.cardstock.extensions.user
 
 import org.kitteh.irc.client.library.element.User
 
+/**
+ * Sends a message to this user, starting with their nickname, a colon, and a space.
+ */
 public fun User.respond(message: String) {
     this.sendMessage("${this.nick}: $message")
 }

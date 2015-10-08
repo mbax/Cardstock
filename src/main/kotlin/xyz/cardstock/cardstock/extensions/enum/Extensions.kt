@@ -7,6 +7,10 @@ package xyz.cardstock.cardstock.extensions.enum
 
 import xyz.cardstock.cardstock.interfaces.states.State
 
+/**
+ * Converts this enum value to a [State]. [State.next] will be the next defined value in the enum or null if this value
+ * is the end of the enum.
+ */
 fun Enum<*>.toState(): State = object : State {
     override val next: State?
         get() = with(this@toState.javaClass.getDeclaredMethod("values")(null) as Array<Enum<*>>) {

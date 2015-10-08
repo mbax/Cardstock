@@ -11,6 +11,8 @@ import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.players.Player
 import java.util.Collections
 
+// TODO: Test stuff
+// TODO: KDoc
 class GameRegistrar<C : Cardstock, P : Player, G : Game<P>>(val cardstock: C, val mapper: (C, Channel) -> G) {
 
     private val games = Maps.newHashMap<Channel, G>()

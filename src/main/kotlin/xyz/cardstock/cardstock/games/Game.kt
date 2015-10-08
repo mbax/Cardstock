@@ -14,6 +14,8 @@ import xyz.cardstock.cardstock.interfaces.states.Stateful
 import xyz.cardstock.cardstock.players.Player
 import java.util.Collections
 
+// TODO: Test various methods
+
 /**
  * This class represents any game that [Cardstock] can facilitate.
  *

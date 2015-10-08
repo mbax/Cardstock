@@ -54,6 +54,7 @@ public abstract class Cardstock {
      */
     val shutdownHook = CardstockShutdownHook(this)
 
+    // TODO: KDoc
     fun start() {
         this.setUpLogger()
         // Set up IRC clients

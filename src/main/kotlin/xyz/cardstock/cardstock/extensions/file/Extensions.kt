@@ -7,6 +7,11 @@ package xyz.cardstock.cardstock.extensions.file
 
 import java.io.File
 
+/**
+ * Creates the file if it does not exist. If the parent folders do not exist, they will be created. If any creations
+ * fail, this will throw an [IllegalStateException].
+ * @throws IllegalStateException
+ */
 public fun File.create() {
     if (this.exists()) return
     if (!this.parentFile.exists()) check(this.parentFile.mkdirs())

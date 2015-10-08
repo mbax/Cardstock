@@ -5,6 +5,7 @@
  */
 package xyz.cardstock.cardstock.configuration
 
+// TODO: KDoc
 data class Server(
     val host: String,
     val port: Int,
