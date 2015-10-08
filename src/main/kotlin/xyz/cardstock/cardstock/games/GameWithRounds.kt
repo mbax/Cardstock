@@ -14,6 +14,5 @@ import xyz.cardstock.cardstock.players.Player
 public abstract class GameWithRounds<PlayerType : Player>(cardstock: Cardstock, channel: Channel) : Game<PlayerType>(cardstock, channel) {
 
     var currentRound: Round<PlayerType>? = null
-        protected set
 
 }
