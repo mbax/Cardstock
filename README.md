@@ -9,7 +9,8 @@ Cardstock allows for card games to be facilitated and hosted by bots in various 
 on those channels easy access to various card games.
 
 **Note**: Cardstock is in active development. Large parts of the codebase may change at any time. Some features may be
-missing. As I port some of my older card game bots to Cardstock,
+missing. As I port some of my older card game bots to Cardstock, what is missing and what needs to be changed will
+become more apparent.
 
 ## How it works
 
