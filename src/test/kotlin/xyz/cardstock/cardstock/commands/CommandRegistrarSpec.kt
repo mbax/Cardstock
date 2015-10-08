@@ -6,25 +6,12 @@
 package xyz.cardstock.cardstock.commands
 
 import org.jetbrains.spek.api.shouldThrow
-import org.kitteh.irc.client.library.element.User
-import org.kitteh.irc.client.library.event.helper.ActorEvent
 import xyz.cardstock.cardstock.MavenSpek
 import kotlin.test.assertEquals
+import kotlin.test.assertNull
 import kotlin.test.assertTrue
 
 class CommandRegistrarSpec : MavenSpek() {
-
-    @Command(
-        name = "test",
-        aliases = arrayOf(
-            "spec"
-        )
-    )
-    private class TestCommand : BaseCommand() {
-        override fun run(event: ActorEvent<User>, callInfo: CallInfo, arguments: List<String>) {
-            throw UnsupportedOperationException()
-        }
-    }
 
     override fun test() {
         given("a standard command registrar") {
@@ -62,10 +49,10 @@ class CommandRegistrarSpec : MavenSpek() {
                     assertEquals(0, commandRegistrar.all().size())
                 }
                 it("should return null if queried by name") {
-                    assertEquals(null, commandRegistrar[command.name])
+                    assertNull(commandRegistrar[command.name])
                 }
                 it("should return null if queried by alias") {
-                    assertEquals(null, commandRegistrar[command.aliases[0]])
+                    assertNull(commandRegistrar[command.aliases[0]])
                 }
             }
         }
