@@ -1,0 +1,20 @@
+{
+  "defaults": {
+    "nick": "Test",
+    "channels": [
+      "#slash"
+    ],
+    "port": 6667
+  },
+  "servers": [
+    {
+      "host": "irc.example.com"
+    },
+    {
+      "host": "irc.example.org",
+      "channels": [
+        "#dog"
+      ]
+    }
+  ]
+}
