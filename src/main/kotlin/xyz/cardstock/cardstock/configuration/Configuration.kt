@@ -18,7 +18,7 @@ import java.io.File
 open class Configuration(args: Array<String>, cardstock: Cardstock) {
 
     @field:Option(name = "-n", usage = "Nickname of the bot on the server.", handler = StringOptionHandler::class)
-    var nick: String = "Fictitious"
+    var nick: String = "CardstockBot"
         private set
 
     @field:Option(name = "-z", usage = "Prefix to use for bot commands.", handler = CharOptionHandler::class)
