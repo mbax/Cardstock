@@ -9,6 +9,7 @@ import org.jetbrains.spek.api.shouldThrow
 import xyz.cardstock.cardstock.MavenSpek
 import java.io.File
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
@@ -48,6 +49,9 @@ class ServerConfigurationsSpec : MavenSpek() {
                 it("should have a port of 6667") {
                     assertEquals(6667, server.port)
                 }
+                it("should have a false secure value") {
+                    assertFalse(server.secure)
+                }
                 it("should have a nick of \"Test\"") {
                     assertEquals("Test", server.nickname)
                 }
@@ -74,6 +78,9 @@ class ServerConfigurationsSpec : MavenSpek() {
                 }
                 it("should have a port of 6667") {
                     assertEquals(6667, server.port)
+                }
+                it("should have a false secure value") {
+                    assertFalse(server.secure)
                 }
                 it("should have a nick of \"Test\"") {
                     assertEquals("Test", server.nickname)

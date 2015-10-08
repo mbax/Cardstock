@@ -3,6 +3,7 @@
     "nick": "ExampleBot",
     "user": "Example bot",
     "port": 6667,
+    "secure": false,
     "prefix": "!"
   },
   "servers": [

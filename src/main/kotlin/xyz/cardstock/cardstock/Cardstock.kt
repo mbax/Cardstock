@@ -75,6 +75,7 @@ public abstract class Cardstock {
                 .serverHost(server.host)
                 .serverPort(server.port)
                 .nick(server.nickname)
+                .secure(server.secure)
                 .messageDelay(1)
             server.password?.let { clientBuilder.serverPassword(it) }
             val client = clientBuilder.build()

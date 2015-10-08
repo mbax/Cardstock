@@ -5,6 +5,7 @@
       "#slash"
     ],
     "port": 6667,
+    "secure": false,
     "prefix": "!"
   },
   "servers": [

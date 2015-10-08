@@ -9,6 +9,7 @@ package xyz.cardstock.cardstock.configuration
 data class Server(
     val host: String,
     val port: Int,
+    val secure: Boolean,
     val nickname: String,
     val prefix: Char,
     val user: String? = null,
