@@ -75,6 +75,8 @@ public abstract class Cardstock {
                 .serverHost(server.host)
                 .serverPort(server.port)
                 .nick(server.nickname)
+                .user(server.user ?: server.nickname)
+                .realName(server.user ?: server.nickname) // TODO: Add config option
                 .secure(server.secure)
                 .messageDelay(1)
             server.password?.let { clientBuilder.serverPassword(it) }
