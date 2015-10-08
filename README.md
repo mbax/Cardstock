@@ -21,6 +21,14 @@ games tend to be so nuanced.
 
 ## FAQ
 
+### What is this insane language you're using?
+
+It's called [Kotlin](http://kotlinlang.org/). It is 100% compatible with Java.
+
+### So can I use this in Java?
+
+Absolutely. This library can be used in Java and Kotlin for sure. It probably works with other JVM languages, as well.
+
 ### How do I get started?
 
 Create a class that extends `Cardstock`. This is the bot class. Once you have configured the bot, call
