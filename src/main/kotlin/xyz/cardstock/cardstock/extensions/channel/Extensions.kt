@@ -15,7 +15,7 @@ import org.kitteh.irc.client.library.element.User
  * *
  * @return Reformatted message
  */
-public fun Channel.antiPing(message: String): String {
+fun Channel.antiPing(message: String): String {
     var newMessage = message
     for (nickname in this.nicknames) {
         if (nickname.length() <= 1) continue
@@ -28,7 +28,7 @@ public fun Channel.antiPing(message: String): String {
  * Sets or unsets a mode (or multiple modes) on a user (or multiple users) in the channel.
  * @param[data] Mode data
  */
-public fun Channel.userMode(vararg data: UserModeData) {
+fun Channel.userMode(vararg data: UserModeData) {
     val modeCommand = this.newModeCommand()
     for (datum in data) {
         modeCommand.add(datum.add, this.client.serverInfo.getChannelUserMode(datum.mode).get(), datum.user)

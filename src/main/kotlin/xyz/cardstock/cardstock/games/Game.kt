@@ -33,7 +33,7 @@ import java.util.Collections
  * @param[cardstock] The [Cardstock] facilitating this game.
  * @param[channel] The [Channel] that this game is taking place in.
  */
-public abstract class Game<PlayerType : Player>(public val cardstock: Cardstock, public val channel: Channel) : Stateful {
+public abstract class Game<PlayerType : Player>(val cardstock: Cardstock, val channel: Channel) : Stateful {
 
     /**
      * The modifiable list of [Player]s. This is meant to be used internally by the game in order to manage current
@@ -44,7 +44,7 @@ public abstract class Game<PlayerType : Player>(public val cardstock: Cardstock,
      * An unmodifiable list of [Player]s currently in this game. Use [getPlayer] to create Players and [removePlayer] to
      * remove Players.
      */
-    public val players: List<PlayerType>
+    val players: List<PlayerType>
         get() = Collections.unmodifiableList(this._players)
 
     /**
@@ -65,7 +65,7 @@ public abstract class Game<PlayerType : Player>(public val cardstock: Cardstock,
     /**
      * Removes [player] from the list of current players.
      */
-    public fun removePlayer(player: PlayerType) {
+    fun removePlayer(player: PlayerType) {
         this._players.remove(player)
     }
 

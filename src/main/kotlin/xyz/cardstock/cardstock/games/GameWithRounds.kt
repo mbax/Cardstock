@@ -13,7 +13,7 @@ import xyz.cardstock.cardstock.players.Player
 // TODO: KDoc
 public abstract class GameWithRounds<PlayerType : Player>(cardstock: Cardstock, channel: Channel) : Game<PlayerType>(cardstock, channel) {
 
-    public var currentRound: Round<PlayerType>? = null
+    var currentRound: Round<PlayerType>? = null
         protected set
 
 }

@@ -16,11 +16,11 @@ public open class PlayerHand<T : Card> : Hand<T> {
 
     private val cards: MutableList<T> = Lists.newArrayList()
 
-    operator override public fun get(index: Int) = this.cards[index]
+    operator override fun get(index: Int) = this.cards[index]
 
-    override public fun size() = this.cards.size()
+    override fun size() = this.cards.size()
 
-    override public fun add(card: T) {
+    override fun add(card: T) {
         this.cards.add(card)
     }
 

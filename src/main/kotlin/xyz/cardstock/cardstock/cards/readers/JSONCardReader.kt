@@ -39,7 +39,7 @@ public open class JSONCardReader<T : Card>(val cardsFile: File, val mapper: (JSO
     /**
      * Returns a list containing all of the [Card]s read from the JSON source.
      */
-    override public val cards: List<T>
+    override val cards: List<T>
         get() = JSONArray(Files.readAllLines(this.cardsFile.toPath()).join("\n"))
             .map { it as JSONObject }
             .map(this.mapper)

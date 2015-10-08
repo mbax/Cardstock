@@ -17,7 +17,7 @@ import xyz.cardstock.cardstock.commands.CallInfo
 import xyz.cardstock.cardstock.extensions.list.get
 import xyz.cardstock.cardstock.extensions.string.get
 
-public class CommandListener(val cardstock: Cardstock) {
+class CommandListener(val cardstock: Cardstock) {
 
     /**
      * A data class for a command and pertinent information about it sent in a message.
@@ -44,7 +44,7 @@ public class CommandListener(val cardstock: Cardstock) {
     /**
      * Runs the command in [sentCommand] if it should be run.
      */
-    public fun executeCommand(sentCommand: SentCommand, event: ActorEvent<User>, usageType: CallInfo.UsageType) {
+    fun executeCommand(sentCommand: SentCommand, event: ActorEvent<User>, usageType: CallInfo.UsageType) {
         val commandType = sentCommand.command.commandType
         if (commandType != BaseCommand.CommandType.BOTH && !commandType.name().equals(usageType.name())) return
         try {
@@ -61,7 +61,7 @@ public class CommandListener(val cardstock: Cardstock) {
      * Handles commands sent in channels.
      */
     @Handler
-    public fun onChannelCommand(event: ChannelMessageEvent) {
+    fun onChannelCommand(event: ChannelMessageEvent) {
         val sentCommand = this.getSentCommand(event) ?: return
         this.executeCommand(sentCommand, event, CallInfo.UsageType.CHANNEL)
     }
@@ -70,7 +70,7 @@ public class CommandListener(val cardstock: Cardstock) {
      * Handles commands sent to the bot.
      */
     @Handler
-    public fun onPrivateCommand(event: PrivateMessageEvent) {
+    fun onPrivateCommand(event: PrivateMessageEvent) {
         val sentCommand = this.getSentCommand(event) ?: return
         this.executeCommand(sentCommand, event, CallInfo.UsageType.PRIVATE)
     }

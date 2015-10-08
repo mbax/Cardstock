@@ -31,20 +31,20 @@ abstract class BaseCommand {
      * The name of this command. Defined by annotation.
      * @see Command
      */
-    public val name: String
+    val name: String
         get() = this.getCommandAnnotation()!!.name
 
     /**
      * The aliases for this command. Defined by annotation.
      * @see Command
      */
-    public val aliases: Array<String>
+    val aliases: Array<String>
         get() = this.getCommandAnnotation()!!.aliases
 
     /**
      * The description of this command. Defined by annotation.
      */
-    public val description: String
+    val description: String
         get() = this.getCommandAnnotation()!!.description
 
     /**
@@ -52,13 +52,13 @@ abstract class BaseCommand {
      *
      * Usage should resemble something like `"&lt;command&gt; [requiredParameter] (optionalParameter)"`
      */
-    public val usage: String
+    val usage: String
         get() = this.getCommandAnnotation()!!.usage
 
     /**
      * The command type of this command. Defined by annotation.
      */
-    public val commandType: CommandType
+    val commandType: CommandType
         get() = this.getCommandAnnotation()!!.commandType
 
     override fun equals(other: Any?): Boolean {
@@ -71,7 +71,7 @@ abstract class BaseCommand {
     /**
      * An enum defining where commands may be used.
      */
-    public enum class CommandType {
+    enum class CommandType {
         /**
          * A command with this type may be used only in channels.
          */

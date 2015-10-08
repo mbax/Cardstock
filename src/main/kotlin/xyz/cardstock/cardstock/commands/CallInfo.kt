@@ -8,12 +8,12 @@ package xyz.cardstock.cardstock.commands
 /**
  * This class contains information on the calling of any given command.
  */
-public class CallInfo(public val label: String, public val usageType: CallInfo.UsageType) {
+class CallInfo(val label: String, val usageType: CallInfo.UsageType) {
 
     /**
      * Usage of the command.
      */
-    public enum class UsageType {
+    enum class UsageType {
         /**
          * Command was used in a channel message.
          */

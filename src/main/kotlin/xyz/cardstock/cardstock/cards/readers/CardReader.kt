@@ -16,6 +16,6 @@ public interface CardReader<T : Card> {
     /**
      * The cards read from the source.
      */
-    public val cards: List<T>
+    val cards: List<T>
 
 }

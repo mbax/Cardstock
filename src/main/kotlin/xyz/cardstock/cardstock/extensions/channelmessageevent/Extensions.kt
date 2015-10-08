@@ -10,6 +10,6 @@ import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent
 /**
  * Sends a message to the channel in this event, starting with the actor's nick, a colon, and a space.
  */
-public fun ChannelMessageEvent.respond(message: String) {
+fun ChannelMessageEvent.respond(message: String) {
     this.channel.sendMessage("${this.actor.nick}: $message")
 }

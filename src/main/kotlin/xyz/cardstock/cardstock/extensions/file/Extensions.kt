@@ -12,7 +12,7 @@ import java.io.File
  * fail, this will throw an [IllegalStateException].
  * @throws IllegalStateException
  */
-public fun File.create() {
+fun File.create() {
     if (this.exists()) return
     if (!this.parentFile.exists()) check(this.parentFile.mkdirs())
     check(this.createNewFile())

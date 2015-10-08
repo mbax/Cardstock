@@ -19,7 +19,7 @@ package xyz.cardstock.cardstock.extensions.string
  * @param[emptyString] Whether to return an empty string (like Python) if the indices are invalid
  * @return The substring
  */
-operator public fun String.get(start: Int?, end: Int?, emptyString: Boolean = false): String {
+operator fun String.get(start: Int?, end: Int?, emptyString: Boolean = false): String {
     var realEnd = end ?: this.length()
     var realStart = start ?: 0
     if (realEnd < 0) {
@@ -39,7 +39,7 @@ operator public fun String.get(start: Int?, end: Int?, emptyString: Boolean = fa
  * Makes this word plural by appending [suffix] after removing [remove] characters from the end if [amount] is not equal
  * to `1`.
  */
-public fun String.plural(amount: Int, suffix: String = "s", remove: Int = 0): String {
+fun String.plural(amount: Int, suffix: String = "s", remove: Int = 0): String {
     if (amount == 1) {
         return this
     }

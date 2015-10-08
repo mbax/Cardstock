@@ -15,26 +15,26 @@ public interface Hand<T : Card> : Iterable<T> {
     /**
      * Gets the card at [index].
      */
-    public fun get(index: Int): T
+    fun get(index: Int): T
 
     /**
      * Gets the size of this hand.
      */
-    public fun size(): Int
+    fun size(): Int
 
     /**
      * Adds [card] to this hand.
      */
-    public fun add(card: T)
+    fun add(card: T)
 
     /**
      * Removes [card] from this hand.
      */
-    public fun remove(card: T)
+    fun remove(card: T)
 
     /**
      * Removes the card at [index].
      */
-    public fun remove(index: Int)
+    fun remove(index: Int)
 
 }
