@@ -15,10 +15,10 @@ class JSONCardReaderSpec : MavenSpek() {
     override fun test() {
         given("a JSONCardReader that maps to TestCard and data that has valid and invalid cards") {
             val cardReader = JSONCardReader<PointedCard>(File("src/test/resources/cards.json")) {
-                try {
-                    return@JSONCardReader TestCard(it.getInt("points"))
+                return@JSONCardReader try {
+                    TestCard(it.getInt("points"))
                 } catch (ex: JSONException) {
-                    return@JSONCardReader null
+                    null
                 }
             }
             on("parse") {
