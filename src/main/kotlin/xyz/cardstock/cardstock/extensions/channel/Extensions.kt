@@ -39,4 +39,4 @@ fun Channel.userMode(vararg data: UserModeData) {
 /**
  * Data for a user mode to be changed.
  */
-public data class UserModeData(val add: Boolean, val mode: Char, val user: User)
+data class UserModeData(val add: Boolean, val mode: Char, val user: User)
