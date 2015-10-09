@@ -10,19 +10,38 @@ import org.json.JSONObject
 import java.io.File
 import java.util.Collections
 
-// TODO: KDocs
+/**
+ * The file-based configuration for this bot.
+ */
 open class Configuration(file: File) {
 
+    /**
+     * The actual JSON object that was read from the file.
+     */
     protected val json: JSONObject = JSONObject(file.readText())
+    /**
+     * The mutable list of servers specified in the `servers` JSON object.
+     */
     protected val _servers = Lists.newArrayList<Server>()
+    /**
+     * Servers read from the `servers` JSON object in the configuration.
+     */
     val servers: List<Server>
         get() = Collections.unmodifiableList(this._servers)
 
+    /**
+     * Gets the key from this JSONObject or a default from a different JSONObject. If both return null, this will throw
+     * an [IllegalStateException].
+     */
     fun <T> JSONObject.getWithDefaults(key: String, defaults: JSONObject, mapper: (String, JSONObject) -> T?): T {
         val result = mapper(key, this) ?: mapper(key, defaults)
         return result ?: throw IllegalStateException("$key must be defined")
     }
 
+    /**
+     * Gets the key from this JSONObject or a default from a different JSONObject. If both return null, this will return
+     * `null`.
+     */
     fun <T> JSONObject.optWithDefaults(key: String, defaults: JSONObject, mapper: (String, JSONObject) -> T?): T? {
         return mapper(key, this) ?: mapper(key, defaults)
     }

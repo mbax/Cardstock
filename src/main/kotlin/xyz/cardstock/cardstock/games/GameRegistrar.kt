@@ -12,21 +12,46 @@ import xyz.cardstock.cardstock.players.Player
 import java.util.Collections
 
 // TODO: Test stuff
-// TODO: KDoc
+/**
+ * The game registrar is where games that are being played are registered. It keeps track of ongoing games.
+ * @param[C] The bot's type
+ * @param[P] The type of player in games registered
+ * @param[G] The type of games being registered
+ * @constructor Constructs a new [GameRegistrar]
+ * @param[mapper] Converts an instance of [C] and a [Channel] to an instance of [G].
+ */
 class GameRegistrar<C : Cardstock, P : Player, G : Game<P>>(val cardstock: C, val mapper: (C, Channel) -> G) {
 
+    /**
+     * The mutable map of Channels -> Games.
+     */
     private val games = Maps.newHashMap<Channel, G>()
 
+    /**
+     * Gets all registered games as an unmodifiable set.
+     */
     fun all(): Set<G> = Collections.unmodifiableSet(this.games.values().toSet())
 
+    /**
+     * Finds a game registered in [channel]. Returns `null` if none were found.
+     */
     fun find(channel: Channel) = this.games[channel]
 
-    fun on(cardstock: C, channel: Channel) = this.games.compute(channel) { k, v -> v ?: this.mapper(this.cardstock, channel) }
+    /**
+     * Creates a game in [channel] and registers it.
+     */
+    fun on(channel: Channel) = this.games.compute(channel) { k, v -> v ?: this.mapper(this.cardstock, channel) }
 
+    /**
+     * Removes the game registered in [channel].
+     */
     fun end(channel: Channel) {
         this.games.remove(channel)
     }
 
+    /**
+     * Removes [game].
+     */
     fun end(game: G) {
         this.games.values().remove(game)
     }

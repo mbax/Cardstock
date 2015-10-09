@@ -12,13 +12,21 @@ import org.kohsuke.args4j.spi.FileOptionHandler
 import xyz.cardstock.cardstock.Cardstock
 import java.io.File
 
-// TODO: KDoc
+/**
+ * The configuration for this bot, as specified on the command line.
+ */
 open class CommandLineConfiguration(args: Array<String>, cardstock: Cardstock) {
 
+    /**
+     * The file pointing to the JSON configuration.
+     */
     @field:Option(name = "-c", usage = "File containing bot configuration.", handler = FileOptionHandler::class, required = true)
     lateinit var configurationFile: File
         private set
 
+    /**
+     * Gets the [Configuration], as specified by [configurationFile].
+     */
     val configuration: Configuration
         get() = Configuration(this.configurationFile)
 

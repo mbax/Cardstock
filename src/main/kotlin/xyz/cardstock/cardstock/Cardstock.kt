@@ -70,7 +70,10 @@ public abstract class Cardstock {
      */
     val shutdownHook = CardstockShutdownHook(this)
 
-    // TODO: KDoc
+    /**
+     * Starts the bot, connecting to servers and joining channels. This also registers the shutdown hook, though hooks
+     * may still be added.
+     */
     fun start() {
         this.setUpLogger()
         // Set up IRC clients

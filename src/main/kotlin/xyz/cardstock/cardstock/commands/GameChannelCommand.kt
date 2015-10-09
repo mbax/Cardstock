@@ -13,7 +13,9 @@ import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.games.Game
 import xyz.cardstock.cardstock.players.Player
 
-// TODO: KDoc
+/**
+ * A command to be used during a game in a channel.
+ */
 abstract class GameChannelCommand<P : Player, G : Game<P>>(val cardstock: Cardstock, val mapper: (Channel) -> G?) : BaseCommand() {
     override fun run(event: ActorEvent<User>, callInfo: CallInfo, arguments: List<String>) {
         if (event !is ChannelMessageEvent) return
@@ -26,5 +28,8 @@ abstract class GameChannelCommand<P : Player, G : Game<P>>(val cardstock: Cardst
         this.run(event, callInfo, game, player, arguments)
     }
 
+    /**
+     * Performs the action that this command is supposed to perform. Called every time that this command is used.
+     */
     abstract fun run(event: ChannelMessageEvent, callInfo: CallInfo, game: G, player: P, arguments: List<String>)
 }
