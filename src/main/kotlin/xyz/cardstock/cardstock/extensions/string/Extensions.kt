@@ -37,15 +37,18 @@ operator fun String.get(start: Int?, end: Int?, emptyString: Boolean = false): S
 
 /**
  * Makes this word plural by appending [suffix] after removing [remove] characters from the end if [amount] is not equal
- * to `1`.
+ * to `1`. If [prepend] is true, [amount] and one space will be prepended on the return string.
  */
-fun String.plural(amount: Int, suffix: String = "s", remove: Int = 0): String {
+fun String.plural(amount: Int, suffix: String = "s", remove: Int = 0, prepend: Boolean = false): String {
     if (amount == 1) {
         return this
     }
     var newString = this
     if (remove > 0) {
         newString = newString[null, -remove]
+    }
+    if (prepend) {
+        newString = "$amount " + newString
     }
     return newString + suffix
 }
