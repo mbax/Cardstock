@@ -40,15 +40,15 @@ operator fun String.get(start: Int?, end: Int?, emptyString: Boolean = false): S
  * to `1`. If [prepend] is true, [amount] and one space will be prepended on the return string.
  */
 fun String.plural(amount: Int, suffix: String = "s", remove: Int = 0, prepend: Boolean = false): String {
-    if (amount == 1) {
-        return this
-    }
     var newString = this
-    if (remove > 0) {
-        newString = newString[null, -remove]
-    }
     if (prepend) {
         newString = "$amount " + newString
+    }
+    if (amount == 1) {
+        return newString
+    }
+    if (remove > 0) {
+        newString = newString[null, -remove]
     }
     return newString + suffix
 }
