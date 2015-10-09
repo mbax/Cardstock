@@ -7,43 +7,92 @@ package xyz.cardstock.cardstock.configuration
 
 import org.jetbrains.spek.api.shouldThrow
 import xyz.cardstock.cardstock.MavenSpek
-import xyz.cardstock.cardstock.implementations.DummyCardstock
-import xyz.cardstock.cardstock.implementations.ExitSecurityManager
+import java.io.File
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
 
 class ConfigurationSpec : MavenSpek() {
-
-    val dummyCardstock = DummyCardstock()
-
     override fun test() {
-        given("a Configuration constructed with only required arguments") {
-            val args = "-c src/test/resources/configuration.json -C src/test/resources/cards.json".split(" ").toTypedArray()
-            val configuration = Configuration(args, this@ConfigurationSpec.dummyCardstock)
-            on("accessing configurationFile") {
-                val configurationFile = configuration.configurationFile
-                it("should be the same path as specified in the args") {
-                    assertEquals(args[1], configurationFile.path)
-                }
-            }
-            on("accessing cardFiles") {
-                val cardFiles = configuration.cardFiles
-                it("should have one value") {
-                    assertEquals(1, cardFiles.size())
-                }
-                it("should have one value that is the same as specified in the args") {
-                    assertEquals(1, cardFiles.filter { it == args[3] }.size())
-                }
-            }
-        }
-        given("a Configuration with no arguments") {
-            on("init") {
-                it("should exit with status 1") {
-                    System.setSecurityManager(ExitSecurityManager())
-                    val exception = shouldThrow(ExitSecurityManager.ExitException::class.java) {
-                        Configuration(arrayOf(), this@ConfigurationSpec.dummyCardstock)
+        given("a ServerConfigurations initialized with valid data") {
+            val serverConfigurations = Configuration(File("src/test/resources/configuration.json"))
+            on("accessing the servers") {
+                val servers = serverConfigurations.servers
+                it("should be unmodifiable") {
+                    // We'll just hope that the rest are unsupported
+                    shouldThrow(UnsupportedOperationException::class.java) {
+                        (servers as MutableList<Server>).remove(0)
                     }
-                    System.setSecurityManager(null)
-                    assertEquals(1, exception.status)
+                }
+                it("should contain two servers") {
+                    assertEquals(2, servers.size())
+                }
+                it("should contain one server with the host \"irc.example.com\"") {
+                    assertEquals(1, servers.filter { it.host == "irc.example.com" }.size())
+                }
+                it("should contain one server with the host \"irc.example.org\"") {
+                    assertEquals(1, servers.filter { it.host == "irc.example.org" }.size())
+                }
+            }
+            on("accessing the first server") {
+                val server = serverConfigurations.servers.first()
+                it("should not have a null channel property") {
+                    assertNotNull(server.channels)
+                }
+                it("should have one channel") {
+                    assertEquals(1, server.channels?.size())
+                }
+                it("should have one channel with the name \"#slash\"") {
+                    assertEquals(1, server.channels?.filter { it == "#slash" }?.size())
+                }
+                it("should have a port of 6667") {
+                    assertEquals(6667, server.port)
+                }
+                it("should have a false secure value") {
+                    assertFalse(server.secure)
+                }
+                it("should have a nick of \"Test\"") {
+                    assertEquals("Test", server.nickname)
+                }
+                it("should have a prefix of '!'") {
+                    assertEquals('!', server.prefix)
+                }
+                it("should have a null user property") {
+                    assertNull(server.user)
+                }
+                it("should have a null password property") {
+                    assertNull(server.password)
+                }
+            }
+            on("accessing the second server") {
+                val server = serverConfigurations.servers.get(1)
+                it("should not have a null channel property") {
+                    assertNotNull(server.channels)
+                }
+                it("should have one channel") {
+                    assertEquals(1, server.channels?.size())
+                }
+                it("should have one channel with the name \"#dog\"") {
+                    assertEquals(1, server.channels?.filter { it == "#dog" }?.size())
+                }
+                it("should have a port of 6667") {
+                    assertEquals(6667, server.port)
+                }
+                it("should have a false secure value") {
+                    assertFalse(server.secure)
+                }
+                it("should have a nick of \"Test\"") {
+                    assertEquals("Test", server.nickname)
+                }
+                it("should have a prefix of '!'") {
+                    assertEquals('!', server.prefix)
+                }
+                it("should have a null user property") {
+                    assertNull(server.user)
+                }
+                it("should have a null password property") {
+                    assertNull(server.password)
                 }
             }
         }

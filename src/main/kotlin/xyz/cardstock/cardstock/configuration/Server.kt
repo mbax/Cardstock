@@ -13,6 +13,7 @@ data class Server(
     val nickname: String,
     val prefix: Char,
     val user: String? = null,
+    val realName: String? = null,
     val password: String? = null,
     val channels: List<String>? = null
 )

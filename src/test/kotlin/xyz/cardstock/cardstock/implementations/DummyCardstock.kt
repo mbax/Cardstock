@@ -7,12 +7,15 @@ package xyz.cardstock.cardstock.implementations
 
 import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.commands.CommandRegistrar
+import xyz.cardstock.cardstock.configuration.CommandLineConfiguration
 import xyz.cardstock.cardstock.configuration.Configuration
 import xyz.cardstock.cardstock.games.GameRegistrar
 import java.util.logging.Logger
 
 class DummyCardstock : Cardstock() {
     override val configuration: Configuration
+        get() = throw UnsupportedOperationException()
+    override val commandLineConfiguration: CommandLineConfiguration
         get() = throw UnsupportedOperationException()
     override val commandRegistrar: CommandRegistrar
         get() = throw UnsupportedOperationException()

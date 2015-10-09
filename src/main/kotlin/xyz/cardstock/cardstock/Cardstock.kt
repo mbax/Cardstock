@@ -9,6 +9,7 @@ import com.google.common.collect.Lists
 import com.google.common.collect.Maps
 import org.kitteh.irc.client.library.Client
 import xyz.cardstock.cardstock.commands.CommandRegistrar
+import xyz.cardstock.cardstock.configuration.CommandLineConfiguration
 import xyz.cardstock.cardstock.configuration.Configuration
 import xyz.cardstock.cardstock.configuration.Server
 import xyz.cardstock.cardstock.games.GameRegistrar
@@ -25,7 +26,11 @@ import java.util.logging.Logger
 public abstract class Cardstock {
 
     /**
-     * The configuration for the bot. This should load configuration from the command line on construction.
+     * The commandline configuration for the bot. This should load configuration from the command line on construction.
+     */
+    abstract val commandLineConfiguration: CommandLineConfiguration
+    /**
+     * The file-based configuration for the bot.
      */
     abstract val configuration: Configuration
     /**
@@ -70,13 +75,13 @@ public abstract class Cardstock {
         this.setUpLogger()
         // Set up IRC clients
         val commandListener = CommandListener(this)
-        for (server in this.configuration.serverConfigurations.servers) {
+        for (server in this.commandLineConfiguration.configuration.servers) {
             val clientBuilder = Client.builder()
                 .serverHost(server.host)
                 .serverPort(server.port)
                 .nick(server.nickname)
                 .user(server.user ?: server.nickname)
-                .realName(server.user ?: server.nickname) // TODO: Add config option
+                .realName(server.realName ?: server.nickname)
                 .secure(server.secure)
                 .messageDelay(1)
             server.password?.let { clientBuilder.serverPassword(it) }

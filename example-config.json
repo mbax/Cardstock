@@ -1,7 +1,7 @@
 {
   "defaults": {
     "nick": "ExampleBot",
-    "user": "Example bot",
+    "realName": "Example bot",
     "port": 6667,
     "secure": false,
     "prefix": "!"
@@ -21,7 +21,7 @@
         "#example"
       ],
       "nick": "RoBotNick",
-      "user": "Bad pun bot"
+      "realName": "Bad pun bot"
     }
   ]
 }
