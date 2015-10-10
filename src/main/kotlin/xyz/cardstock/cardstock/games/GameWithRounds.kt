@@ -13,7 +13,7 @@ import xyz.cardstock.cardstock.players.Player
 /**
  * A game with rounds. Adds the [currentRound] field.
  */
-public abstract class GameWithRounds<PlayerType : Player>(cardstock: Cardstock, channel: Channel) : Game<PlayerType>(cardstock, channel) {
+abstract class GameWithRounds<PlayerType : Player>(cardstock: Cardstock, channel: Channel) : Game<PlayerType>(cardstock, channel) {
 
     /**
      * The current round that this game is in. If there is no round being played, is `null`.

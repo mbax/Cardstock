@@ -9,4 +9,4 @@ package xyz.cardstock.cardstock.cards
  * A card used for the game. There is no common attribute between all the different variations of cards out there, so
  * this interface is empty.
  */
-public interface Card
+interface Card

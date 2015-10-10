@@ -12,7 +12,7 @@ import java.util.Objects
 /**
  * A hand designed to be held by a [Player][xyz.cardstock.cardstock.players.Player].
  */
-public open class PlayerHand<T : Card> : Hand<T> {
+open class PlayerHand<T : Card> : Hand<T> {
 
     private val cards: MutableList<T> = Lists.newArrayList()
 

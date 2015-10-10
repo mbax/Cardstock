@@ -10,7 +10,7 @@ import org.kitteh.irc.client.library.element.User
 /**
  * A [User] that is part of a [Game][xyz.cardstock.cardstock.games.Game].
  */
-public interface Player {
+interface Player {
 
     /**
      * The [User] that this Player represents.

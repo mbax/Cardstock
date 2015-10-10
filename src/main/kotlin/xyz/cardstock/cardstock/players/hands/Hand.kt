@@ -10,7 +10,7 @@ import xyz.cardstock.cardstock.cards.Card
 /**
  * A hand of cards, generally held by a [Player][xyz.cardstock.cardstock.players.Player]. See [PlayerHand].
  */
-public interface Hand<T : Card> : Iterable<T> {
+interface Hand<T : Card> : Iterable<T> {
 
     /**
      * Gets the card at [index].

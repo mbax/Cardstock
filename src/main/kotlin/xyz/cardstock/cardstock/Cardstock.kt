@@ -23,7 +23,7 @@ import java.util.logging.Logger
 /**
  * The base for Cardstock. Bots should extend this class.
  */
-public abstract class Cardstock {
+abstract class Cardstock {
 
     /**
      * The commandline configuration for the bot. This should load configuration from the command line on construction.

@@ -11,7 +11,7 @@ import xyz.cardstock.cardstock.players.hands.Hand
 /**
  * A [Player] with a [Hand] of [Card]s.
  */
-public interface HandedPlayer<T : Card> : Player {
+interface HandedPlayer<T : Card> : Player {
 
     /**
      * The hand of cards that the player currently has.

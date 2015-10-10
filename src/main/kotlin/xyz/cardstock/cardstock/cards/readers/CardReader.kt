@@ -11,7 +11,7 @@ import xyz.cardstock.cardstock.cards.Card
  * A CardReader reads cards from a source. The cards are available from [cards].
  * @param[T] The type of cards to be read.
  */
-public interface CardReader<T : Card> {
+interface CardReader<T : Card> {
 
     /**
      * The cards read from the source.

@@ -33,7 +33,7 @@ import java.util.Collections
  * @param[cardstock] The [Cardstock] facilitating this game.
  * @param[channel] The [Channel] that this game is taking place in.
  */
-public abstract class Game<PlayerType : Player>(val cardstock: Cardstock, val channel: Channel) : Stateful {
+abstract class Game<PlayerType : Player>(val cardstock: Cardstock, val channel: Channel) : Stateful {
 
     /**
      * The modifiable list of [Player]s. This is meant to be used internally by the game in order to manage current
@@ -50,7 +50,7 @@ public abstract class Game<PlayerType : Player>(val cardstock: Cardstock, val ch
     /**
      * Sends [message] to the [Channel] after modifying it so that it will not ping any [User]s.
      */
-    public open fun sendMessage(message: String) {
+    open fun sendMessage(message: String) {
         this.channel.sendMessage(this.channel.antiPing(message))
     }
 
@@ -60,12 +60,12 @@ public abstract class Game<PlayerType : Player>(val cardstock: Cardstock, val ch
      * 1. If [create] is true, a new player will be created, added to the game, and returned.
      * 2. If [create] is false, `null` will be returned.
      */
-    public abstract fun getPlayer(user: User, create: Boolean): PlayerType?
+    abstract fun getPlayer(user: User, create: Boolean): PlayerType?
 
     /**
      * Removes [player] from the list of current players.
      */
-    fun removePlayer(player: PlayerType) {
+    open fun removePlayer(player: PlayerType) {
         this._players.remove(player)
     }
 
@@ -74,7 +74,7 @@ public abstract class Game<PlayerType : Player>(val cardstock: Cardstock, val ch
      * This will not create a [Player] if [user] does not correspond to a current player. In such a case, this method
      * will have no effect.
      */
-    public open fun removePlayer(user: User) {
+    open fun removePlayer(user: User) {
         val player = this.getPlayer(user, false) ?: return
         this.removePlayer(player)
     }

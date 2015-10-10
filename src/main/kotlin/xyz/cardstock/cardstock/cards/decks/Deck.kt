@@ -12,7 +12,7 @@ import xyz.cardstock.cardstock.cards.packs.CardPack
  * A deck of cards. A deck contains the [Card]s from many [CardPack]s. Decks require no shuffling, as [randomCard]
  * returns a random card upon every access. Decks should not modify CardPacks.
  */
-public interface Deck<T : Card> {
+interface Deck<T : Card> {
 
     /**
      * All of the [CardPack]s in this [Deck].

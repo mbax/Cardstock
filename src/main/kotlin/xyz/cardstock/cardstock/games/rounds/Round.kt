@@ -15,7 +15,7 @@ import xyz.cardstock.cardstock.players.Player
  *
  * The [Game] that this round is taking place in is [game].
  */
-public interface Round<PlayerType : Player> : Stateful {
+interface Round<PlayerType : Player> : Stateful {
 
     /**
      * The [Game] that this Round is taking place in.

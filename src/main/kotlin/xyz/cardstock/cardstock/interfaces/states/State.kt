@@ -8,7 +8,7 @@ package xyz.cardstock.cardstock.interfaces.states
 /**
  * A state that a [Stateful] class may have.
  */
-public interface State {
+interface State {
 
     /**
      * The next [State] after this state. This should only return `null` when this is the last state.
