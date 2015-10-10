@@ -7,6 +7,7 @@ package xyz.cardstock.cardstock.players.hands
 
 import com.google.common.collect.Lists
 import xyz.cardstock.cardstock.cards.Card
+import java.util.Collections
 import java.util.Objects
 
 /**
@@ -14,27 +15,29 @@ import java.util.Objects
  */
 open class PlayerHand<T : Card> : Hand<T> {
 
-    private val cards: MutableList<T> = Lists.newArrayList()
+    private val _cards: MutableList<T> = Lists.newArrayList()
+    override val cards: List<T>
+        get() = Collections.unmodifiableList(this._cards)
 
-    operator override fun get(index: Int) = this.cards[index]
+    operator override fun get(index: Int) = this._cards[index]
 
-    override fun size() = this.cards.size()
+    override fun size() = this._cards.size()
 
     override fun add(card: T) {
-        this.cards.add(card)
+        this._cards.add(card)
     }
 
     override fun remove(card: T) {
-        this.cards.remove(card)
+        this._cards.remove(card)
     }
 
     override fun remove(index: Int) {
-        this.cards.remove(index)
+        this._cards.remove(index)
     }
 
-    override fun iterator() = this.cards.iterator()
+    override fun iterator() = this._cards.iterator()
 
-    override fun equals(other: Any?) = if (other == null || other !is PlayerHand<*>) false else this.cards.equals(other.cards)
+    override fun equals(other: Any?) = if (other == null || other !is PlayerHand<*>) false else this._cards.equals(other._cards)
 
-    override fun hashCode() = Objects.hash(this.cards)
+    override fun hashCode() = Objects.hash(this._cards)
 }

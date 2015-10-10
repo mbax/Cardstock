@@ -13,9 +13,14 @@ import xyz.cardstock.cardstock.cards.Card
 interface Hand<T : Card> : Iterable<T> {
 
     /**
+     * Gets all cards in this hand.
+     */
+    val cards: List<T>
+
+    /**
      * Gets the card at [index].
      */
-    fun get(index: Int): T
+    operator fun get(index: Int): T
 
     /**
      * Gets the size of this hand.
