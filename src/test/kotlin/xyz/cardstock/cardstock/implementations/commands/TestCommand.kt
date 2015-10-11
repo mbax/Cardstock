@@ -17,8 +17,14 @@ import xyz.cardstock.cardstock.commands.Command
         "spec"
     )
 )
-internal open class TestCommand : BaseCommand() {
+internal open class TestCommand(var throwException: Boolean = true) : BaseCommand() {
+
+    internal var wasRun = false
+
     override fun run(event: ActorEvent<User>, callInfo: CallInfo, arguments: List<String>) {
-        throw UnsupportedOperationException()
+        this.wasRun = true
+        if (this.throwException) {
+            throw TestCommandException()
+        }
     }
 }
