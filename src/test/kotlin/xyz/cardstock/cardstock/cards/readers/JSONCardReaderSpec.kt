@@ -19,14 +19,15 @@ import kotlin.test.assertTrue
 
 class JSONCardReaderSpec : MavenSpek() {
     override fun test() {
-        given("a JSONCardReader that maps to TestCard and data that has valid and invalid cards") {
-            val mapper = { obj: JSONObject ->
-                try {
-                    TestCard(obj.getInt("points"))
-                } catch (ex: JSONException) {
-                    null
-                }
+        val mapper = { obj: JSONObject ->
+            try {
+                TestCard(obj.getInt("points"))
+            } catch (ex: JSONException) {
+                null
             }
+        }
+
+        given("a JSONCardReader that maps to TestCard and data that has valid and invalid cards") {
             val cardReader = JSONCardReader<PointedCard>(File("src/test/resources/cards.json"), mapper)
             on("construction") {
                 it("should have the same mapper as constructed with") {
@@ -67,13 +68,6 @@ class JSONCardReaderSpec : MavenSpek() {
             }
         }
         given("the same reader with an invalid dataset") {
-            val mapper = { obj: JSONObject ->
-                try {
-                    TestCard(obj.getInt("points"))
-                } catch (ex: JSONException) {
-                    null
-                }
-            }
             val cardReader = JSONCardReader<PointedCard>(File("src/test/resources/bad_cards.json"), mapper)
             on("parse") {
                 it("should throw a ClassCastException") {
