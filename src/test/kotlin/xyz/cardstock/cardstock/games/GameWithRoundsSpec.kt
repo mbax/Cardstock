@@ -20,7 +20,7 @@ import kotlin.test.assertTrue
 
 class GameWithRoundsSpec : MavenSpek() {
 
-    private fun makeChannel(nicknames: List<String>): org.kitteh.irc.client.library.element.Channel {
+    private fun makeChannel(nicknames: List<String>): Channel {
         val channel = mock(Channel::class.java)
         doNothing().`when`(channel).sendMessage(anyString())
         `when`(channel.nicknames).thenReturn(nicknames)

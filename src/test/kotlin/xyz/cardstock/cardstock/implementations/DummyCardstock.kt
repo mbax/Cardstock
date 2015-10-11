@@ -11,7 +11,7 @@ import xyz.cardstock.cardstock.commands.CommandRegistrar
 import xyz.cardstock.cardstock.configuration.CommandLineConfiguration
 import xyz.cardstock.cardstock.configuration.Configuration
 import xyz.cardstock.cardstock.configuration.Server
-import xyz.cardstock.cardstock.games.GameRegistrar
+import xyz.cardstock.cardstock.implementations.games.DummyGameRegistrar
 import java.util.logging.Logger
 import kotlin.reflect.declaredMemberProperties
 import kotlin.reflect.jvm.isAccessible
@@ -22,8 +22,7 @@ internal open class DummyCardstock : Cardstock() {
     override val commandLineConfiguration: CommandLineConfiguration
         get() = throw UnsupportedOperationException()
     override val commandRegistrar: CommandRegistrar = CommandRegistrar()
-    override val gameRegistrar: GameRegistrar<*, *, *>
-        get() = throw UnsupportedOperationException()
+    override val gameRegistrar: DummyGameRegistrar = DummyGameRegistrar(this)
     override val logger: Logger = Logger.getLogger("xyz.cardstock.cardstock.implementations.DummyCardstock")
 
     internal fun doSetUpLogger() {

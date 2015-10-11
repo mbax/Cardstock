@@ -19,7 +19,7 @@ import java.util.Collections
  * @constructor Constructs a new [GameRegistrar]
  * @param[mapper] Converts an instance of [C] and a [Channel] to an instance of [G].
  */
-class GameRegistrar<C : Cardstock, P : Player, G : Game<P>>(val cardstock: C, val mapper: (C, Channel) -> G) {
+open class GameRegistrar<C : Cardstock, P : Player, G : Game<P>>(val cardstock: C, val mapper: (C, Channel) -> G) {
 
     /**
      * The mutable map of Channels -> Games.
