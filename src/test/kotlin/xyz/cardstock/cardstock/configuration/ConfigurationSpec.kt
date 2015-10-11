@@ -123,11 +123,20 @@ class ConfigurationSpec : MavenSpek() {
             }
         }
         given("a Configuration initialized with even more invalid data") {
-            val data = """{"defaults": {}, "servers": [[]]}"""
+            val data = """{"servers": [[]]}"""
             on("construction") {
                 it("should throw an IllegalStateException") {
                     shouldThrow(IllegalStateException::class.java) {
                         Configuration(this@ConfigurationSpec.makePath("herp.json", data))
+                    }
+                }
+            }
+        }
+        given("a Configuration initialized with an empty JSON object") {
+            on("construction") {
+                it("should throw an IllegalStateException") {
+                    shouldThrow(IllegalStateException::class.java) {
+                        Configuration(this@ConfigurationSpec.makePath("herp.json", "{}"))
                     }
                 }
             }
