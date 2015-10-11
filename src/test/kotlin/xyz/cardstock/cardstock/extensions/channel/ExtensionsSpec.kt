@@ -21,7 +21,10 @@ import org.powermock.api.mockito.PowerMockito.`when`
 import org.powermock.api.mockito.PowerMockito.doNothing
 import org.powermock.api.mockito.PowerMockito.mock
 import xyz.cardstock.cardstock.MavenSpek
+import xyz.cardstock.cardstock.extensions.string.get
 import java.util.Optional
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class ExtensionsSpec : MavenSpek() {
 
@@ -83,6 +86,18 @@ class ExtensionsSpec : MavenSpek() {
                     val modeCommand = channel.newModeCommand()
                     verify(modeCommand).add(eq(true), any(ChannelUserMode::class.java), eq(user))
                     verify(modeCommand).execute()
+                }
+            }
+            on("antiPing") {
+                val nicknames = listOf("Joe", "Bob")
+                `when`(channel.nicknames).thenReturn(nicknames)
+                val message = "I like Joe and Bob!"
+                val result = channel.antiPing(message)
+                it("should not contain any nicknames") {
+                    assertFalse(nicknames.map { result.contains(it) }.reduce({ b1, b2 -> b1 || b2 }))
+                }
+                it("should contain nicknames with zero-width spaces") {
+                    assertTrue(nicknames.map { it[0] + "\u200b" + it[1, null] }.map { result.contains(it) }.reduce { b1, b2 -> b1 && b2 })
                 }
             }
         }

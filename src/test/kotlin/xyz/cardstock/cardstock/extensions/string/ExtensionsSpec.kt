@@ -5,8 +5,11 @@
  */
 package xyz.cardstock.cardstock.extensions.string
 
+import org.jetbrains.spek.api.shouldThrow
 import xyz.cardstock.cardstock.MavenSpek
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
+import xyz.cardstock.cardstock.extensions.string.get as gett
 
 class ExtensionsSpec : MavenSpek() {
     override fun test() {
@@ -61,6 +64,46 @@ class ExtensionsSpec : MavenSpek() {
                 val plural = index.plural(2, "ices", 2, true)
                 it("should be \"indices\"") {
                     assertEquals("2 indices", plural)
+                }
+            }
+        }
+        given("the string \"Hello world!\"") {
+            val helloWorld = "Hello world!"
+            on("get 0, 2") {
+                val result = helloWorld.gett(0, 2)
+                it("should be \"He\"") {
+                    assertEquals("He", result)
+                }
+            }
+            on("get -1, null") {
+                val result = helloWorld.gett(-1, null)
+                it("should be \"!\"") {
+                    assertEquals("!", result)
+                }
+            }
+            on("get null, -1") {
+                val result = helloWorld.gett(null, -1)
+                it("should be \"Hello world\"") {
+                    assertEquals("Hello world", result)
+                }
+            }
+            on("get -6, -1") {
+                val result = helloWorld.gett(-6, -1)
+                it("should be \"world\"") {
+                    assertEquals("world", result)
+                }
+            }
+            on("get -1, -6") {
+                it("should throw a StringIndexOutOfBoundsException") {
+                    shouldThrow(StringIndexOutOfBoundsException::class.java) {
+                        helloWorld.gett(-1, -6)
+                    }
+                }
+            }
+            on("get -1, -6, true") {
+                val result = helloWorld.gett(-1, -6, true)
+                it("should be an empty string") {
+                    assertTrue(result.isEmpty())
                 }
             }
         }
