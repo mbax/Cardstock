@@ -89,15 +89,15 @@ class ExtensionsSpec : MavenSpek() {
                 }
             }
             on("antiPing") {
-                val nicknames = listOf("Joe", "Bob")
+                val nicknames = listOf("Joe", "Bob", "D")
                 `when`(channel.nicknames).thenReturn(nicknames)
-                val message = "I like Joe and Bob!"
+                val message = "I like Joe and Bob! Not D, though. Name's too short."
                 val result = channel.antiPing(message)
-                it("should not contain any nicknames") {
-                    assertFalse(nicknames.map { result.contains(it) }.reduce({ b1, b2 -> b1 || b2 }))
+                it("should not contain any nicknames, if they're longer than one character") {
+                    assertFalse(nicknames.map { it.length() != 1 && result.contains(it) }.reduce({ b1, b2 -> b1 || b2 }))
                 }
-                it("should contain nicknames with zero-width spaces") {
-                    assertTrue(nicknames.map { it[0] + "\u200b" + it[1, null] }.map { result.contains(it) }.reduce { b1, b2 -> b1 && b2 })
+                it("should contain nicknames with zero-width spaces, if they're longer than one character") {
+                    assertTrue(nicknames.map { if (it.length() == 1) null else it[0] + "\u200b" + it[1, null] }.filterNotNull().map { result.contains(it) }.reduce { b1, b2 -> b1 && b2 })
                 }
             }
         }
