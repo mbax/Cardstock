@@ -9,6 +9,7 @@ import org.json.JSONException
 import org.json.JSONObject
 import xyz.cardstock.cardstock.MavenSpek
 import xyz.cardstock.cardstock.cards.PointedCard
+import xyz.cardstock.cardstock.implementations.cards.TestCard
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertNotNull
@@ -65,6 +66,4 @@ class JSONCardReaderSpec : MavenSpek() {
             }
         }
     }
-
-    private class TestCard(override val points: Int) : PointedCard
 }
