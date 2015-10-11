@@ -6,7 +6,6 @@
 package xyz.cardstock.cardstock.commands
 
 import com.google.common.collect.Lists
-import org.jetbrains.spek.api.shouldThrow
 import org.kitteh.irc.client.library.Client
 import org.kitteh.irc.client.library.element.Channel
 import org.kitteh.irc.client.library.element.ServerMessage
@@ -21,7 +20,8 @@ import org.powermock.api.mockito.PowerMockito.mock
 import xyz.cardstock.cardstock.MavenSpek
 import xyz.cardstock.cardstock.implementations.DummyCardstock
 import xyz.cardstock.cardstock.implementations.commands.DummyGameChannelCommand
-import xyz.cardstock.cardstock.implementations.commands.TestCommandException
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class GameChannelCommandSpec : MavenSpek() {
 
@@ -62,9 +62,9 @@ class GameChannelCommandSpec : MavenSpek() {
                 game.getPlayer(user, true)
                 val event = this@GameChannelCommandSpec.makeChannelMessageEvent("", channel, user)
                 it("should run the command") {
-                    shouldThrow(TestCommandException::class.java) {
-                        command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
-                    }
+                    command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
+                    assertTrue(command.wasRun)
+                    command.wasRun = false
                 }
             }
             on("a channel message event from a channel with a game without the user") {
@@ -73,6 +73,7 @@ class GameChannelCommandSpec : MavenSpek() {
                 val event = this@GameChannelCommandSpec.makeChannelMessageEvent("", channel, user)
                 it("should not run the command") {
                     command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
+                    assertFalse(command.wasRun)
                 }
                 it("should send a message to the user") {
                     verify(user).sendNotice(eq("You are not in a game."))
@@ -83,6 +84,7 @@ class GameChannelCommandSpec : MavenSpek() {
                 val event = this@GameChannelCommandSpec.makeChannelMessageEvent("", channel, user)
                 it("should not run the command") {
                     command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
+                    assertFalse(command.wasRun)
                 }
                 it("should send a message to the user") {
                     verify(user, times(2)).sendNotice(eq("You are not in a game."))
@@ -92,6 +94,7 @@ class GameChannelCommandSpec : MavenSpek() {
                 val event = this@GameChannelCommandSpec.makePrivateMessageEvent("")
                 it("should not run the command") {
                     command.run(event, CallInfo("", CallInfo.UsageType.PRIVATE), listOf())
+                    assertFalse(command.wasRun)
                 }
             }
         }

@@ -12,8 +12,11 @@ import xyz.cardstock.cardstock.implementations.DummyCardstock
 import xyz.cardstock.cardstock.implementations.games.DummyGame
 import xyz.cardstock.cardstock.implementations.players.DummyPlayer
 
-class DummyGameChannelCommand(cardstock: DummyCardstock) : GameChannelCommand<DummyPlayer, DummyGame>(cardstock, { cardstock.gameRegistrar.find(it) }) {
+internal class DummyGameChannelCommand(cardstock: DummyCardstock) : GameChannelCommand<DummyPlayer, DummyGame>(cardstock, { cardstock.gameRegistrar.find(it) }) {
+
+    internal var wasRun = false
+
     override fun run(event: ChannelMessageEvent, callInfo: CallInfo, game: DummyGame, player: DummyPlayer, arguments: List<String>) {
-        throw TestCommandException()
+        this.wasRun = true
     }
 }
