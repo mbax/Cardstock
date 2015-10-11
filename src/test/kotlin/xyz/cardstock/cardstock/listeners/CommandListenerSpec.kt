@@ -11,6 +11,7 @@ import org.kitteh.irc.client.library.element.Channel
 import org.kitteh.irc.client.library.element.ServerMessage
 import org.kitteh.irc.client.library.element.User
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent
+import org.kitteh.irc.client.library.event.user.PrivateMessageEvent
 import org.powermock.api.mockito.PowerMockito.`when`
 import org.powermock.api.mockito.PowerMockito.mock
 import org.powermock.core.classloader.annotations.PrepareForTest
@@ -34,6 +35,14 @@ class CommandListenerSpec : MavenSpek() {
         return ChannelMessageEvent(client, originalMessages, sender, channel, message)
     }
 
+    private fun makePrivateMessageEvent(message: String): PrivateMessageEvent {
+        val client = mock(Client::class.java)
+        val originalMessages = Lists.newArrayList<ServerMessage>()
+        val sender = mock(User::class.java)
+        `when`(sender.client).thenReturn(client)
+        return PrivateMessageEvent(client, originalMessages, sender, message)
+    }
+
     override fun test() {
         // Create dummy Cardstock
         val cardstock = DummyCardstock()
@@ -42,12 +51,20 @@ class CommandListenerSpec : MavenSpek() {
         // Register the test command
         cardstock.commandRegistrar.registerCommand(command)
         // Create the event to give to the CommandListener
-        val event = this@CommandListenerSpec.makeChannelMessageEvent("!test")
-        // Add a fake client -> server mapping for the CommandListener to use
+        val event = this.makeChannelMessageEvent("!test")
+        // Create the private event
+        val privateEvent = this.makePrivateMessageEvent("!test")
+        // Add fake client -> server mappings for the CommandListener to use
         cardstock.addClientServerMapping(event.client, Server("", 0, false, "", '!'))
+        cardstock.addClientServerMapping(privateEvent.client, Server("", 0, false, "", '!'))
 
         given("a CommandListener") {
             val commandListener = CommandListener(cardstock)
+            on("accessing the Cardstock instance") {
+                it("should be the same as the one provided to it") {
+                    assertTrue(cardstock === commandListener.cardstock)
+                }
+            }
             on("receiving a command") {
                 commandListener.onChannelCommand(event)
                 it("should execute the command") {
@@ -56,11 +73,29 @@ class CommandListenerSpec : MavenSpek() {
                 }
             }
             on("receiving a command that throws an exception") {
-                command.throwException = true
                 it("should catch the exception") {
+                    command.throwException = true
                     commandListener.onChannelCommand(event)
                     // The exception is thrown after this is set to true, so ensure it is set
                     assertTrue(command.wasRun)
+                    command.wasRun = false
+                }
+            }
+            on("receiving a private command") {
+                it("should execute the command") {
+                    command.throwException = false
+                    commandListener.onPrivateCommand(privateEvent)
+                    assertTrue(command.wasRun)
+                    command.wasRun = false
+                }
+            }
+            on("receiving a private command that throws an exception") {
+                it("should catch the exception") {
+                    command.throwException = true
+                    commandListener.onPrivateCommand(privateEvent)
+                    // The exception is thrown after this is set to true, so ensure it is set
+                    assertTrue(command.wasRun)
+                    command.wasRun = false
                 }
             }
         }
