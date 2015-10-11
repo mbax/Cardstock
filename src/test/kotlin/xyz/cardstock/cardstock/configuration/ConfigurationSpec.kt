@@ -5,20 +5,31 @@
  */
 package xyz.cardstock.cardstock.configuration
 
+import com.google.common.jimfs.Jimfs
 import org.jetbrains.spek.api.shouldThrow
 import xyz.cardstock.cardstock.MavenSpek
 import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertNotNull
 import kotlin.test.assertNull
 
 class ConfigurationSpec : MavenSpek() {
+
+    private fun makePath(path: String, contents: String): Path {
+        val fileSystem = Jimfs.newFileSystem(com.google.common.jimfs.Configuration.osX())
+        val filePath = fileSystem.getPath(path)
+        Files.write(filePath, listOf(contents), Charsets.UTF_8)
+        return filePath
+    }
+
     override fun test() {
-        given("a ServerConfigurations initialized with valid data") {
-            val serverConfigurations = Configuration(File("src/test/resources/configuration.json"))
+        given("a Configuration initialized with valid data") {
+            val configuration = Configuration(File("src/test/resources/configuration.json").toPath())
             on("accessing the servers") {
-                val servers = serverConfigurations.servers
+                val servers = configuration.servers
                 it("should be unmodifiable") {
                     // We'll just hope that the rest are unsupported
                     shouldThrow(UnsupportedOperationException::class.java) {
@@ -36,7 +47,7 @@ class ConfigurationSpec : MavenSpek() {
                 }
             }
             on("accessing the first server") {
-                val server = serverConfigurations.servers.first()
+                val server = configuration.servers.first()
                 it("should not have a null channel property") {
                     assertNotNull(server.channels)
                 }
@@ -69,7 +80,7 @@ class ConfigurationSpec : MavenSpek() {
                 }
             }
             on("accessing the second server") {
-                val server = serverConfigurations.servers.get(1)
+                val server = configuration.servers.get(1)
                 it("should not have a null channel property") {
                     assertNotNull(server.channels)
                 }
@@ -99,6 +110,25 @@ class ConfigurationSpec : MavenSpek() {
                 }
                 it("should have a null password property") {
                     assertNull(server.password)
+                }
+            }
+        }
+        given("a Configuration initialized with invalid data") {
+            on("construction") {
+                it("should throw an IllegalStateException") {
+                    shouldThrow(IllegalStateException::class.java) {
+                        Configuration(File("src/test/resources/bad_configuration.json").toPath())
+                    }
+                }
+            }
+        }
+        given("a Configuration initialized with even more invalid data") {
+            val data = """{"defaults": {}, "servers": [[]]}"""
+            on("construction") {
+                it("should throw an IllegalStateException") {
+                    shouldThrow(IllegalStateException::class.java) {
+                        Configuration(this@ConfigurationSpec.makePath("herp.json", data))
+                    }
                 }
             }
         }

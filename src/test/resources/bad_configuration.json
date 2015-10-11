@@ -1,0 +1,21 @@
+{
+  "defaults": {
+    "nick": "Test",
+    "channels": [
+      "#slash"
+    ],
+    "secure": false,
+    "prefix": "!"
+  },
+  "servers": [
+    {
+      "host": "irc.example.com"
+    },
+    {
+      "host": "irc.example.org",
+      "channels": [
+        "#dog"
+      ]
+    }
+  ]
+}
