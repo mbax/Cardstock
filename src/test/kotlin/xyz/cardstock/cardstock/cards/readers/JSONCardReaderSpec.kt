@@ -6,19 +6,49 @@
 package xyz.cardstock.cardstock.cards.readers
 
 import org.json.JSONException
+import org.json.JSONObject
 import xyz.cardstock.cardstock.MavenSpek
 import xyz.cardstock.cardstock.cards.PointedCard
 import java.io.File
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
+import kotlin.test.assertNull
+import kotlin.test.assertTrue
 
 class JSONCardReaderSpec : MavenSpek() {
     override fun test() {
         given("a JSONCardReader that maps to TestCard and data that has valid and invalid cards") {
-            val cardReader = JSONCardReader<PointedCard>(File("src/test/resources/cards.json")) {
-                return@JSONCardReader try {
-                    TestCard(it.getInt("points"))
+            val mapper = { obj: JSONObject ->
+                try {
+                    TestCard(obj.getInt("points"))
                 } catch (ex: JSONException) {
                     null
+                }
+            }
+            val cardReader = JSONCardReader<PointedCard>(File("src/test/resources/cards.json"), mapper)
+            on("construction") {
+                it("should have the same mapper as constructed with") {
+                    assertTrue(mapper === cardReader.mapper)
+                }
+            }
+            on("mapping a valid test card") {
+                val testCard = JSONObject("{\"points\": 2}")
+                val result = mapper(testCard)
+                it("should not be null") {
+                    assertNotNull(result)
+                }
+                it("should produce a TestCard") {
+                    assertTrue(result is TestCard)
+                }
+                it("should have a point value of 2") {
+                    assertEquals(2, result!!.points)
+                }
+            }
+            on("mapping an invalid test card") {
+                val testCard = JSONObject("{\"invalid\": true}")
+                val result = mapper(testCard)
+                it("should be null") {
+                    assertNull(result)
                 }
             }
             on("parse") {
