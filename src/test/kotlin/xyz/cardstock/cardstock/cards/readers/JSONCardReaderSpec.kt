@@ -5,6 +5,7 @@
  */
 package xyz.cardstock.cardstock.cards.readers
 
+import org.jetbrains.spek.api.shouldThrow
 import org.json.JSONException
 import org.json.JSONObject
 import xyz.cardstock.cardstock.MavenSpek
@@ -62,6 +63,23 @@ class JSONCardReaderSpec : MavenSpek() {
                 }
                 it("should contain one card with a point value of 2") {
                     assertEquals(1, cards.filter { it.points == 2 }.size())
+                }
+            }
+        }
+        given("the same reader with an invalid dataset") {
+            val mapper = { obj: JSONObject ->
+                try {
+                    TestCard(obj.getInt("points"))
+                } catch (ex: JSONException) {
+                    null
+                }
+            }
+            val cardReader = JSONCardReader<PointedCard>(File("src/test/resources/bad_cards.json"), mapper)
+            on("parse") {
+                it("should throw a ClassCastException") {
+                    shouldThrow(ClassCastException::class.java) {
+                        cardReader.cards
+                    }
                 }
             }
         }
