@@ -28,7 +28,7 @@ open class CommandLineConfiguration(args: Array<String>, cardstock: Cardstock) {
      * Gets the [Configuration], as specified by [configurationFile].
      */
     val configuration: Configuration
-        get() = Configuration(this.configurationFile)
+        get() = Configuration(this.configurationFile.toPath())
 
     init {
         val parser = CmdLineParser(this)

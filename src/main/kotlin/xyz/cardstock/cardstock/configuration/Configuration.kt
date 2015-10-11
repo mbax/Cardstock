@@ -7,18 +7,19 @@ package xyz.cardstock.cardstock.configuration
 
 import com.google.common.collect.Lists
 import org.json.JSONObject
-import java.io.File
+import java.nio.file.Files
+import java.nio.file.Path
 import java.util.Collections
 
 /**
  * The file-based configuration for this bot.
  */
-open class Configuration(file: File) {
+open class Configuration(path: Path) {
 
     /**
      * The actual JSON object that was read from the file.
      */
-    protected val json: JSONObject = JSONObject(file.readText())
+    protected val json: JSONObject = JSONObject(Files.readAllLines(path, Charsets.UTF_8).join("\n"))
     /**
      * The mutable list of servers specified in the `servers` JSON object.
      */
