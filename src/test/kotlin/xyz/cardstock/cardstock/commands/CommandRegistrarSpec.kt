@@ -7,6 +7,7 @@ package xyz.cardstock.cardstock.commands
 
 import org.jetbrains.spek.api.shouldThrow
 import xyz.cardstock.cardstock.MavenSpek
+import xyz.cardstock.cardstock.implementations.commands.AliasTestCommand
 import xyz.cardstock.cardstock.implementations.commands.TestCommand
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -37,6 +38,14 @@ class CommandRegistrarSpec : MavenSpek() {
                     }
                 }
             }
+            on("registering a command with a clashing alias") {
+                it("should throw an IllegalStateException") {
+                    shouldThrow(IllegalStateException::class.java) {
+                        commandRegistrar.registerCommand(AliasTestCommand(false))
+                    }
+                }
+            }
+
         }
         // TODO: Merge this with the above `given`. This cannot be done because Spek is broken. It runs all `on` blocks
         //       at once, then it runs all `it` blocks. This breaks functionality involving state.
@@ -54,6 +63,7 @@ class CommandRegistrarSpec : MavenSpek() {
                 }
                 it("should return null if queried by alias") {
                     assertNull(commandRegistrar[command.aliases[0]])
+                    assertNull(commandRegistrar.getCommandByAlias(command.aliases[0]))
                 }
             }
         }
