@@ -1,5 +1,6 @@
 # ![Cardstock](https://cardstock.xyz/images/long.svg)
-[![Travis CI](https://travis-ci.org/Cardstock/Cardstock.svg)](https://travis-ci.org/Cardstock/Cardstock)
+[![Travis CI](https://img.shields.io/travis/Cardstock/Cardstock.svg)](https://travis-ci.org/Cardstock/Cardstock)
+[![Codecov](https://img.shields.io/codecov/c/github/Cardstock/Cardstock.svg)](https://codecov.io/github/Cardstock/Cardstock)
 
 *Cardstock is to bots as cardstock is to cards.*
 
