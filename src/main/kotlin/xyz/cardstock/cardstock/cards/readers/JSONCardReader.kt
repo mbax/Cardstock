@@ -41,7 +41,8 @@ open class JSONCardReader<T : Card>(val cardsFile: File, val mapper: (JSONObject
      */
     override val cards: List<T>
         get() = JSONArray(Files.readAllLines(this.cardsFile.toPath()).join("\n"))
-            .map { it as JSONObject }
+            .map { if (it is JSONObject) it else null }
+            .filterNotNull()
             .map(this.mapper)
             .filterNotNull()
             .toList()
