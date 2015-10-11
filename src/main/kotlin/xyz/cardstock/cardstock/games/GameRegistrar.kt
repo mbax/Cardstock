@@ -11,7 +11,6 @@ import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.players.Player
 import java.util.Collections
 
-// TODO: Test stuff
 /**
  * The game registrar is where games that are being played are registered. It keeps track of ongoing games.
  * @param[C] The bot's type
