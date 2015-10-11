@@ -32,7 +32,7 @@ internal open class DummyCardstock : Cardstock() {
 
     internal fun addClientServerMapping(client: Client, server: Server) {
         @Suppress("UNCHECKED_CAST")
-        val map = Cardstock::class.declaredMemberProperties.first { it.name == "_clientServerMap" }.apply { this.isAccessible }.get(this) as MutableMap<Client, Server>
+        val map = Cardstock::class.declaredMemberProperties.first { it.name == "_clientServerMap" }.apply { this.isAccessible = true }.get(this) as MutableMap<Client, Server>
         map.put(client, server)
     }
 }
