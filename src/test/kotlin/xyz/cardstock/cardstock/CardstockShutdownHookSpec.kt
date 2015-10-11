@@ -31,15 +31,18 @@ class CardstockShutdownHookSpec : MavenSpek() {
             cardstock.addClient(client)
             val shutdownHook = CardstockShutdownHook(cardstock)
             val results = Lists.newArrayList<String>()
-            on("adding two beginning hooks") {
+            on("adding three beginning hooks") {
                 shutdownHook.beginningHooks.add {
                     results.add("1B")
                 }
                 shutdownHook.beginningHooks.add {
+                    throw Exception("Boo, I'm a scary exception!")
+                }
+                shutdownHook.beginningHooks.add {
                     results.add("2B")
                 }
-                it("should have two beginning hooks") {
-                    assertEquals(2, shutdownHook.beginningHooks.size())
+                it("should have three beginning hooks") {
+                    assertEquals(3, shutdownHook.beginningHooks.size())
                 }
             }
             on("adding two end hooks") {
@@ -61,7 +64,7 @@ class CardstockShutdownHookSpec : MavenSpek() {
                 it("should leave the server") {
                     verify(client).shutdown(anyString())
                 }
-                it("should run all hooks") {
+                it("should run all hooks, catching exceptions") {
                     assertEquals(4, results.size())
                 }
                 it("should run all beginning hooks first, in order") {
