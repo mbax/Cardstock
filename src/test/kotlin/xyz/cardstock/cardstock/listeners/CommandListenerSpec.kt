@@ -20,13 +20,13 @@ import xyz.cardstock.cardstock.commands.BaseCommand
 import xyz.cardstock.cardstock.configuration.Server
 import xyz.cardstock.cardstock.implementations.DummyCardstock
 import xyz.cardstock.cardstock.implementations.commands.TestCommand
+import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 @PrepareForTest(BaseCommand::class)
 class CommandListenerSpec : MavenSpek() {
 
-    private fun makeChannelMessageEvent(message: String): ChannelMessageEvent {
-        val client = mock(Client::class.java)
+    private fun makeChannelMessageEvent(message: String, client: Client): ChannelMessageEvent {
         val originalMessages = Lists.newArrayList<ServerMessage>()
         val sender = mock(User::class.java)
         `when`(sender.client).thenReturn(client)
@@ -35,8 +35,7 @@ class CommandListenerSpec : MavenSpek() {
         return ChannelMessageEvent(client, originalMessages, sender, channel, message)
     }
 
-    private fun makePrivateMessageEvent(message: String): PrivateMessageEvent {
-        val client = mock(Client::class.java)
+    private fun makePrivateMessageEvent(message: String, client: Client): PrivateMessageEvent {
         val originalMessages = Lists.newArrayList<ServerMessage>()
         val sender = mock(User::class.java)
         `when`(sender.client).thenReturn(client)
@@ -46,17 +45,18 @@ class CommandListenerSpec : MavenSpek() {
     override fun test() {
         // Create dummy Cardstock
         val cardstock = DummyCardstock()
+        // Create mocked Client
+        val client = mock(Client::class.java)
         // Create the test command
         val command = TestCommand(false)
         // Register the test command
         cardstock.commandRegistrar.registerCommand(command)
         // Create the event to give to the CommandListener
-        val event = this.makeChannelMessageEvent("!test")
+        val event = this.makeChannelMessageEvent("!test", client)
         // Create the private event
-        val privateEvent = this.makePrivateMessageEvent("!test")
+        val privateEvent = this.makePrivateMessageEvent("!test", client)
         // Add fake client -> server mappings for the CommandListener to use
         cardstock.addClientServerMapping(event.client, Server("", 0, false, "", '!'))
-        cardstock.addClientServerMapping(privateEvent.client, Server("", 0, false, "", '!'))
 
         given("a CommandListener") {
             val commandListener = CommandListener(cardstock)
@@ -96,6 +96,30 @@ class CommandListenerSpec : MavenSpek() {
                     // The exception is thrown after this is set to true, so ensure it is set
                     assertTrue(command.wasRun)
                     command.wasRun = false
+                }
+            }
+            on("receiving an empty channel message") {
+                commandListener.onChannelCommand(this@CommandListenerSpec.makeChannelMessageEvent("", client))
+                it("should do nothing") {
+                    assertFalse(command.wasRun)
+                }
+            }
+            on("receiving an empty private message") {
+                commandListener.onPrivateCommand(this@CommandListenerSpec.makePrivateMessageEvent("", client))
+                it("should do nothing") {
+                    assertFalse(command.wasRun)
+                }
+            }
+            on("receiving a command that doesn't start with the prefix") {
+                commandListener.onChannelCommand(this@CommandListenerSpec.makeChannelMessageEvent("Hello", client))
+                it("should do nothing") {
+                    assertFalse(command.wasRun)
+                }
+            }
+            on("receiving a command that doesn't exist") {
+                commandListener.onChannelCommand(this@CommandListenerSpec.makeChannelMessageEvent("!help", client))
+                it("should do nothing") {
+                    assertFalse(command.wasRun)
                 }
             }
         }
