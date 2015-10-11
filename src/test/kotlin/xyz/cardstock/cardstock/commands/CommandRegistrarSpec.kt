@@ -7,7 +7,7 @@ package xyz.cardstock.cardstock.commands
 
 import org.jetbrains.spek.api.shouldThrow
 import xyz.cardstock.cardstock.MavenSpek
-import xyz.cardstock.cardstock.implementations.commands.AliasTestCommand
+import xyz.cardstock.cardstock.implementations.commands.NoOpDummyCommand
 import xyz.cardstock.cardstock.implementations.commands.TestCommand
 import kotlin.test.assertEquals
 import kotlin.test.assertNull
@@ -41,7 +41,7 @@ class CommandRegistrarSpec : MavenSpek() {
             on("registering a command with a clashing alias") {
                 it("should throw an IllegalStateException") {
                     shouldThrow(IllegalStateException::class.java) {
-                        commandRegistrar.registerCommand(AliasTestCommand(false))
+                        commandRegistrar.registerCommand(NoOpDummyCommand("something", arrayOf("spec")))
                     }
                 }
             }

@@ -63,7 +63,7 @@ abstract class BaseCommand {
 
     override fun equals(other: Any?): Boolean {
         if (other == null || other !is BaseCommand) return false
-        return this.name == other.name && this.aliases == other.aliases && this.description == other.description && this.usage == other.usage
+        return this.name == other.name && this.aliases.toList() == other.aliases.toList() && this.description == other.description && this.usage == other.usage
     }
 
     override fun hashCode() = Objects.hash(this.name, this.aliases, this.description, this.usage)

@@ -5,7 +5,10 @@
  */
 package xyz.cardstock.cardstock.implementations.commands
 
+import org.kitteh.irc.client.library.element.User
+import org.kitteh.irc.client.library.event.helper.ActorEvent
 import xyz.cardstock.cardstock.commands.BaseCommand
+import xyz.cardstock.cardstock.commands.CallInfo
 import xyz.cardstock.cardstock.commands.Command
 
 @Command(
@@ -17,4 +20,8 @@ import xyz.cardstock.cardstock.commands.Command
     usage = "<command> [something]",
     commandType = BaseCommand.CommandType.CHANNEL
 )
-internal class CompleteTestCommand : TestCommand()
+internal class CompleteTestCommand : BaseCommand() {
+    override fun run(event: ActorEvent<User>, callInfo: CallInfo, arguments: List<String>) {
+        throw UnsupportedOperationException()
+    }
+}
