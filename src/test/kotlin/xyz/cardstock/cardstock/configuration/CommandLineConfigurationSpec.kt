@@ -10,6 +10,7 @@ import xyz.cardstock.cardstock.MavenSpek
 import xyz.cardstock.cardstock.implementations.DummyCardstock
 import xyz.cardstock.cardstock.implementations.ExitSecurityManager
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class CommandLineConfigurationSpec : MavenSpek() {
 
@@ -23,6 +24,12 @@ class CommandLineConfigurationSpec : MavenSpek() {
                 val configurationFile = configuration.configurationFile
                 it("should be the same path as specified in the args") {
                     assertEquals(args[1], configurationFile.path)
+                }
+            }
+            on("accessing configuration") {
+                val conf = configuration.configuration
+                it("should have servers") {
+                    assertTrue(conf.servers.size() > 0)
                 }
             }
         }

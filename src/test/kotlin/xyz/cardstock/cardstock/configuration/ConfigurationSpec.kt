@@ -61,6 +61,9 @@ class ConfigurationSpec : MavenSpek() {
                 it("should have a null user property") {
                     assertNull(server.user)
                 }
+                it("should have a null real name property") {
+                    assertNull(server.realName)
+                }
                 it("should have a null password property") {
                     assertNull(server.password)
                 }
@@ -90,6 +93,9 @@ class ConfigurationSpec : MavenSpek() {
                 }
                 it("should have a null user property") {
                     assertNull(server.user)
+                }
+                it("should have a null real name property") {
+                    assertNull(server.realName)
                 }
                 it("should have a null password property") {
                     assertNull(server.password)
