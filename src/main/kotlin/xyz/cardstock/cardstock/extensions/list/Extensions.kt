@@ -8,7 +8,7 @@ package xyz.cardstock.cardstock.extensions.list
 /**
  * Python-esque slicing.
  */
-operator fun <T> List<T>.get(start: Int?, end: Int?): List<T> {
+operator fun <T> List<T>.get(start: Int?, end: Int?, emptyList: Boolean = false): List<T> {
     var realEnd = end ?: this.size()
     var realStart = start ?: 0
     if (realEnd < 0) {
@@ -17,5 +17,9 @@ operator fun <T> List<T>.get(start: Int?, end: Int?): List<T> {
     if (realStart < 0) {
         realStart += this.size()
     }
-    return this.subList(realStart, realEnd)
+    return try {
+        this.subList(realStart, realEnd)
+    } catch (ex: IllegalArgumentException) {
+        if (emptyList) listOf() else throw ex
+    }
 }
