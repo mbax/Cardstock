@@ -31,20 +31,20 @@ abstract class BaseCommand {
      * The name of this command. Defined by annotation.
      * @see Command
      */
-    val name: String
+    open val name: String
         get() = this.getCommandAnnotation()!!.name
 
     /**
      * The aliases for this command. Defined by annotation.
      * @see Command
      */
-    val aliases: Array<String>
+    open val aliases: Array<String>
         get() = this.getCommandAnnotation()!!.aliases
 
     /**
      * The description of this command. Defined by annotation.
      */
-    val description: String
+    open val description: String
         get() = this.getCommandAnnotation()!!.description
 
     /**
@@ -52,13 +52,13 @@ abstract class BaseCommand {
      *
      * Usage should resemble something like `"&lt;command&gt; [requiredParameter] (optionalParameter)"`
      */
-    val usage: String
+    open val usage: String
         get() = this.getCommandAnnotation()!!.usage
 
     /**
      * The command type of this command. Defined by annotation.
      */
-    val commandType: CommandType
+    open val commandType: CommandType
         get() = this.getCommandAnnotation()!!.commandType
 
     override fun equals(other: Any?): Boolean {
