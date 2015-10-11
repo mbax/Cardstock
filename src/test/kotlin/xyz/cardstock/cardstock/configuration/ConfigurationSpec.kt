@@ -141,5 +141,15 @@ class ConfigurationSpec : MavenSpek() {
                 }
             }
         }
+        given("a Configuration initialized with no servers") {
+            val data = """{"servers":[]}"""
+            on("construction") {
+                it("should throw an IllegalStateException") {
+                    shouldThrow(IllegalStateException::class.java) {
+                        Configuration(this@ConfigurationSpec.makePath("herp.json", data))
+                    }
+                }
+            }
+        }
     }
 }
