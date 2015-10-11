@@ -21,7 +21,7 @@ class CardstockSpec : MavenSpek() {
                 val oldErr = System.err
                 System.setErr(printStream)
                 // Set up the logger
-                cardstock.setUpLogger()
+                cardstock.doSetUpLogger()
                 it("should output in the expected format") {
                     val string = "Testing 123"
                     cardstock.logger.info(string)

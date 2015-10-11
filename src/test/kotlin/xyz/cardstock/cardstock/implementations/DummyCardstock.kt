@@ -12,7 +12,7 @@ import xyz.cardstock.cardstock.configuration.Configuration
 import xyz.cardstock.cardstock.games.GameRegistrar
 import java.util.logging.Logger
 
-class DummyCardstock : Cardstock() {
+internal class DummyCardstock : Cardstock() {
     override val configuration: Configuration
         get() = throw UnsupportedOperationException()
     override val commandLineConfiguration: CommandLineConfiguration
@@ -22,4 +22,8 @@ class DummyCardstock : Cardstock() {
     override val gameRegistrar: GameRegistrar<*, *, *>
         get() = throw UnsupportedOperationException()
     override val logger: Logger = Logger.getLogger("xyz.cardstock.cardstock.implementations.DummyCardstock")
+
+    internal fun doSetUpLogger() {
+        this.setUpLogger()
+    }
 }

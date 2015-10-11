@@ -101,7 +101,7 @@ abstract class Cardstock {
     /**
      * Sets up [logger] to output messages like "&#91;INFO] Hello!"
      */
-    internal fun setUpLogger() {
+    protected fun setUpLogger() {
         val ch = ConsoleHandler()
         ch.formatter = object : Formatter() {
             override fun format(logRecord: LogRecord) = "[${logRecord.level.localizedName}] ${logRecord.message}\n"
