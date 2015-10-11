@@ -6,14 +6,17 @@
 package xyz.cardstock.cardstock
 
 import xyz.cardstock.cardstock.implementations.DummyCardstock
+import xyz.cardstock.cardstock.implementations.StartableDummyCardstock
 import java.io.ByteArrayOutputStream
 import java.io.PrintStream
+import java.util.IdentityHashMap
 import kotlin.test.assertEquals
+import kotlin.test.assertTrue
 
 class CardstockSpec : MavenSpek() {
     override fun test() {
-        val cardstock = DummyCardstock()
         given("a Cardstock instance") {
+            val cardstock = DummyCardstock()
             on("setting up and invoking the logger") {
                 // Prepare to catch the output
                 val output = ByteArrayOutputStream()
@@ -29,6 +32,27 @@ class CardstockSpec : MavenSpek() {
                 }
                 // Restore output
                 System.setErr(oldErr)
+            }
+        }
+        given("a startable Cardstock instance") {
+            val cardstock = StartableDummyCardstock(arrayOf("-c", "src/test/resources/configuration.json"))
+            on("starting the bot") {
+                cardstock.start()
+                it("should start two clients") {
+                    assertEquals(2, cardstock.clients.size())
+                }
+                it("should map the clients to their Server objects") {
+                    assertEquals(2, cardstock.clientServerMap.size())
+                }
+                it("should register the shutdown hook") {
+                    @Suppress("UNCHECKED_CAST")
+                    val hooks = Class.forName("java.lang.ApplicationShutdownHooks").getDeclaredField("hooks").apply { this.isAccessible = true }.get(null) as IdentityHashMap<Thread, Thread>
+                    // One is registered by the JVM
+                    assertTrue(hooks.size() > 1)
+                }
+                it("should stop") {
+                    cardstock.clients.forEach { it.shutdown() }
+                }
             }
         }
     }
