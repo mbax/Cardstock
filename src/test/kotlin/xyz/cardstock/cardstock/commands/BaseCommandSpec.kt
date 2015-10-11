@@ -141,9 +141,50 @@ class BaseCommandSpec : MavenSpek() {
                     assertFalse(equals)
                 }
             }
+            on("comparison with a command with a different name") {
+                val commandTwo = NoOpDummyCommand("derp")
+                val equals = command == commandTwo
+                it("should not equal") {
+                    assertFalse(equals)
+                }
+            }
+            on("comparison with a command with different aliases") {
+                val commandTwo = NoOpDummyCommand("noop", arrayOf("herp"))
+                val equals = command == commandTwo
+                it("should not equal") {
+                    assertFalse(equals)
+                }
+            }
+            on("comparison with a command with a different description") {
+                val commandTwo = NoOpDummyCommand("noop", description = "Herp derp")
+                val equals = command == commandTwo
+                it("should not equal") {
+                    assertFalse(equals)
+                }
+            }
+            on("comparison with a command with a different usage") {
+                val commandTwo = NoOpDummyCommand("noop", usage = "<command> herp")
+                val equals = command == commandTwo
+                it("should not equal") {
+                    assertFalse(equals)
+                }
+            }
+            on("comparison with a command with a different command type") {
+                val commandTwo = NoOpDummyCommand("noop", commandType = BaseCommand.CommandType.CHANNEL)
+                val equals = command == commandTwo
+                it("should not equal") {
+                    assertFalse(equals)
+                }
+            }
             on("comparison an unrelated object") {
                 val obj = object {}
                 val equals = command.equals(obj)
+                it("should not equal") {
+                    assertFalse(equals)
+                }
+            }
+            on("comparison with null") {
+                val equals = command.equals(null)
                 it("should not equal") {
                     assertFalse(equals)
                 }
