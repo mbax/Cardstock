@@ -1,8 +1,8 @@
 # ![Cardstock](https://cardstock.xyz/images/long.svg)
 [![Travis CI](https://img.shields.io/travis/Cardstock/Cardstock.svg)](https://travis-ci.org/Cardstock/Cardstock)
 [![Codecov](https://img.shields.io/codecov/c/github/Cardstock/Cardstock.svg)](https://codecov.io/github/Cardstock/Cardstock)
-[![License](https://img.shields.io/github/license/Cardstock/Cardstock.svg)](https://github.com/Cardstock/Cardstock/blob/master/LICENSE)
 [![VersionEye](https://www.versioneye.com/user/projects/561a809ba193340f320006f4/badge.svg?style=flat)](https://www.versioneye.com/user/projects/561a809ba193340f320006f4)
+[![License](https://img.shields.io/github/license/Cardstock/Cardstock.svg)](https://github.com/Cardstock/Cardstock/blob/master/LICENSE)
 [![Gratipay](https://img.shields.io/gratipay/jkcclemens.svg)](https://gratipay.com/~jkcclemens/)
 
 *Cardstock is to bots as cardstock is to cards.*
