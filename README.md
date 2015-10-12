@@ -1,6 +1,9 @@
 # ![Cardstock](https://cardstock.xyz/images/long.svg)
 [![Travis CI](https://img.shields.io/travis/Cardstock/Cardstock.svg)](https://travis-ci.org/Cardstock/Cardstock)
 [![Codecov](https://img.shields.io/codecov/c/github/Cardstock/Cardstock.svg)](https://codecov.io/github/Cardstock/Cardstock)
+[![License](https://img.shields.io/github/license/Cardstock/Cardstock.svg)](https://github.com/Cardstock/Cardstock/blob/master/LICENSE)
+[![VersionEye](https://www.versioneye.com/user/projects/561a809ba193340f320006f4/badge.svg?style=flat)](https://www.versioneye.com/user/projects/561a809ba193340f320006f4)
+[![Gratipay](https://img.shields.io/gratipay/jkcclemens.svg)](https://gratipay.com/~jkcclemens/)
 
 *Cardstock is to bots as cardstock is to cards.*
 
@@ -56,3 +59,8 @@ Generally, in games with rounds, there will be one state that the game stays in 
 
 Yes! Multiple server support is baked into the core of Cardstock. Simply set up the configuration file with multiple
 server objects, and Cardstock will try its darndest to connect to them.
+
+---
+
+Oh, you made it down here. Nice. If you want to support Cardstock, there's [Gratipay](https://gratipay.com/~jkcclemens/)
+above, or you can try out [Salt](https://salt.bountysource.com/teams/cardstock_irc), which has rewards.
