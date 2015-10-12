@@ -4,12 +4,6 @@ jdk:
   - oraclejdk8
 notifications:
   email: false
-  webhooks:
-    urls:
-      secure: XQbSrvdXtgjaVmQWT4dku1PZD8mQbDyUQNkC+Q21xXlUvlzrTyhe2ov7zAEuyjn8UrVezgoSwWpH/1k5crDj42ynQXFZOYrBXhdhd2JD9fDIaBRPzQPAfNraw0//MmDzbhgONuoMljnsuQRWn9yK7wOZbSmBI7HgxeAWL5foh/C4unW09gWGbtjoKMmIY2/RNAw/yQPxpebf6T/z9FWYgGHTLGOco1I1DKf6r34yOy5FPYGCP0YyjLOJd61gv1XWW8cpjQhofbrUZxT53nuRNzeFWC1slnqt+mutnveJpx5PL13cr4g0b7p1DvGgao/u53YOIpXvTiArhdP+7kOWFsxHdHqTmGtHfGXywEhlSoJw13S5YtPm43mNhDICCgwpSgtsuZZmS7sX1P+F6mBTC1+nNle3ME8kfv1aPnPkHkMphcscioVhNKt78GV0w3kkr0HkHKDu9P3QvMTbUHvpa21e1UgPSfLUWMKSAI4nqnqaqWenKwUiXXl6q7whw40LbyjnWubSabROTSCvbdhUYjNP/Z9AG3s1tyv06XaAhvuOgl0KdImhATGyyTrOGrKcfSMxuvE+YuqMjWZU4q9bZnigz98CG04xKCxaoZ4S89S0+9Z9DcInIziI7tGIFSfE0VfnIpjvF673JgX9nyF2QDDj6zFtAIz1vDWJm8Dlxbo=
-    on_success: always
-    on_failure: always
-    on_start: never
 before_install:
   - pip install --user codecov
 after_success:
