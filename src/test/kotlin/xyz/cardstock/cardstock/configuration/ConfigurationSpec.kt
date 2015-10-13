@@ -123,6 +123,9 @@ class ConfigurationSpec : MavenSpek() {
                 it("should have a password property of \"wow\"") {
                     assertEquals("wow", server.password)
                 }
+                it("should have a null channels property") {
+                    assertNull(server.channels)
+                }
             }
         }
         given("a Configuration initialized with invalid data") {

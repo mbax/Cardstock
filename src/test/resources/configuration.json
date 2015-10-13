@@ -1,16 +1,16 @@
 {
   "defaults": {
     "nick": "Test",
-    "channels": [
-      "#slash"
-    ],
     "port": 6667,
     "secure": false,
     "prefix": "!"
   },
   "servers": [
     {
-      "host": "irc.example.com"
+      "host": "irc.example.com",
+      "channels": [
+        "#slash"
+      ]
     },
     {
       "host": "irc.example.org",
@@ -21,8 +21,7 @@
     {
       "host": "irc.example.net",
       "password": "wow",
-      "user": "TestMan",
-      "channels": null
+      "user": "TestMan"
     }
   ]
 }
