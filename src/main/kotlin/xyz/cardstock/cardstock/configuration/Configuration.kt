@@ -34,7 +34,7 @@ open class Configuration(path: Path) {
      * Gets the key from this JSONObject or a default from a different JSONObject. If both return null, this will throw
      * an [IllegalStateException].
      */
-    fun <T> JSONObject.getWithDefaults(key: String, defaults: JSONObject, mapper: (String, JSONObject) -> T?): T {
+    fun <T : Any> JSONObject.getWithDefaults(key: String, defaults: JSONObject, mapper: (String, JSONObject) -> T?): T {
         val result = mapper(key, this) ?: mapper(key, defaults)
         return result ?: throw IllegalStateException("$key must be defined")
     }
@@ -43,7 +43,7 @@ open class Configuration(path: Path) {
      * Gets the key from this JSONObject or a default from a different JSONObject. If both return null, this will return
      * `null`.
      */
-    fun <T> JSONObject.optWithDefaults(key: String, defaults: JSONObject, mapper: (String, JSONObject) -> T?): T? {
+    fun <T> JSONObject.optWithDefaults(key: String, defaults: JSONObject, mapper: (String, JSONObject) -> T): T {
         return mapper(key, this) ?: mapper(key, defaults)
     }
 
