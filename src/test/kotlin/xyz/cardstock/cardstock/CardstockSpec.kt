@@ -38,11 +38,11 @@ class CardstockSpec : MavenSpek() {
             val cardstock = StartableDummyCardstock(arrayOf("-c", "src/test/resources/configuration.json"))
             on("starting the bot") {
                 cardstock.start()
-                it("should start two clients") {
-                    assertEquals(2, cardstock.clients.size())
+                it("should start three clients") {
+                    assertEquals(3, cardstock.clients.size())
                 }
                 it("should map the clients to their Server objects") {
-                    assertEquals(2, cardstock.clientServerMap.size())
+                    assertEquals(3, cardstock.clientServerMap.size())
                 }
                 it("should register the shutdown hook") {
                     @Suppress("UNCHECKED_CAST")

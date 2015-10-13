@@ -17,6 +17,12 @@
       "channels": [
         "#dog"
       ]
+    },
+    {
+      "host": "irc.example.net",
+      "password": "wow",
+      "user": "TestMan",
+      "channels": null
     }
   ]
 }

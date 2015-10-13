@@ -36,14 +36,17 @@ class ConfigurationSpec : MavenSpek() {
                         (servers as MutableList<Server>).remove(0)
                     }
                 }
-                it("should contain two servers") {
-                    assertEquals(2, servers.size())
+                it("should contain three servers") {
+                    assertEquals(3, servers.size())
                 }
                 it("should contain one server with the host \"irc.example.com\"") {
                     assertEquals(1, servers.filter { it.host == "irc.example.com" }.size())
                 }
                 it("should contain one server with the host \"irc.example.org\"") {
                     assertEquals(1, servers.filter { it.host == "irc.example.org" }.size())
+                }
+                it("should contain one server with the host \"irc.example.net\"") {
+                    assertEquals(1, servers.filter { it.host == "irc.example.net" }.size())
                 }
             }
             on("accessing the first server") {
@@ -110,6 +113,15 @@ class ConfigurationSpec : MavenSpek() {
                 }
                 it("should have a null password property") {
                     assertNull(server.password)
+                }
+            }
+            on("accessing the third server") {
+                val server = configuration.servers[2]
+                it("should have a user property of \"TestMan\"") {
+                    assertEquals("TestMan", server.user)
+                }
+                it("should have a password property of \"wow\"") {
+                    assertEquals("wow", server.password)
                 }
             }
         }
