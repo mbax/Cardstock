@@ -7,6 +7,8 @@ package xyz.cardstock.cardstock.configuration
 
 import com.google.common.collect.Lists
 import org.json.JSONObject
+import xyz.cardstock.cardstock.extensions.jsonobject.getWithDefaults
+import xyz.cardstock.cardstock.extensions.jsonobject.optWithDefaults
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.Collections
@@ -29,23 +31,6 @@ open class Configuration(path: Path) {
      */
     val servers: List<Server>
         get() = Collections.unmodifiableList(this._servers)
-
-    /**
-     * Gets the key from this JSONObject or a default from a different JSONObject. If both return null, this will throw
-     * an [IllegalStateException].
-     */
-    fun <T : Any> JSONObject.getWithDefaults(key: String, defaults: JSONObject, mapper: (String, JSONObject) -> T?): T {
-        val result = mapper(key, this) ?: mapper(key, defaults)
-        return result ?: throw IllegalStateException("$key must be defined")
-    }
-
-    /**
-     * Gets the key from this JSONObject or a default from a different JSONObject. If both return null, this will return
-     * `null`.
-     */
-    fun <T> JSONObject.optWithDefaults(key: String, defaults: JSONObject, mapper: (String, JSONObject) -> T): T {
-        return mapper(key, this) ?: mapper(key, defaults)
-    }
 
     init {
         val defaults = this.json.optJSONObject("defaults") ?: JSONObject()
