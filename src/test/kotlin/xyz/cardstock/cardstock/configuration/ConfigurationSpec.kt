@@ -33,20 +33,20 @@ class ConfigurationSpec : MavenSpek() {
                 it("should be unmodifiable") {
                     // We'll just hope that the rest are unsupported
                     shouldThrow(UnsupportedOperationException::class.java) {
-                        (servers as MutableList<Server>).remove(0)
+                        (servers as MutableList<Server>).removeAt(0)
                     }
                 }
                 it("should contain three servers") {
-                    assertEquals(3, servers.size())
+                    assertEquals(3, servers.size)
                 }
                 it("should contain one server with the host \"irc.example.com\"") {
-                    assertEquals(1, servers.filter { it.host == "irc.example.com" }.size())
+                    assertEquals(1, servers.filter { it.host == "irc.example.com" }.size)
                 }
                 it("should contain one server with the host \"irc.example.org\"") {
-                    assertEquals(1, servers.filter { it.host == "irc.example.org" }.size())
+                    assertEquals(1, servers.filter { it.host == "irc.example.org" }.size)
                 }
                 it("should contain one server with the host \"irc.example.net\"") {
-                    assertEquals(1, servers.filter { it.host == "irc.example.net" }.size())
+                    assertEquals(1, servers.filter { it.host == "irc.example.net" }.size)
                 }
             }
             on("accessing the first server") {
@@ -55,10 +55,10 @@ class ConfigurationSpec : MavenSpek() {
                     assertNotNull(server.channels)
                 }
                 it("should have one channel") {
-                    assertEquals(1, server.channels?.size())
+                    assertEquals(1, server.channels?.size)
                 }
                 it("should have one channel with the name \"#slash\"") {
-                    assertEquals(1, server.channels?.filter { it == "#slash" }?.size())
+                    assertEquals(1, server.channels?.filter { it == "#slash" }?.size)
                 }
                 it("should have a port of 6667") {
                     assertEquals(6667, server.port)
@@ -88,10 +88,10 @@ class ConfigurationSpec : MavenSpek() {
                     assertNotNull(server.channels)
                 }
                 it("should have one channel") {
-                    assertEquals(1, server.channels?.size())
+                    assertEquals(1, server.channels?.size)
                 }
                 it("should have one channel with the name \"#dog\"") {
-                    assertEquals(1, server.channels?.filter { it == "#dog" }?.size())
+                    assertEquals(1, server.channels?.filter { it == "#dog" }?.size)
                 }
                 it("should have a port of 6667") {
                     assertEquals(6667, server.port)

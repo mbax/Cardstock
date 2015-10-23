@@ -64,7 +64,7 @@ class BaseCommandSpec : MavenSpek() {
             on("accessing its aliases") {
                 val aliases = command.aliases
                 it("should only have one alias") {
-                    assertEquals(1, aliases.size())
+                    assertEquals(1, aliases.size)
                 }
                 it("should have an alias called \"spec\"") {
                     assertEquals("spec", aliases[0])
@@ -100,7 +100,7 @@ class BaseCommandSpec : MavenSpek() {
             on("accessing its aliases") {
                 val aliases = command.aliases
                 it("should only have one alias") {
-                    assertEquals(1, aliases.size())
+                    assertEquals(1, aliases.size)
                 }
                 it("should have an alias called \"testcomplete\"") {
                     assertEquals("testcomplete", aliases[0])

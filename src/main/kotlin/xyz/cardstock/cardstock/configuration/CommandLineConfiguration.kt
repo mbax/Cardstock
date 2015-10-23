@@ -22,7 +22,7 @@ open class CommandLineConfiguration(args: Array<String>, cardstock: Cardstock) {
      */
     @field:Option(name = "-c", usage = "File containing bot configuration.", handler = FileOptionHandler::class, required = true)
     lateinit var configurationFile: File
-        private set
+        internal set
 
     /**
      * Gets the [Configuration], as specified by [configurationFile].
@@ -35,7 +35,7 @@ open class CommandLineConfiguration(args: Array<String>, cardstock: Cardstock) {
         try {
             parser.parseArgument(*args)
         } catch (ex: CmdLineException) {
-            cardstock.logger.info(ex.getMessage())
+            cardstock.logger.info(ex.message)
             ex.parser.printUsage(System.out)
             System.exit(1)
         }

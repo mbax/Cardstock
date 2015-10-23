@@ -18,7 +18,7 @@ import org.kitteh.irc.client.library.element.User
 fun Channel.antiPing(message: String): String {
     var newMessage = message
     for (nickname in this.nicknames) {
-        if (nickname.length() <= 1) continue
+        if (nickname.length <= 1) continue
         newMessage = newMessage.replace(nickname, nickname.substring(0, 1) + "\u200b" + nickname.substring(1))
     }
     return newMessage

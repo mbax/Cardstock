@@ -21,7 +21,7 @@ open class PlayerHand<T : Card> : Hand<T> {
 
     operator override fun get(index: Int) = this._cards[index]
 
-    override fun size() = this._cards.size()
+    override fun size() = this._cards.size
 
     override fun add(card: T) {
         this._cards.add(card)
@@ -32,7 +32,7 @@ open class PlayerHand<T : Card> : Hand<T> {
     }
 
     override fun remove(index: Int) {
-        this._cards.remove(index)
+        this._cards.removeAt(index)
     }
 
     override fun iterator() = this._cards.iterator()

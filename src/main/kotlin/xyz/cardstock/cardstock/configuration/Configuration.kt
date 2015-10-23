@@ -21,7 +21,7 @@ open class Configuration(path: Path) {
     /**
      * The actual JSON object that was read from the file.
      */
-    protected val json: JSONObject = JSONObject(Files.readAllLines(path, Charsets.UTF_8).join("\n"))
+    protected val json: JSONObject = JSONObject(Files.readAllLines(path, Charsets.UTF_8).joinToString("\n"))
     /**
      * The mutable list of servers specified in the `servers` JSON object.
      */
@@ -35,7 +35,7 @@ open class Configuration(path: Path) {
     init {
         val defaults = this.json.optJSONObject("defaults") ?: JSONObject()
         val listedServers = this.json.optJSONArray("servers")
-        check(listedServers != null && listedServers.length() > 0, { -> "At least one server must be defined" })
+        check(listedServers != null && listedServers.length() > 0) { "At least one server must be defined" }
         this._servers.addAll(
             listedServers
                 .map {
@@ -51,7 +51,7 @@ open class Configuration(path: Path) {
                     val port = it.getWithDefaults("port", defaults) { key, json -> json.opt(key) as Int? }
                     val secure = it.getWithDefaults("secure", defaults) { key, json -> json.opt(key) as Boolean? }
                     val nickname = it.getWithDefaults("nick", defaults) { key, json -> json.optString(key, null) }
-                    val prefix = it.getWithDefaults("prefix", defaults) { key, json -> json.optString(key, null)?.charAt(0) }
+                    val prefix = it.getWithDefaults("prefix", defaults) { key, json -> json.optString(key, null)?.let { it[0] } }
                     val user = it.optWithDefaults("user", defaults) { key, json -> json.optString(key, null) }
                     val realName = it.optWithDefaults("realName", defaults) { key, json -> json.optString(key, null) }
                     val password = it.optWithDefaults("password", defaults) { key, json -> json.optString(key, null) }

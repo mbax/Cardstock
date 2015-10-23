@@ -22,7 +22,7 @@ class CommandRegistrarSpec : MavenSpek() {
             on("registering a command") {
                 commandRegistrar.registerCommand(command)
                 it("should have one command") {
-                    assertEquals(1, commandRegistrar.all().size())
+                    assertEquals(1, commandRegistrar.all().size)
                 }
                 it("should return the same command if queried by name") {
                     assertTrue(command === commandRegistrar[command.name])
@@ -56,7 +56,7 @@ class CommandRegistrarSpec : MavenSpek() {
             on("unregistering the same command") {
                 commandRegistrar.unregisterCommand(command)
                 it("should have zero commands") {
-                    assertEquals(0, commandRegistrar.all().size())
+                    assertEquals(0, commandRegistrar.all().size)
                 }
                 it("should return null if queried by name") {
                     assertNull(commandRegistrar[command.name])

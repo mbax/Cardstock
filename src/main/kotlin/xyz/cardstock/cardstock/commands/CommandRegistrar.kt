@@ -27,7 +27,7 @@ class CommandRegistrar {
     /**
      * Gets all registered commands in an unmodifiable set.
      */
-    fun all(): Set<BaseCommand> = Collections.unmodifiableSet(this.commands.values().toSet())
+    fun all(): Set<BaseCommand> = Collections.unmodifiableSet(this.commands.values.toSet())
 
     /**
      * Gets a command by its [name]. [name] may be a name or an alias. Will return `null` if no such command has that
@@ -38,16 +38,16 @@ class CommandRegistrar {
     /**
      * Gets a command by its [alias]. Returns `null` if no such alias is registered.
      */
-    fun getCommandByAlias(alias: String): BaseCommand? = this.commands.values().filter { alias in it.aliases }.firstOrNull()
+    fun getCommandByAlias(alias: String): BaseCommand? = this.commands.values.filter { alias in it.aliases }.firstOrNull()
 
     /**
      * Registers [command] in this registrar.
      * @throws IllegalStateException If a command with the same name or a match alias is already registered.
      */
     fun registerCommand(command: BaseCommand) {
-        check(this.getCommand(command.name) == null) { -> "Command with the name \"${command.name}\" already registered." }
+        check(this.getCommand(command.name) == null) { "Command with the name \"${command.name}\" already registered." }
         for (alias in command.aliases) {
-            check(this.getCommandByAlias(alias) == null) { -> "Command with the alias \"$alias\" already registered." }
+            check(this.getCommandByAlias(alias) == null) { "Command with the alias \"$alias\" already registered." }
         }
         this.commands.put(command.name, command)
     }

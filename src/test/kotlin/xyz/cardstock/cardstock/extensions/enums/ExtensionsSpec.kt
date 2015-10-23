@@ -22,13 +22,13 @@ class ExtensionsSpec : MavenSpek() {
                     assertTrue(state is State)
                 }
                 it("should have the unique name of the first enum value") {
-                    assertEquals(TestState.ONE.name(), state.uniqueName)
+                    assertEquals(TestState.ONE.name, state.uniqueName)
                 }
                 it("should have a next value") {
                     assertNotNull(state.next)
                 }
                 it("should have a next value of the next element in the enum") {
-                    assertEquals(TestState.TWO.name(), state.next!!.uniqueName)
+                    assertEquals(TestState.TWO.name, state.next!!.uniqueName)
                 }
             }
         }
@@ -40,7 +40,7 @@ class ExtensionsSpec : MavenSpek() {
                     assertTrue(state is State)
                 }
                 it("should have a unique name of the last enum value") {
-                    assertEquals(TestState.THREE.name(), state.uniqueName)
+                    assertEquals(TestState.THREE.name, state.uniqueName)
                 }
                 it("should not have a next value") {
                     assertNull(state.next)

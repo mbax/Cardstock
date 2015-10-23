@@ -39,16 +39,16 @@ class CardstockSpec : MavenSpek() {
             on("starting the bot") {
                 cardstock.start()
                 it("should start three clients") {
-                    assertEquals(3, cardstock.clients.size())
+                    assertEquals(3, cardstock.clients.size)
                 }
                 it("should map the clients to their Server objects") {
-                    assertEquals(3, cardstock.clientServerMap.size())
+                    assertEquals(3, cardstock.clientServerMap.size)
                 }
                 it("should register the shutdown hook") {
                     @Suppress("UNCHECKED_CAST")
                     val hooks = Class.forName("java.lang.ApplicationShutdownHooks").getDeclaredField("hooks").apply { this.isAccessible = true }.get(null) as IdentityHashMap<Thread, Thread>
                     // One is registered by the JVM
-                    assertTrue(hooks.size() > 1)
+                    assertTrue(hooks.size > 1)
                 }
                 it("should stop") {
                     cardstock.clients.forEach { it.shutdown() }

@@ -10,9 +10,7 @@ import org.kitteh.irc.client.library.element.User
 import org.mockito.Matchers.anyString
 import org.mockito.Matchers.eq
 import org.mockito.Mockito.verify
-import org.powermock.api.mockito.PowerMockito.`when`
-import org.powermock.api.mockito.PowerMockito.doNothing
-import org.powermock.api.mockito.PowerMockito.mock
+import org.powermock.api.mockito.PowerMockito.*
 import xyz.cardstock.cardstock.MavenSpek
 import xyz.cardstock.cardstock.extensions.channel.antiPing
 import xyz.cardstock.cardstock.implementations.DummyCardstock
@@ -90,7 +88,7 @@ class GameSpec : MavenSpek() {
             }
             on("removing that player by his user") {
                 game.removePlayer(user)
-                val size = game.players.size()
+                val size = game.players.size
                 it("should have a player count of 0") {
                     assertEquals(0, size)
                 }
@@ -101,7 +99,7 @@ class GameSpec : MavenSpek() {
             on("removing that player by his player") {
                 val player = game.getPlayer(user, true)!!
                 game.removePlayer(player)
-                val size = game.players.size()
+                val size = game.players.size
                 it("should have a player count of 0") {
                     assertEquals(0, size)
                 }

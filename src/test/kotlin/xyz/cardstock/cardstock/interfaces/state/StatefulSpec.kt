@@ -24,18 +24,18 @@ class StatefulSpec : MavenSpek() {
                     results.add("Second")
                 }
                 it("should have two state listeners") {
-                    assertEquals(2, dummyStateful.stateListeners.size())
+                    assertEquals(2, dummyStateful.stateListeners.size)
                 }
             }
             on("advancing its state") {
                 dummyStateful.advanceState()
                 it("should call all state listeners in order") {
-                    assertEquals(2, results.size())
+                    assertEquals(2, results.size)
                     assertEquals("First", results[0])
                     assertEquals("Second", results[1])
                 }
                 it("should be on the second dummy state") {
-                    assertEquals(DummyStateful.DummyState.MIDDLE.name(), dummyStateful.state.uniqueName)
+                    assertEquals(DummyStateful.DummyState.MIDDLE.name, dummyStateful.state.uniqueName)
                 }
             }
         }
@@ -44,7 +44,7 @@ class StatefulSpec : MavenSpek() {
             on("advancing its state") {
                 dummyStateful.advanceState()
                 it("should stay on the same state") {
-                    assertEquals(DummyStateful.DummyState.LAST.name(), dummyStateful.state.uniqueName)
+                    assertEquals(DummyStateful.DummyState.LAST.name, dummyStateful.state.uniqueName)
                 }
             }
         }

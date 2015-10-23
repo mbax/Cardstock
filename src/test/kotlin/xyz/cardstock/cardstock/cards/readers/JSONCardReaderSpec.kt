@@ -56,13 +56,13 @@ class JSONCardReaderSpec : MavenSpek() {
             on("parse") {
                 val cards = cardReader.cards
                 it("should contain two cards") {
-                    assertEquals(2, cards.size())
+                    assertEquals(2, cards.size)
                 }
                 it("should contain one card with a point value of 1") {
-                    assertEquals(1, cards.filter { it.points == 1 }.size())
+                    assertEquals(1, cards.filter { it.points == 1 }.size)
                 }
                 it("should contain one card with a point value of 2") {
-                    assertEquals(1, cards.filter { it.points == 2 }.size())
+                    assertEquals(1, cards.filter { it.points == 2 }.size)
                 }
             }
         }
@@ -71,10 +71,10 @@ class JSONCardReaderSpec : MavenSpek() {
             on("parse") {
                 val cards = cardReader.cards
                 it("should contain one card") {
-                    assertEquals(1, cards.size())
+                    assertEquals(1, cards.size)
                 }
                 it("should contain one card with a point value of 1") {
-                    assertEquals(1, cards.filter { it.points == 1 }.size())
+                    assertEquals(1, cards.filter { it.points == 1 }.size)
                 }
             }
         }

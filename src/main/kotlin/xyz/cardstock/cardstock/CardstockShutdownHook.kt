@@ -38,7 +38,7 @@ class CardstockShutdownHook(val cardstock: Cardstock) : Runnable {
      */
     override fun run() {
         this.beginningHooks.forEach(this.runHook)
-        val numberOfClients = this.cardstock.clients.size()
+        val numberOfClients = this.cardstock.clients.size
         val sleepTime = 1000L + (500L * Math.max(0, numberOfClients - 1))
         // Leave all channels. More effective than a QUIT for ZNC
         this.cardstock.clients.forEach { it.sendRawLine("JOIN :0") }

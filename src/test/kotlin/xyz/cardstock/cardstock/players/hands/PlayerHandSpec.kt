@@ -30,7 +30,7 @@ class PlayerHandSpec : MavenSpek() {
                     assertEquals(1, playerHand.size())
                 }
                 it("should have one card with a point value of 1") {
-                    assertEquals(1, playerHand.filter { it.points == 1 }.size())
+                    assertEquals(1, playerHand.filter { it.points == 1 }.size)
                 }
                 it("should be accessible from the get function") {
                     assertTrue(card === playerHand[0])
@@ -40,7 +40,7 @@ class PlayerHandSpec : MavenSpek() {
                 }
                 it("should not be removable from the cards list") {
                     shouldThrow(UnsupportedOperationException::class.java) {
-                        (playerHand.cards as MutableList<TestCard>).remove(0)
+                        (playerHand.cards as MutableList<TestCard>).removeAt(0)
                     }
                 }
             }

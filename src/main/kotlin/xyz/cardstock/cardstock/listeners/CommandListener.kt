@@ -44,14 +44,14 @@ class CommandListener(val cardstock: Cardstock) {
     /**
      * Runs the command in [sentCommand] if it should be run.
      */
-    fun executeCommand(sentCommand: SentCommand, event: ActorEvent<User>, usageType: CallInfo.UsageType) {
+    private fun executeCommand(sentCommand: SentCommand, event: ActorEvent<User>, usageType: CallInfo.UsageType) {
         val commandType = sentCommand.command.commandType
-        if (commandType != BaseCommand.CommandType.BOTH && !commandType.name().equals(usageType.name())) return
+        if (commandType != BaseCommand.CommandType.BOTH && !commandType.name.equals(usageType.name)) return
         try {
             sentCommand.command.run(event, CallInfo(sentCommand.label, usageType), sentCommand.arguments)
         } catch (t: Throwable) {
             t.printStackTrace()
-            val message = "Unhandled command exception! ${t.javaClass.simpleName}: ${t.getMessage()}"
+            val message = "Unhandled command exception! ${t.javaClass.simpleName}: ${t.message}"
             event.actor.sendNotice(message)
             this.cardstock.logger.warning(message)
         }

@@ -29,7 +29,7 @@ class GameRegistrarSpec : MavenSpek() {
             on("registering a game") {
                 val game = gameRegistrar.on(channel)
                 it("should have one game") {
-                    assertEquals(1, gameRegistrar.all().size())
+                    assertEquals(1, gameRegistrar.all().size)
                 }
                 it("should return the same game if queried by channel") {
                     assertTrue(game === gameRegistrar.find(channel))
@@ -51,7 +51,7 @@ class GameRegistrarSpec : MavenSpek() {
             on("unregistering the same game") {
                 gameRegistrar.end(channel)
                 it("should have zero games") {
-                    assertEquals(0, gameRegistrar.all().size())
+                    assertEquals(0, gameRegistrar.all().size)
                 }
                 it("should return null if queried by channel") {
                     assertNull(gameRegistrar.find(channel))
@@ -66,7 +66,7 @@ class GameRegistrarSpec : MavenSpek() {
             on("unregistering the same game") {
                 gameRegistrar.end(game)
                 it("should have zero games") {
-                    assertEquals(0, gameRegistrar.all().size())
+                    assertEquals(0, gameRegistrar.all().size)
                 }
                 it("should return null if queried by channel") {
                     assertNull(gameRegistrar.find(channel))

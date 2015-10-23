@@ -9,13 +9,13 @@ package xyz.cardstock.cardstock.extensions.list
  * Python-esque slicing.
  */
 operator fun <T> List<T>.get(start: Int?, end: Int?, emptyList: Boolean = false): List<T> {
-    var realEnd = end ?: this.size()
+    var realEnd = end ?: this.size
     var realStart = start ?: 0
     if (realEnd < 0) {
-        realEnd += this.size()
+        realEnd += this.size
     }
     if (realStart < 0) {
-        realStart += this.size()
+        realStart += this.size
     }
     return try {
         this.subList(realStart, realEnd)

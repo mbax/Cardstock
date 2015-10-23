@@ -20,13 +20,13 @@ package xyz.cardstock.cardstock.extensions.string
  * @return The substring
  */
 operator fun String.get(start: Int?, end: Int?, emptyString: Boolean = false): String {
-    var realEnd = end ?: this.length()
+    var realEnd = end ?: this.length
     var realStart = start ?: 0
     if (realEnd < 0) {
-        realEnd += this.length()
+        realEnd += this.length
     }
     if (realStart < 0) {
-        realStart += this.length()
+        realStart += this.length
     }
     return try {
         this.substring(realStart, realEnd)

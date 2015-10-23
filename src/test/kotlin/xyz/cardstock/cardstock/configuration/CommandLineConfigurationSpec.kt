@@ -14,7 +14,7 @@ import kotlin.test.assertTrue
 
 class CommandLineConfigurationSpec : MavenSpek() {
 
-    val dummyCardstock = DummyCardstock()
+    internal val dummyCardstock = DummyCardstock()
 
     override fun test() {
         given("a Configuration constructed with only required arguments") {
@@ -29,7 +29,7 @@ class CommandLineConfigurationSpec : MavenSpek() {
             on("accessing configuration") {
                 val conf = configuration.configuration
                 it("should have servers") {
-                    assertTrue(conf.servers.size() > 0)
+                    assertTrue(conf.servers.size > 0)
                 }
             }
         }

@@ -11,15 +11,9 @@ import org.kitteh.irc.client.library.command.ModeCommand
 import org.kitteh.irc.client.library.element.Channel
 import org.kitteh.irc.client.library.element.ChannelUserMode
 import org.kitteh.irc.client.library.element.User
-import org.mockito.Matchers.any
-import org.mockito.Matchers.anyBoolean
-import org.mockito.Matchers.anyChar
-import org.mockito.Matchers.anyString
-import org.mockito.Matchers.eq
+import org.mockito.Matchers.*
 import org.mockito.Mockito.verify
-import org.powermock.api.mockito.PowerMockito.`when`
-import org.powermock.api.mockito.PowerMockito.doNothing
-import org.powermock.api.mockito.PowerMockito.mock
+import org.powermock.api.mockito.PowerMockito.*
 import xyz.cardstock.cardstock.MavenSpek
 import xyz.cardstock.cardstock.extensions.string.get
 import java.util.Optional
@@ -94,10 +88,10 @@ class ExtensionsSpec : MavenSpek() {
                 val message = "I like Joe and Bob! Not D, though. Name's too short."
                 val result = channel.antiPing(message)
                 it("should not contain any nicknames, if they're longer than one character") {
-                    assertFalse(nicknames.map { it.length() != 1 && result.contains(it) }.reduce({ b1, b2 -> b1 || b2 }))
+                    assertFalse(nicknames.map { it.length != 1 && result.contains(it) }.reduce({ b1, b2 -> b1 || b2 }))
                 }
                 it("should contain nicknames with zero-width spaces, if they're longer than one character") {
-                    assertTrue(nicknames.map { if (it.length() == 1) null else it[0] + "\u200b" + it[1, null] }.filterNotNull().map { result.contains(it) }.reduce { b1, b2 -> b1 && b2 })
+                    assertTrue(nicknames.map { if (it.length == 1) null else it[0] + "\u200b" + it[1, null] }.filterNotNull().map { result.contains(it) }.reduce { b1, b2 -> b1 && b2 })
                 }
             }
         }

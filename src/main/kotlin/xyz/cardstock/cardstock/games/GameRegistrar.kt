@@ -29,7 +29,7 @@ open class GameRegistrar<C : Cardstock, P : Player, G : Game<P>>(val cardstock: 
     /**
      * Gets all registered games as an unmodifiable set.
      */
-    fun all(): Set<G> = Collections.unmodifiableSet(this.games.values().toSet())
+    fun all(): Set<G> = Collections.unmodifiableSet(this.games.values.toSet())
 
     /**
      * Finds a game registered in [channel]. Returns `null` if none were found.
@@ -52,7 +52,7 @@ open class GameRegistrar<C : Cardstock, P : Player, G : Game<P>>(val cardstock: 
      * Removes [game].
      */
     fun end(game: G) {
-        this.games.values().remove(game)
+        this.games.values.remove(game)
     }
 
 }

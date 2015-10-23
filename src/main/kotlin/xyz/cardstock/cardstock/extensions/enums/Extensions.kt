@@ -13,9 +13,10 @@ import xyz.cardstock.cardstock.interfaces.states.State
  */
 fun Enum<*>.toState(): State = object : State {
     override val next: State?
-        get() = with(this@toState.javaClass.getDeclaredMethod("values")(null) as Array<Enum<*>>) {
-            val newPos = this@toState.ordinal() + 1
-            if (newPos >= this.size()) null else this[newPos].toState()
+        get() = with(this@toState.javaClass.getDeclaredMethod("values")(null) as Array<*>) {
+            check(this.isArrayOf<Enum<*>>())
+            val newPos = this@toState.ordinal + 1
+            if (newPos >= this.size) null else (this[newPos] as Enum<*>).toState()
         }
-    override val uniqueName: String = this@toState.name()
+    override val uniqueName: String = this@toState.name
 }

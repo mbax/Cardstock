@@ -42,7 +42,7 @@ class CardstockShutdownHookSpec : MavenSpek() {
                     results.add("2B")
                 }
                 it("should have three beginning hooks") {
-                    assertEquals(3, shutdownHook.beginningHooks.size())
+                    assertEquals(3, shutdownHook.beginningHooks.size)
                 }
             }
             on("adding two end hooks") {
@@ -53,7 +53,7 @@ class CardstockShutdownHookSpec : MavenSpek() {
                     results.add("2E")
                 }
                 it("should have two end hooks") {
-                    assertEquals(2, shutdownHook.endHooks.size())
+                    assertEquals(2, shutdownHook.endHooks.size)
                 }
             }
             on("running") {
@@ -65,7 +65,7 @@ class CardstockShutdownHookSpec : MavenSpek() {
                     verify(client).shutdown(anyString())
                 }
                 it("should run all hooks, catching exceptions") {
-                    assertEquals(4, results.size())
+                    assertEquals(4, results.size)
                 }
                 it("should run all beginning hooks first, in order") {
                     assertEquals("1B", results[0])
