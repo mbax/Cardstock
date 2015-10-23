@@ -83,7 +83,7 @@ class ConfigurationSpec : MavenSpek() {
                 }
             }
             on("accessing the second server") {
-                val server = configuration.servers.get(1)
+                val server = configuration.servers[1]
                 it("should not have a null channel property") {
                     assertNotNull(server.channels)
                 }

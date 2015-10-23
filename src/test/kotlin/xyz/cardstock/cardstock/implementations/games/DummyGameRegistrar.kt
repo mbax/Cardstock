@@ -9,4 +9,4 @@ import xyz.cardstock.cardstock.games.GameRegistrar
 import xyz.cardstock.cardstock.implementations.DummyCardstock
 import xyz.cardstock.cardstock.implementations.players.DummyPlayer
 
-class DummyGameRegistrar(cardstock: DummyCardstock) : GameRegistrar<DummyCardstock, DummyPlayer, DummyGame>(cardstock, { cardstock, channel -> xyz.cardstock.cardstock.implementations.games.DummyGame(cardstock, channel) })
+internal class DummyGameRegistrar(cardstock: DummyCardstock) : GameRegistrar<DummyCardstock, DummyPlayer, DummyGame>(cardstock, { cardstock, channel -> xyz.cardstock.cardstock.implementations.games.DummyGame(cardstock, channel) })

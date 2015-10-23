@@ -7,7 +7,7 @@ package xyz.cardstock.cardstock.implementations
 
 import xyz.cardstock.cardstock.configuration.CommandLineConfiguration
 
-class StartableDummyCardstock(args: Array<String>) : DummyCardstock() {
+internal class StartableDummyCardstock(args: Array<String>) : DummyCardstock() {
     override val commandLineConfiguration = CommandLineConfiguration(args, this)
     override val configuration = this.commandLineConfiguration.configuration
 }
