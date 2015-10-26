@@ -30,6 +30,12 @@ class CommandRegistrarSpec : MavenSpek() {
                 it("should return the same command if queried by alias") {
                     assertTrue(command === commandRegistrar[command.aliases[0]])
                 }
+                it("should return the same command if queried by name with different case") {
+                    assertTrue(command === commandRegistrar[command.name.toUpperCase()])
+                }
+                it("should return the same command if queried by alias with different case") {
+                    assertTrue(command === commandRegistrar[command.aliases[0].toUpperCase()])
+                }
             }
             on("registering the same command again") {
                 it("should throw an IllegalStateException") {
