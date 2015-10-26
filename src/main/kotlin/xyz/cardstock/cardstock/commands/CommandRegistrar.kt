@@ -22,7 +22,7 @@ class CommandRegistrar {
     /**
      * Just a quick way to use bracket notation instead of the [getCommand] method.
      */
-    operator fun get(name: String) = this.getCommand(name.toLowerCase())
+    operator fun get(name: String) = this.getCommand(name)
 
     /**
      * Gets all registered commands in an unmodifiable set.
@@ -33,7 +33,7 @@ class CommandRegistrar {
      * Gets a command by its [name]. [name] may be a name or an alias. Will return `null` if no such command has that
      * name or alias.
      */
-    fun getCommand(name: String): BaseCommand? = this.commands[name] ?: this.getCommandByAlias(name)
+    fun getCommand(name: String): BaseCommand? = this.commands[name.toLowerCase()] ?: this.getCommandByAlias(name)
 
     /**
      * Gets a command by its [alias]. Returns `null` if no such alias is registered.
