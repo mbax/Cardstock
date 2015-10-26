@@ -22,7 +22,7 @@ class CommandRegistrar {
     /**
      * Just a quick way to use bracket notation instead of the [getCommand] method.
      */
-    operator fun get(name: String) = this.getCommand(name)
+    operator fun get(name: String) = this.getCommand(name.toLowerCase())
 
     /**
      * Gets all registered commands in an unmodifiable set.
@@ -38,7 +38,7 @@ class CommandRegistrar {
     /**
      * Gets a command by its [alias]. Returns `null` if no such alias is registered.
      */
-    fun getCommandByAlias(alias: String): BaseCommand? = this.commands.values.filter { alias in it.aliases }.firstOrNull()
+    fun getCommandByAlias(alias: String): BaseCommand? = this.commands.values.filter { it.aliases.any { a -> a.equals(alias, ignoreCase = true) } }.firstOrNull()
 
     /**
      * Registers [command] in this registrar.
@@ -49,13 +49,13 @@ class CommandRegistrar {
         for (alias in command.aliases) {
             check(this.getCommandByAlias(alias) == null) { "Command with the alias \"$alias\" already registered." }
         }
-        this.commands.put(command.name, command)
+        this.commands.put(command.name.toLowerCase(), command)
     }
 
     /**
      * Unregisters the command with the given [name]. Returns the removed command or `null`.
      */
-    fun unregisterCommand(name: String): BaseCommand? = this.commands.remove(name)
+    fun unregisterCommand(name: String): BaseCommand? = this.commands.remove(name.toLowerCase())
 
     /**
      * Unregisters [command]. Returns the removed command or `null`.
