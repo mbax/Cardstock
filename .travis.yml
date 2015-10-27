@@ -10,6 +10,7 @@ notifications:
     nick: Cardstock
     password:
       secure: FVKCW/sznX8Wjfdj2ED6DZt/PkJXRs4zRUqwh1dRjQRGNwAaa56HPxhsrltRPzky+ur/mT1wEiAH5XwA5gotGDDmWXoYR6yPMm3xaJx02GF00+JrnkXsd2x5o5UyFNiqJOHQI02iGZ1ot/sjTHhMp0eCn3KKx5M8vNlZBalQvDdfHmrz6xda/gUyyo61aRGsNRy/IW2wPmB735T7MgHW4jQx+EGjDQdZA/BLEAcBWn++LW+0GkeTBn30Iq14+AhANxLjfIMExHUtJhaed2A8u40sUWj18ZdfCMbOsh2fMOZhNte0Kknt/khPAtBTX/ufIP22aNA7XP1v7v63AHNZehdTbUCH25tIX+JAE43qBeg6/Cwac6owHui4Kx+GTgJRKAiN59Zb4Isd0mgojnAQa6vuBYn/ImjjHh5Yc8N4ASvUvjtCxptm/nOXB8cFRUJkXZ27Fe6ZIxYLqX7k+4YE3ZsDHHE+bovswXC25Em92KtE+nombXI1I+/a4CgPkHJH305lYd4FGlHvDninWKawh/EUE5fgL/pM3kKjy/jEwqL9Vw6gHN4iR8TGZ0c+mVNpQaS0ECAIqWHGbDfePdG4yd9Via5pDZiqPVlPQRfVv4CkxwKF5YDStXJIVvt4nH+aOoLVpYqANDPZA8tqvBQVLzDYeGePR5bthJrdk2J0+Xg=
+    skip_join: true
 before_install:
   - pip install --user codecov
 after_success:
