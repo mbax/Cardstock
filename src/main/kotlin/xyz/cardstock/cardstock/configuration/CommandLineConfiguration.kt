@@ -22,7 +22,6 @@ open class CommandLineConfiguration(args: Array<String>, cardstock: Cardstock) {
      */
     @field:Option(name = "-c", usage = "File containing bot configuration.", handler = FileOptionHandler::class, required = true)
     lateinit var configurationFile: File
-        internal set
 
     /**
      * Gets the [Configuration], as specified by [configurationFile].
