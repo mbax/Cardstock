@@ -20,7 +20,7 @@ abstract class GameChannelCommand<P : Player, G : Game<P>>(val cardstock: Cardst
     override fun run(event: ActorEvent<User>, callInfo: CallInfo, arguments: List<String>) {
         if (event !is ChannelMessageEvent) return
         val game = this.mapper(event.channel)
-        val player = game?.getPlayer(event.actor, false)
+        val player = game?.getPlayer(event.actor, create = false)
         if (game == null || player == null) {
             event.actor.sendNotice("You are not in a game.")
             return

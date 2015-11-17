@@ -58,7 +58,7 @@ abstract class Game<PlayerType : Player>(val cardstock: Cardstock, val channel: 
      * 1. If [create] is true, a new player will be created, added to the game, and returned.
      * 2. If [create] is false, `null` will be returned.
      */
-    abstract fun getPlayer(user: User, create: Boolean): PlayerType?
+    abstract fun getPlayer(user: User, create: Boolean = true): PlayerType?
 
     /**
      * Removes [player] from the list of current players.
@@ -73,7 +73,7 @@ abstract class Game<PlayerType : Player>(val cardstock: Cardstock, val channel: 
      * will have no effect.
      */
     open fun removePlayer(user: User) {
-        val player = this.getPlayer(user, false) ?: return
+        val player = this.getPlayer(user, create = false) ?: return
         this.removePlayer(player)
     }
 

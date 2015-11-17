@@ -63,13 +63,13 @@ class GameSpec : MavenSpek() {
             }
             val user = this@GameSpec.makeUser("Bert")
             on("getting a player that is not in the game") {
-                val player = game.getPlayer(user, false)
+                val player = game.getPlayer(user, create = false)
                 it("should return null") {
                     assertNull(player)
                 }
             }
             on("getting a player that is not in the game but should be created") {
-                val player = game.getPlayer(user, true)
+                val player = game.getPlayer(user)
                 it("should not be null") {
                     assertNotNull(player)
                 }
@@ -78,7 +78,7 @@ class GameSpec : MavenSpek() {
                 }
             }
             on("getting a player that is in the game") {
-                val player = game.getPlayer(user, false)
+                val player = game.getPlayer(user, create = false)
                 it("should not be null") {
                     assertNotNull(player)
                 }
@@ -93,18 +93,18 @@ class GameSpec : MavenSpek() {
                     assertEquals(0, size)
                 }
                 it("should return null on getting the player") {
-                    assertNull(game.getPlayer(user, false))
+                    assertNull(game.getPlayer(user, create = false))
                 }
             }
             on("removing that player by his player") {
-                val player = game.getPlayer(user, true)!!
+                val player = game.getPlayer(user)!!
                 game.removePlayer(player)
                 val size = game.players.size
                 it("should have a player count of 0") {
                     assertEquals(0, size)
                 }
                 it("should return null on getting the player") {
-                    assertNull(game.getPlayer(user, false))
+                    assertNull(game.getPlayer(user, create = false))
                 }
             }
         }

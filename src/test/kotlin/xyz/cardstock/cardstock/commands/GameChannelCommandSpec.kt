@@ -59,7 +59,7 @@ class GameChannelCommandSpec : MavenSpek() {
             on("a channel message event from a channel with a game") {
                 val channel = this@GameChannelCommandSpec.makeChannel()
                 val game = cardstock.gameRegistrar.on(channel)
-                game.getPlayer(user, true)
+                game.getPlayer(user)
                 val event = this@GameChannelCommandSpec.makeChannelMessageEvent("", channel, user)
                 it("should run the command") {
                     command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
