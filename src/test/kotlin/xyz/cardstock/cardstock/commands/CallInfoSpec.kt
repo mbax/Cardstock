@@ -5,27 +5,25 @@
  */
 package xyz.cardstock.cardstock.commands
 
-import xyz.cardstock.cardstock.MavenSpek
+import org.jetbrains.spek.api.Spek
 import kotlin.test.assertTrue
 
-class CallInfoSpec : MavenSpek() {
-    override fun test() {
-        given("an instance of CallInfo") {
-            val label = "test"
-            val usageType = CallInfo.UsageType.CHANNEL
-            val callInfo = CallInfo(label, usageType)
-            on("accessing label") {
-                val callInfoLabel = callInfo.label
-                it("should be the same as the value it was constructed with") {
-                    assertTrue(label === callInfoLabel)
-                }
+class CallInfoSpec : Spek({
+    given("an instance of CallInfo") {
+        val label = "test"
+        val usageType = CallInfo.UsageType.CHANNEL
+        val callInfo = CallInfo(label, usageType)
+        on("accessing label") {
+            val callInfoLabel = callInfo.label
+            it("should be the same as the value it was constructed with") {
+                assertTrue(label === callInfoLabel)
             }
-            on("accessing usageType") {
-                val callInfoUsageType = callInfo.usageType
-                it("should be the same as the value it was constructed with") {
-                    assertTrue(usageType === callInfoUsageType)
-                }
+        }
+        on("accessing usageType") {
+            val callInfoUsageType = callInfo.usageType
+            it("should be the same as the value it was constructed with") {
+                assertTrue(usageType === callInfoUsageType)
             }
         }
     }
-}
+})

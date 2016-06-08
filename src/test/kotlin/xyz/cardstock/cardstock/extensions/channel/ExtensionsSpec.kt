@@ -5,55 +5,55 @@
  */
 package xyz.cardstock.cardstock.extensions.channel
 
+import org.jetbrains.spek.api.Spek
 import org.kitteh.irc.client.library.Client
-import org.kitteh.irc.client.library.ServerInfo
 import org.kitteh.irc.client.library.command.ModeCommand
 import org.kitteh.irc.client.library.element.Channel
 import org.kitteh.irc.client.library.element.ChannelUserMode
 import org.kitteh.irc.client.library.element.User
+import org.kitteh.irc.client.library.feature.ServerInfo
 import org.mockito.Matchers.*
 import org.mockito.Mockito.verify
 import org.powermock.api.mockito.PowerMockito.*
-import xyz.cardstock.cardstock.MavenSpek
 import xyz.cardstock.cardstock.extensions.string.get
 import java.util.Optional
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class ExtensionsSpec : MavenSpek() {
+class ExtensionsSpec : Spek({
 
-    private fun makeChannelUserMode(char: Char): ChannelUserMode {
+    fun makeChannelUserMode(char: Char): ChannelUserMode {
         val channelUserMode = mock(ChannelUserMode::class.java)
         `when`(channelUserMode.char).thenReturn(char)
         return channelUserMode
     }
 
-    private fun makeServerInfo(): ServerInfo {
+    fun makeServerInfo(): ServerInfo {
         val serverInfo = mock(ServerInfo::class.java)
         `when`(serverInfo.getChannelUserMode(anyChar())).thenAnswer {
-            Optional.of(this.makeChannelUserMode(it.arguments[0] as Char))
+            Optional.of(makeChannelUserMode(it.arguments[0] as Char))
         }
         return serverInfo
     }
 
-    private fun makeClient(): Client {
+    fun makeClient(): Client {
         val client = mock(Client::class.java)
-        val serverInfo = this.makeServerInfo()
+        val serverInfo = makeServerInfo()
         `when`(client.serverInfo).thenReturn(serverInfo)
         doNothing().`when`(client).sendRawLine(anyString())
         return client
     }
 
-    private fun makeModeCommand(): ModeCommand {
+    fun makeModeCommand(): ModeCommand {
         val modeCommand = mock(ModeCommand::class.java)
         `when`(modeCommand.add(anyBoolean(), any(ChannelUserMode::class.java), any(User::class.java))).thenReturn(null)
         return modeCommand
     }
 
-    private fun makeChannel(client: Client): Channel {
+    fun makeChannel(client: Client): Channel {
         val channel = mock(Channel::class.java)
         `when`(channel.client).thenReturn(client)
-        val modeCommand = this.makeModeCommand()
+        val modeCommand = makeModeCommand()
         `when`(channel.newModeCommand()).thenReturn(modeCommand)
         val name = "#test"
         `when`(channel.name).thenReturn(name)
@@ -61,7 +61,7 @@ class ExtensionsSpec : MavenSpek() {
         return channel
     }
 
-    private fun makeUser(): User {
+    fun makeUser(): User {
         val user = mock(User::class.java)
         val name = "test"
         `when`(user.nick).thenReturn(name)
@@ -69,31 +69,29 @@ class ExtensionsSpec : MavenSpek() {
         return user
     }
 
-    override fun test() {
-        given("a mock Channel") {
-            val client = this@ExtensionsSpec.makeClient()
-            val channel = this@ExtensionsSpec.makeChannel(client)
-            on("userMode") {
-                val user = this@ExtensionsSpec.makeUser()
-                channel.userMode(UserModeData(true, 'o', user))
-                it("should have sent a mode command") {
-                    val modeCommand = channel.newModeCommand()
-                    verify(modeCommand).add(eq(true), any(ChannelUserMode::class.java), eq(user))
-                    verify(modeCommand).execute()
-                }
+    given("a mock Channel") {
+        val client = makeClient()
+        val channel = makeChannel(client)
+        on("userMode") {
+            val user = makeUser()
+            channel.userMode(UserModeData(true, 'o', user))
+            it("should have sent a mode command") {
+                val modeCommand = channel.newModeCommand()
+                verify(modeCommand).add(eq(true), any(ChannelUserMode::class.java), eq(user))
+                verify(modeCommand).execute()
             }
-            on("antiPing") {
-                val nicknames = listOf("Joe", "Bob", "D")
-                `when`(channel.nicknames).thenReturn(nicknames)
-                val message = "I like Joe and Bob! Not D, though. Name's too short."
-                val result = channel.antiPing(message)
-                it("should not contain any nicknames, if they're longer than one character") {
-                    assertFalse(nicknames.map { it.length != 1 && result.contains(it) }.reduce({ b1, b2 -> b1 || b2 }))
-                }
-                it("should contain nicknames with zero-width spaces, if they're longer than one character") {
-                    assertTrue(nicknames.map { if (it.length == 1) null else it[0] + "\u200b" + it[1, null] }.filterNotNull().map { result.contains(it) }.reduce { b1, b2 -> b1 && b2 })
-                }
+        }
+        on("antiPing") {
+            val nicknames = listOf("Joe", "Bob", "D")
+            `when`(channel.nicknames).thenReturn(nicknames)
+            val message = "I like Joe and Bob! Not D, though. Name's too short."
+            val result = channel.antiPing(message)
+            it("should not contain any nicknames, if they're longer than one character") {
+                assertFalse(nicknames.map { it.length != 1 && result.contains(it) }.reduce({ b1, b2 -> b1 || b2 }))
+            }
+            it("should contain nicknames with zero-width spaces, if they're longer than one character") {
+                assertTrue(nicknames.map { if (it.length == 1) null else it[0] + "\u200b" + it[1, null] }.filterNotNull().map { result.contains(it) }.reduce { b1, b2 -> b1 && b2 })
             }
         }
     }
-}
+})

@@ -5,34 +5,30 @@
  */
 package xyz.cardstock.cardstock.extensions.user
 
+import org.jetbrains.spek.api.Spek
 import org.kitteh.irc.client.library.element.User
 import org.mockito.Matchers.anyString
 import org.mockito.Matchers.eq
 import org.mockito.Mockito.verify
-import org.powermock.api.mockito.PowerMockito.`when`
-import org.powermock.api.mockito.PowerMockito.doNothing
-import org.powermock.api.mockito.PowerMockito.mock
-import xyz.cardstock.cardstock.MavenSpek
+import org.powermock.api.mockito.PowerMockito.*
 
-class ExtensionsSpec : MavenSpek() {
+class ExtensionsSpec : Spek({
 
-    private fun makeUser(nick: String): User {
+    fun makeUser(nick: String): User {
         val user = mock(User::class.java)
         `when`(user.nick).thenReturn(nick)
         doNothing().`when`(user).sendMessage(anyString())
         return user
     }
 
-    override fun test() {
-        given("a mock User") {
-            val user = this@ExtensionsSpec.makeUser("Dave")
-            on("respond") {
-                val message = "Hello!"
-                user.respond(message)
-                it("should ping the user") {
-                    verify(user).sendMessage(eq("${user.nick}: $message"))
-                }
+    given("a mock User") {
+        val user = makeUser("Dave")
+        on("respond") {
+            val message = "Hello!"
+            user.respond(message)
+            it("should ping the user") {
+                verify(user).sendMessage(eq("${user.nick}: $message"))
             }
         }
     }
-}
+})

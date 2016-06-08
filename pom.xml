@@ -139,10 +139,6 @@
     </build>
     <repositories>
         <repository>
-            <id>the-ittiest-bittiest-kitteh</id>
-            <url>http://repo.kitteh.org/content/groups/public</url>
-        </repository>
-        <repository>
             <id>jebrains-all</id>
             <url>http://repository.jetbrains.com/all</url>
         </repository>
@@ -156,7 +152,7 @@
         <dependency>
             <groupId>org.kitteh.irc</groupId>
             <artifactId>client-lib</artifactId>
-            <version>0.3.5</version>
+            <version>1.0.0</version>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -176,7 +172,7 @@
         <dependency>
             <groupId>org.jetbrains.spek</groupId>
             <artifactId>spek</artifactId>
-            <version>0.1.182</version>
+            <version>1.0.9</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -199,7 +195,7 @@
         </dependency>
     </dependencies>
     <properties>
-        <kotlin.version>1.0.0-beta-2423</kotlin.version>
+        <kotlin.version>1.0.2</kotlin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 </project>

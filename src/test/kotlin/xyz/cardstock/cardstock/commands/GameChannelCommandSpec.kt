@@ -6,6 +6,7 @@
 package xyz.cardstock.cardstock.commands
 
 import com.google.common.collect.Lists
+import org.jetbrains.spek.api.Spek
 import org.kitteh.irc.client.library.Client
 import org.kitteh.irc.client.library.element.Channel
 import org.kitteh.irc.client.library.element.ServerMessage
@@ -17,25 +18,24 @@ import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
 import org.powermock.api.mockito.PowerMockito.`when`
 import org.powermock.api.mockito.PowerMockito.mock
-import xyz.cardstock.cardstock.MavenSpek
 import xyz.cardstock.cardstock.implementations.DummyCardstock
 import xyz.cardstock.cardstock.implementations.commands.DummyGameChannelCommand
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class GameChannelCommandSpec : MavenSpek() {
+class GameChannelCommandSpec : Spek({
 
-    private fun makeChannel(): Channel {
+    fun makeChannel(): Channel {
         val channel = mock(Channel::class.java)
         return channel
     }
 
-    private fun makeUser(): User {
+    fun makeUser(): User {
         val sender = mock(User::class.java)
         return sender
     }
 
-    private fun makeChannelMessageEvent(message: String, channel: Channel, sender: User): ChannelMessageEvent {
+    fun makeChannelMessageEvent(message: String, channel: Channel, sender: User): ChannelMessageEvent {
         val client = mock(Client::class.java)
         val originalMessages = Lists.newArrayList<ServerMessage>()
         `when`(sender.client).thenReturn(client)
@@ -43,7 +43,7 @@ class GameChannelCommandSpec : MavenSpek() {
         return ChannelMessageEvent(client, originalMessages, sender, channel, message)
     }
 
-    private fun makePrivateMessageEvent(message: String): PrivateMessageEvent {
+    fun makePrivateMessageEvent(message: String): PrivateMessageEvent {
         val client = mock(Client::class.java)
         val originalMessages = Lists.newArrayList<ServerMessage>()
         val sender = mock(User::class.java)
@@ -51,52 +51,50 @@ class GameChannelCommandSpec : MavenSpek() {
         return PrivateMessageEvent(client, originalMessages, sender, message)
     }
 
-    override fun test() {
-        given("a DummyGameChannelCommand") {
-            val cardstock = DummyCardstock()
-            val command = DummyGameChannelCommand(cardstock)
-            val user = this@GameChannelCommandSpec.makeUser()
-            on("a channel message event from a channel with a game") {
-                val channel = this@GameChannelCommandSpec.makeChannel()
-                val game = cardstock.gameRegistrar.on(channel)
-                game.getPlayer(user, true)
-                val event = this@GameChannelCommandSpec.makeChannelMessageEvent("", channel, user)
-                it("should run the command") {
-                    command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
-                    assertTrue(command.wasRun)
-                    command.wasRun = false
-                }
+    given("a DummyGameChannelCommand") {
+        val cardstock = DummyCardstock()
+        val command = DummyGameChannelCommand(cardstock)
+        val user = makeUser()
+        on("a channel message event from a channel with a game") {
+            val channel = makeChannel()
+            val game = cardstock.gameRegistrar.on(channel)
+            game.getPlayer(user, true)
+            val event = makeChannelMessageEvent("", channel, user)
+            it("should run the command") {
+                command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
+                assertTrue(command.wasRun)
+                command.wasRun = false
             }
-            on("a channel message event from a channel with a game without the user") {
-                val channel = this@GameChannelCommandSpec.makeChannel()
-                cardstock.gameRegistrar.on(channel)
-                val event = this@GameChannelCommandSpec.makeChannelMessageEvent("", channel, user)
-                it("should not run the command") {
-                    command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
-                    assertFalse(command.wasRun)
-                }
-                it("should send a message to the user") {
-                    verify(user).sendNotice(eq("You are not in a game."))
-                }
+        }
+        on("a channel message event from a channel with a game without the user") {
+            val channel = makeChannel()
+            cardstock.gameRegistrar.on(channel)
+            val event = makeChannelMessageEvent("", channel, user)
+            it("should not run the command") {
+                command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
+                assertFalse(command.wasRun)
             }
-            on("a channel message event from a channel without a game") {
-                val channel = this@GameChannelCommandSpec.makeChannel()
-                val event = this@GameChannelCommandSpec.makeChannelMessageEvent("", channel, user)
-                it("should not run the command") {
-                    command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
-                    assertFalse(command.wasRun)
-                }
-                it("should send a message to the user") {
-                    verify(user, times(2)).sendNotice(eq("You are not in a game."))
-                }
+            it("should send a message to the user") {
+                verify(user).sendNotice(eq("You are not in a game."))
             }
-            on("a private message event") {
-                val event = this@GameChannelCommandSpec.makePrivateMessageEvent("")
-                it("should not run the command") {
-                    command.run(event, CallInfo("", CallInfo.UsageType.PRIVATE), listOf())
-                    assertFalse(command.wasRun)
-                }
+        }
+        on("a channel message event from a channel without a game") {
+            val channel = makeChannel()
+            val event = makeChannelMessageEvent("", channel, user)
+            it("should not run the command") {
+                command.run(event, CallInfo("", CallInfo.UsageType.CHANNEL), listOf())
+                assertFalse(command.wasRun)
+            }
+            it("should send a message to the user") {
+                verify(user, times(2)).sendNotice(eq("You are not in a game."))
+            }
+        }
+        on("a private message event") {
+            val event = makePrivateMessageEvent("")
+            it("should not run the command") {
+                command.run(event, CallInfo("", CallInfo.UsageType.PRIVATE), listOf())
+                assertFalse(command.wasRun)
             }
         }
     }
-}
+})
