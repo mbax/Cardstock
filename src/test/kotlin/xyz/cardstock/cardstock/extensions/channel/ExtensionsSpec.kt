@@ -7,9 +7,9 @@ package xyz.cardstock.cardstock.extensions.channel
 
 import org.jetbrains.spek.api.Spek
 import org.kitteh.irc.client.library.Client
-import org.kitteh.irc.client.library.command.ModeCommand
+import org.kitteh.irc.client.library.command.ChannelModeCommand
 import org.kitteh.irc.client.library.element.Channel
-import org.kitteh.irc.client.library.element.ChannelUserMode
+import org.kitteh.irc.client.library.element.mode.ChannelUserMode
 import org.kitteh.irc.client.library.element.User
 import org.kitteh.irc.client.library.feature.ServerInfo
 import org.mockito.Matchers.*
@@ -44,8 +44,8 @@ class ExtensionsSpec : Spek({
         return client
     }
 
-    fun makeModeCommand(): ModeCommand {
-        val modeCommand = mock(ModeCommand::class.java)
+    fun makeModeCommand(): ChannelModeCommand {
+        val modeCommand = mock(ChannelModeCommand::class.java)
         `when`(modeCommand.add(anyBoolean(), any(ChannelUserMode::class.java), any(User::class.java))).thenReturn(null)
         return modeCommand
     }

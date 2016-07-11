@@ -48,7 +48,7 @@ class GameChannelCommandSpec : Spek({
         val originalMessages = Lists.newArrayList<ServerMessage>()
         val sender = mock(User::class.java)
         `when`(sender.client).thenReturn(client)
-        return PrivateMessageEvent(client, originalMessages, sender, message)
+        return PrivateMessageEvent(client, originalMessages, sender, "target", message)
     }
 
     given("a DummyGameChannelCommand") {
