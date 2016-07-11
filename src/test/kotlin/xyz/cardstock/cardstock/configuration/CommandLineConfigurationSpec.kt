@@ -8,6 +8,7 @@ package xyz.cardstock.cardstock.configuration
 import org.jetbrains.spek.api.Spek
 import xyz.cardstock.cardstock.implementations.DummyCardstock
 import xyz.cardstock.cardstock.implementations.ExitSecurityManager
+import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertTrue
@@ -17,7 +18,7 @@ class CommandLineConfigurationSpec : Spek({
     val dummyCardstock = DummyCardstock()
 
     given("a Configuration constructed with only required arguments") {
-        val args = "-c src/test/resources/configuration.json".split(" ").toTypedArray()
+        val args = ("-c src" + File.separatorChar + "test" + File.separatorChar + "resources" + File.separatorChar + "configuration.json").split(" ").toTypedArray()
         val configuration = CommandLineConfiguration(args, dummyCardstock)
         on("accessing configurationFile") {
             val configurationFile = configuration.configurationFile
