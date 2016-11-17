@@ -37,7 +37,7 @@ open class PlayerHand<T : Card> : Hand<T> {
 
     override fun iterator() = this._cards.iterator()
 
-    override fun equals(other: Any?) = if (other == null || other !is PlayerHand<*>) false else this._cards.equals(other._cards)
+    override fun equals(other: Any?) = if (other == null || other !is PlayerHand<*>) false else this._cards == other._cards
 
     override fun hashCode() = Objects.hash(this._cards)
 }

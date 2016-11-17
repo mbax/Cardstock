@@ -46,7 +46,7 @@ class CommandListener(val cardstock: Cardstock) {
      */
     private fun executeCommand(sentCommand: SentCommand, event: ActorEvent<User>, usageType: CallInfo.UsageType) {
         val commandType = sentCommand.command.commandType
-        if (commandType != BaseCommand.CommandType.BOTH && !commandType.name.equals(usageType.name)) return
+        if (commandType != BaseCommand.CommandType.BOTH && commandType.name != usageType.name) return
         try {
             sentCommand.command.run(event, CallInfo(sentCommand.label, usageType), sentCommand.arguments)
         } catch (t: Throwable) {

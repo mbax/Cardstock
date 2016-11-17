@@ -13,6 +13,8 @@ import org.kitteh.irc.client.library.element.ServerMessage
 import org.kitteh.irc.client.library.element.User
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent
+import org.kitteh.irc.client.library.feature.CaseMapping
+import org.kitteh.irc.client.library.feature.ServerInfo
 import org.powermock.api.mockito.PowerMockito.`when`
 import org.powermock.api.mockito.PowerMockito.mock
 import org.powermock.core.classloader.annotations.PrepareForTest
@@ -39,13 +41,22 @@ class CommandListenerSpec : Spek({
         val originalMessages = Lists.newArrayList<ServerMessage>()
         val sender = mock(User::class.java)
         `when`(sender.client).thenReturn(client)
-        return PrivateMessageEvent(client, originalMessages, sender, message)
+        return PrivateMessageEvent(client, originalMessages, sender, "TheHumanity", message)
+    }
+
+    fun makeClient(): Client {
+        val client = mock(Client::class.java)
+        val serverInfo = mock(ServerInfo::class.java)
+        `when`(serverInfo.caseMapping).thenReturn(CaseMapping.ASCII)
+        `when`(client.serverInfo).thenReturn(serverInfo)
+        `when`(client.nick).thenReturn("TheHumanity")
+        return client
     }
 
     // Create dummy Cardstock
     val cardstock = DummyCardstock()
     // Create mocked Client
-    val client = mock(Client::class.java)
+    val client = makeClient()
     // Create the test command
     val command = TestCommand(false)
     // Register the test command

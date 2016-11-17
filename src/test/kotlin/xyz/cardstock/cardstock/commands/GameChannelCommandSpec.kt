@@ -13,6 +13,8 @@ import org.kitteh.irc.client.library.element.ServerMessage
 import org.kitteh.irc.client.library.element.User
 import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent
+import org.kitteh.irc.client.library.feature.CaseMapping
+import org.kitteh.irc.client.library.feature.ServerInfo
 import org.mockito.Matchers.eq
 import org.mockito.Mockito.times
 import org.mockito.Mockito.verify
@@ -35,8 +37,17 @@ class GameChannelCommandSpec : Spek({
         return sender
     }
 
-    fun makeChannelMessageEvent(message: String, channel: Channel, sender: User): ChannelMessageEvent {
+    fun makeClient(): Client {
         val client = mock(Client::class.java)
+        val serverInfo = mock(ServerInfo::class.java)
+        `when`(serverInfo.caseMapping).thenReturn(CaseMapping.ASCII)
+        `when`(client.serverInfo).thenReturn(serverInfo)
+        `when`(client.nick).thenReturn("TheHumanity")
+        return client
+    }
+
+    fun makeChannelMessageEvent(message: String, channel: Channel, sender: User): ChannelMessageEvent {
+        val client = makeClient()
         val originalMessages = Lists.newArrayList<ServerMessage>()
         `when`(sender.client).thenReturn(client)
         `when`(channel.client).thenReturn(client)
@@ -44,11 +55,11 @@ class GameChannelCommandSpec : Spek({
     }
 
     fun makePrivateMessageEvent(message: String): PrivateMessageEvent {
-        val client = mock(Client::class.java)
+        val client = makeClient()
         val originalMessages = Lists.newArrayList<ServerMessage>()
         val sender = mock(User::class.java)
         `when`(sender.client).thenReturn(client)
-        return PrivateMessageEvent(client, originalMessages, sender, message)
+        return PrivateMessageEvent(client, originalMessages, sender, "TheHumanity", message)
     }
 
     given("a DummyGameChannelCommand") {
