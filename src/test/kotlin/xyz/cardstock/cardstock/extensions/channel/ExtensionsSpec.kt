@@ -54,7 +54,7 @@ class ExtensionsSpec : Spek({
         val channel = mock(Channel::class.java)
         `when`(channel.client).thenReturn(client)
         val modeCommand = makeChannelModeCommand()
-        `when`(channel.newModeCommand()).thenReturn(modeCommand)
+        `when`(channel.commands().mode()).thenReturn(modeCommand)
         val name = "#test"
         `when`(channel.name).thenReturn(name)
         `when`(channel.messagingName).thenReturn(name)
@@ -76,7 +76,7 @@ class ExtensionsSpec : Spek({
             val user = makeUser()
             channel.userMode(UserModeData(true, 'o', user))
             it("should have sent a mode command") {
-                val modeCommand = channel.newModeCommand()
+                val modeCommand = channel.commands().mode()
                 verify(modeCommand).add(eq(true), any(ChannelUserMode::class.java), eq(user))
                 verify(modeCommand).execute()
             }

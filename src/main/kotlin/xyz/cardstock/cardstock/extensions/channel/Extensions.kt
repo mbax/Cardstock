@@ -29,7 +29,7 @@ fun Channel.antiPing(message: String): String {
  * @param[data] Mode data
  */
 fun Channel.userMode(vararg data: UserModeData) {
-    val modeCommand = this.newModeCommand()
+    val modeCommand = this.commands().mode()
     for ((add, mode, user) in data) {
         modeCommand.add(add, this.client.serverInfo.getChannelUserMode(mode).get(), user)
     }

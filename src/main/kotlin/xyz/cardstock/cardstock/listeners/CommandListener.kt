@@ -10,7 +10,7 @@ import org.kitteh.irc.client.library.event.channel.ChannelMessageEvent
 import org.kitteh.irc.client.library.event.helper.ActorEvent
 import org.kitteh.irc.client.library.event.helper.MessageEvent
 import org.kitteh.irc.client.library.event.user.PrivateMessageEvent
-import org.kitteh.irc.lib.net.engio.mbassy.listener.Handler
+import net.engio.mbassy.listener.Handler
 import xyz.cardstock.cardstock.Cardstock
 import xyz.cardstock.cardstock.commands.BaseCommand
 import xyz.cardstock.cardstock.commands.CallInfo

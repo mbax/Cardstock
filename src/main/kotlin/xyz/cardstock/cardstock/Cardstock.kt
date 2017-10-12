@@ -8,6 +8,7 @@ package xyz.cardstock.cardstock
 import com.google.common.collect.Lists
 import com.google.common.collect.Maps
 import org.kitteh.irc.client.library.Client
+import org.kitteh.irc.client.library.feature.sending.SingleDelaySender
 import xyz.cardstock.cardstock.commands.CommandRegistrar
 import xyz.cardstock.cardstock.configuration.CommandLineConfiguration
 import xyz.cardstock.cardstock.configuration.Configuration
@@ -86,7 +87,7 @@ abstract class Cardstock {
                 .user(server.user ?: server.nickname)
                 .realName(server.realName ?: server.nickname)
                 .secure(server.secure)
-                .messageDelay(1)
+                .messageSendingQueueSupplier(SingleDelaySender.getSupplier(0))
             server.password?.let { clientBuilder.serverPassword(it) }
             val client = clientBuilder.build()
             client.eventManager.registerEventListener(commandListener)
